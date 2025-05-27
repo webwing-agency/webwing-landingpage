@@ -1,0 +1,149 @@
+.services-cards-section {
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+}
+
+.service-cards-wrapper {
+    width: 90%;
+    height: fit-content;
+    display: flex;
+    align-items: flex-end;
+    gap: 30px;
+}
+
+.service-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 15px;
+    padding: 0.5rem;
+    padding-top: 15px;
+    max-height: none;
+    height: 60vh;
+}
+
+    .service-card:nth-child(1), .service-card:nth-child(3) {
+        height: calc(60vh - 15px);
+        margin-top: 15px;
+        padding-top: 0px;
+    }
+
+.service-card-title {
+    text-align: center;
+    position: relative;
+    min-height: calc(2.2 * (20px + 0.390625vw));;
+    margin-top: 3rem;
+    width: 90%;
+}
+
+    .service-card-title::after {
+        content: "";
+        width: 95%;
+        height: 2px;
+        left: 2.5%;
+        top: calc(35px + 0.390625vw + 15px);
+        background: rgba(255, 255, 255, 0.5);
+        position: absolute;
+    }
+
+.service-card-subtitle {
+    width: 90%;
+    text-align: center;
+    min-height: calc(2.7 * (15px + 0.390625vw));
+    color: rgba(255, 255, 255, 0.75);
+}
+
+
+ul {
+    width: 90%;
+    list-style-type: none;
+}
+
+ul li {
+    white-space: nowrap;
+    color: rgba(255, 255, 255, 0.5);
+}
+
+ul li i {
+    margin-right: 5px;
+    text-align: center;
+}
+
+.card-cta {
+    position: absolute;
+    bottom: 2rem;
+}
+
+.video-wrapper {
+    width: 100vw;
+    height: 100%;
+    overflow: hidden;
+    position: absolute;
+    left: 0;
+    top: 0;
+    z-index: -1;
+}
+
+.video-wrapper::before {
+    content: "";
+    width: 100vw;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: -2;
+    background: linear-gradient(to bottom, transparent 0%, black 40%, black 100%);
+}
+
+.service-bg-video {
+    width: 100vw;
+    height: 100vh;
+    object-fit: cover;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: -3;
+    opacity: 0.7;
+}
+
+.circle {
+    filter: blur(50vw);
+    min-width: 30rem;
+    width: 50vw;
+    height: 50vw;
+}
+
+@media only screen and (max-width: 700px) {
+
+    .start-section-title {
+        font-size: calc(55px + 0.390625vw);
+        letter-spacing: -4px;
+    }
+
+    .services-cards-section {
+        height: auto;
+    }
+
+    .service-cards-wrapper {
+        flex-direction: column;
+        align-items: center;
+        min-height: 165vh;
+        padding-bottom: 50vh;
+        box-sizing: content-box;
+    }
+
+    .service-card {
+        height: 50vh;
+        width: 90%;
+        align-items: center;
+    }
+
+    .service-card:nth-child(1), .service-card:nth-child(3) {
+        height: 50vh;
+        margin-top: 0;
+        padding-top: 15px;
+    }
+
+}
+

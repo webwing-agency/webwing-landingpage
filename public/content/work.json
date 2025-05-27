@@ -1,0 +1,36 @@
+[
+    {
+      "title": "Stratos Air Charter",
+      "description": "Stratos Air Charter is a fictional private-aviation firm that aims to make booking a charter aircraft as effortless as buying a Movie online. We went for a clean white-and-blue design, subtle scroll-animations and micro-interactions to reinforce their modern and luxurious yet functionality focused brand. Our build is focusing on building trust and funneling prospects straight to the charter-estimate form — no unnecessary frills: <b>Simple, Sleek and Stunning</b>.",
+      "type": "Portfolio Website",
+      "pages": "6 Pages",
+      "features": "CMS, Animations, Custom Slider",
+      "tech": "HTML, CSS, JS, GSAP",
+      "timeline": "3 Weeks",
+      "link": "google.com",
+      "caseStudy": "/case-studies/stratos-air-charter-case-study.html"
+    },
+    {
+      "title": "Project Aerospace Directory",
+      "description": "A web application for browsing and filtering aviation businesses, powered by a backend database.",
+      "type": "Web App",
+      "pages": "12+ Pages",
+      "features": "Search, Filter, Dynamic Data",
+      "tech": "React, Tailwind, Node.js, MongoDB",
+      "timeline": "5 Weeks",
+      "link": "https://example.com",
+      "caseStudy": "/case-studies/aerospace-directory.html"
+    },
+    {
+      "title": "Project Jetstream Analytics",
+      "description": "A data dashboard for a charter airline company to track bookings, revenue, and performance KPIs.",
+      "type": "Dashboard",
+      "pages": "8 Pages",
+      "features": "Live Charts, Login System",
+      "tech": "Vue.js, Chart.js, Firebase",
+      "timeline": "4 Weeks",
+      "link": "https://example.com",
+      "caseStudy": "/case-studies/jetstream-analytics.html"
+    }
+  ]
+  

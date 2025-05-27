@@ -1,0 +1,174 @@
+.contact-section {
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    margin-bottom: 30vh;
+    padding-top: 20vh;
+}
+
+.contact-form-wrapper {
+    max-width: min(28rem, 90vw);
+    width: 100%;
+    margin: 0 auto;
+    padding: 2rem;
+    background-color: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(50px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 1rem; /* 2xl */
+    text-align: center;
+    color: white;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1.5rem;
+    height: 70vh;
+    min-height: 30rem;
+    max-height: 130vh;
+}
+
+.contact-section-title {
+    font-size: calc(35px + 0.390625vw);
+    font-weight: 400;
+    letter-spacing: -0.03rem;
+    width: 90%;
+    margin-top: 0.5rem;
+}
+
+.contact-section-title::after {
+    content: "";
+    width: 95%;
+    height: 2px;
+    left: 2.5%;
+    top: calc(35px + 0.390625vw + 10px);
+    background: rgba(255, 255, 255, 0.5);
+    position: absolute;
+}
+
+.contact-section-subtitle {
+    font-family: 'Roboto';
+    text-align: center;
+    margin-top: 0.5rem;
+    margin-bottom: 1rem;
+    font-weight: 500;
+    color: rgba(255, 255, 255, 0.5);
+    line-height: 1.4;
+    max-width: 90%;
+}
+
+.contact-form {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+
+.form-content {
+    width: 90%;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    gap: 15px;
+}
+
+textarea {
+    width: 100% !important;
+    height: 6rem;
+    max-height: unset !important;
+}
+
+.background-orb {
+    content: "";
+    z-index: -1;
+    top: 60vh;
+    left: 10vw;
+    position: fixed;
+    min-width: 32rem;
+    width: 80vw;
+    height: 80vw;
+    background-color: #ae5cf6;
+    filter: blur(0px);
+    border-radius: 50%;
+    border: 1px solid rgba(153, 0, 255, 0.75);
+    box-shadow: inset rgb(255, 255, 255, 0.5) 0px 0px 25px;
+}
+
+.background-orb::after {
+    content: "";
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    border-radius: 50%;
+    background-color: #ae5cf6;
+    filter: blur(125px);
+    position: absolute;
+    z-index: -2;
+    animation: dash 5s alternate;
+}
+
+/* Base loader (hidden by default) */
+.loader {
+    position: fixed;
+    inset: 0;
+    display: none;                /* start hidden */
+    align-items: center;
+    justify-content: center;
+    backdrop-filter: blur(15px);
+    background: rgba(0, 0, 0, 0.2);
+    z-index: 9999;
+  }
+  
+  /* When we add .loading, show the overlay */
+  .loader.loading {
+    display: flex;
+  }
+  
+  /* SVG sizing */
+  .loader svg {
+    width: 120px;
+    height: 120px;
+    transform: rotate(-90deg);
+  }
+  
+  /* Background ring */
+  .ring-bg {
+    fill: none;
+    stroke: rgba(255, 255, 255, 0.05);
+    stroke-width: 10;
+  }
+  
+/* make the progress arc pink */
+.ring-progress {
+    fill: none;
+    stroke: #ec4899;
+    stroke-width: 10;               /* thicker line */
+    stroke-linecap: round;
+    stroke-dasharray: 282.74;
+    transition: stroke-dashoffset 0.4s ease;
+    animation: dash 1.5s ease-in-out infinite;
+  }
+  
+  @keyframes dash {
+    /* draw a ~25%-long arc instead of a 1px dot */
+    0%   { stroke-dasharray: 70, 282.74; stroke-dashoffset:   0; }
+    50%  { stroke-dasharray: 140, 282.74; stroke-dashoffset: -70; }
+    100% { stroke-dasharray: 70, 282.74; stroke-dashoffset: -282.74; }
+  }
+  
+  
+  /* spin the whole svg */
+  .loader.loading svg {
+    animation: rotate 2s linear infinite;
+  }
+  
+  /* keyframes for spinning */
+  @keyframes rotate {
+    100% {
+      transform: rotate(360deg);
+    }
+  }
+  
+
+  

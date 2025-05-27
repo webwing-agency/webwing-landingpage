@@ -1,0 +1,31 @@
+backend:
+  name: git-gateway
+  branch: main
+
+media_folder: "assets"
+public_folder: "/assets"
+
+collections:
+  - name: "work"
+    label: "Projects"
+    label_singular: "Project"
+    folder: "content"
+    create: false
+    files:
+      - file: "content/work.json"
+        label: "Work Page Projects"
+        name: "work"
+        fields:
+          - label: "Projects"
+            name: "projects"
+            widget: list
+            fields:
+              - { label: "Title", name: "title", widget: "string" }
+              - { label: "Description", name: "description", widget: "text" }
+              - { label: "Type", name: "type", widget: "string" }
+              - { label: "Pages", name: "pages", widget: "string" }
+              - { label: "Features", name: "features", widget: "string" }
+              - { label: "Tech Stack", name: "tech", widget: "string" }
+              - { label: "Timeline", name: "timeline", widget: "string" }
+              - { label: "Live Link", name: "link", widget: "string" }
+              - { label: "Case Study URL", name: "caseStudy", widget: "string" }

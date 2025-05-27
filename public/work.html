@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Our Work & Case Studys | Webwing Agency</title>
+
+   <link rel="stylesheet" href="css/global.css">
+  <link rel="stylesheet" href="css/work.css">
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.7/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.0/ScrollTrigger.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@barba/core"></script>
+  <link rel="icon" href="assets/icons/favicon.svg" type="image/png" />
+  <script src="js/components/nav.js"></script>
+  <script src="js/components/cta.js"></script>
+  <script src="js/components/footer.js"></script>
+
+  <script src="https://unpkg.com/decap-cms@^3.0.0/dist/decap-cms.js"></script>
+</head>
+<body data-barba="wrapper">
+
+    <header>
+        <nav id="standard-nav"></nav>
+    </header>
+
+    <main>
+        <section class="start-section">
+            <div class="start-section-content">
+                <h1 class="start-section-title">Our Work</h1>
+                <div class="site-cta-wrapper">
+                    <a href="quote.html" class="main-cta standard-cta"></a>
+                </div>
+            </div>
+        </section>
+        
+        <section class="project-cards-section" id="projects-container">
+
+          </section>
+          
+        
+        <div class="bg-wrapper"><div class="circle"></div></div>
+    </main>
+
+    <footer id="standard-footer">
+
+    </footer>
+
+    <script src="js/gsap/gsap-work.js"></script>
+
+    <script>
+        fetch('/content/work.json')
+          .then(res => res.json())
+          .then(projects => {
+            const container = document.getElementById('projects-container');
+        
+            projects.forEach(project => {
+              const card = document.createElement('div');
+              card.className = 'large-project-card card';
+              card.innerHTML = `
+                <div class="left-side">
+                  <div class="project-preview-container">
+                    <img src="assets/prop.png" alt="" class="preview-img">
+                    <img src="assets/card-x-bg.gif" alt="" class="preview-gif">
+                  </div>
+                </div>
+                <div class="right-side">
+                  <h2 class="project-title">${project.title}</h2>
+                  <p class="project-description">${project.description}</p>
+                  <ul class="project-specifics">
+                    <li class="project-type"><i class="fas fa-briefcase"></i> ${project.type}</li>
+                    <li class="page-count"><i class="far fa-file-alt"></i> ${project.pages}</li>
+                    <li class="special-features"><i class="far fa-star"></i> ${project.features}</li>
+                    <li class="tech-stack"><i class="fas fa-code"></i> ${project.tech}</li>
+                    <li class="timeline"><i class="far fa-clock"></i> ${project.timeline}</li>
+                  </ul>
+                  <div class="cta-wrapper">
+                    <a class="secondary-cta" href="${project.link}">Visit Site</a>
+                    <a class="secondary-cta project-link" href="${project.caseStudy}">Case Study</a>
+                  </div>
+                </div>
+              `;
+              container.appendChild(card);
+            });
+          });
+        </script>
+        
+
+  </body>
+  </html>

@@ -1,0 +1,117 @@
+
+
+.project-cards-section {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+    height: 260vh;
+    margin-bottom: 40vh;
+}
+
+.large-project-card {
+    position: relative;
+    width: 90vw;
+    height: 60vh;
+    max-height: unset;
+    padding: 1rem;
+    box-sizing: border-box;
+    backdrop-filter: blur(10px);
+    background-color: rgba(255, 255, 255, 0.05);
+    display: flex;
+}
+
+    .left-side {
+        width: 66%;
+        height: 100%;
+        padding-right: 30px;
+        box-sizing: border-box;
+    }
+
+        .project-preview-container {
+            height: 100%;
+        }
+
+            .preview-img {
+                width: 100%;
+                height: 100%;
+                object-fit: cover;
+                border-radius: 10px;
+            }
+
+    .right-side {
+        position: relative;
+        width: 34%;
+        height: 100%;
+    }
+
+        .project-title {
+            font-size: calc(35px + 0.390625vw);
+            line-height: 0.95;
+            letter-spacing: -2px;
+            margin-bottom: 15px;
+            margin-top: 50px;
+        }
+
+        .project-description {
+            color: rgba(255, 255, 255, 0.5);
+            margin-top: 15px;
+            margin-bottom: 50px;
+            max-width: 90%;
+        }
+
+        .cta-wrapper {
+            position: absolute;
+            width: 90%;
+            bottom: 0;
+            left: 0;
+        }
+
+            .cta-wrapper .secondary-cta {
+                width: unset;
+                flex: 1;
+            }
+
+        .project-specifics {
+            list-style-type: none;
+            position: absolute;
+            bottom: 10vh
+        }
+
+        .project-specifics li {
+            color: rgba(255, 255, 255, 0.75);
+            margin-bottom: 10px;
+        }
+
+        li i {
+            text-align: center;
+            width: 25px;
+        }
+
+        
+
+        @media (max-width: 900px) {
+            .project-cards-section {
+                min-height: 355vh;
+                margin-bottom: 50vh;
+            }
+
+            .large-project-card {
+                flex-direction: column;
+                height: fit-content;
+                min-height: 110vh;
+            }
+            .left-side, .right-side {
+                width: 100%;
+                padding-right: 0px;
+            }
+
+            .left-side {
+                max-height: 40vh;
+            }
+
+            .cta-wrapper {
+                width: 100%;
+            }
+
+        }

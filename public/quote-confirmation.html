@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Booking Confirmation | Webwing Agency</title>
+
+    <link rel="stylesheet" href="css/global.css">
+ 
+   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+ 
+   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.7/gsap.min.js"></script>
+   <script src="https://cdn.jsdelivr.net/npm/@barba/core"></script>
+   <link rel="icon" href="assets/icons/favicon.svg" type="image/png" />
+   <script src="js/components/nav.js"></script>
+   <script src="js/components/cta.js"></script>
+   <script src="js/components/footer.js"></script>
+ 
+   <script src="https://unpkg.com/decap-cms@^3.0.0/dist/decap-cms.js"></script>
+   <style>
+    body {
+        height: 100vh;
+        width: 100vw;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;
+        gap: 15px;
+    }
+    </style>
+
+</head>
+
+<body>
+
+
+<header>
+    <nav id="standard-nav"></nav>
+</header>
+
+    <i class="fa-solid fa-check fa-2xl" style="color: #0ed100; font-size: 7rem; line-height: 8rem;"></i>
+    <h1>Your Meeting is booked</h1>
+
+
+
+    <script src="https://cdn.jsdelivr.net/npm/emailjs-com@3/dist/email.min.js"></script>
+
+
+
+<script>
+  emailjs.init("72yexfrXpqwZWs_yj");
+
+  window.addEventListener("DOMContentLoaded", async () => {
+    const payload = JSON.parse(localStorage.getItem("quotePayload") || "{}");
+
+    if (!payload?.requesterEmail) {
+      alert("Missing quote data. Please go back and try again.");
+      return;
+    }
+
+    try {
+      console.log("Sending email with:", payload);
+      await emailjs.send("service_xyivz2l", "template_lt94358", payload);
+      alert("✅ Your call was booked and your quote email has been sent.");
+    } catch (err) {
+      console.error("EmailJS error:", err);
+      alert("❌ Failed to send email.");
+    }
+
+    localStorage.removeItem("quotePayload");
+  });
+</script>
+
+</body>
+</html>

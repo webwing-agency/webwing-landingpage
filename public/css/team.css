@@ -1,0 +1,305 @@
+
+:root {
+
+    --underline-size: 10px;
+}
+
+.start-section {
+    height: 100vh;
+    width: 100vw;
+    position: relative;
+    display: flex;
+    justify-content: center;
+}
+
+.start-section-title {
+    position: absolute;
+    font-size: calc(110px + 0.390625vw);
+    letter-spacing: -7px;
+    bottom: 25vh;
+    text-shadow: 2px 5px 10px rgba(0, 0, 0, 0.5);
+}
+
+.background-stars {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    object-fit: cover;
+    z-index: -5;
+}
+
+.background-gradient {
+    position: fixed;
+    height: 100vw;
+    width: 100vw;
+    border-radius: 1000px;
+    top: 65vh;
+    z-index: -3;
+    background: linear-gradient(to right, #ff5fcd, #8a2be2);
+    mask-mode: alpha;
+    -webkit-mask-mode: alpha;
+    filter: blur(50px);
+}
+
+.mystery-section {
+    height: 80vh;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.mystery-section-text {
+    position: absolute;
+    bottom: 25vh;
+    width: 25vw;
+    text-align: center;
+    z-index: 3;
+    font-size: calc(110px + 0.390625vw);
+    letter-spacing: -7px;
+    text-shadow: 2px 5px 10px rgba(0, 0, 0, 0.5);
+}
+
+    .mystery-section-text::after {
+        content: "";
+        width: 100vw;
+        height: 40vh;
+        top: 0;
+        left: 0;
+        background: linear-gradient(to bottom, transparent, black);
+        position: absolute;
+        z-index: -1;
+        transform: translate(-37.5vw, -10vh);
+    }
+
+        .card-wrapper {
+            width: 80vw;
+        }
+
+        .card {
+            background-color: rgba(28, 28, 28, 0.6);
+        }
+
+        .card::after {
+            width: 100%;
+            height: 100%;
+            content: "?";
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: calc(130px + 0.390625vw);
+            color: rgba(254, 254, 254, 0.25);
+        }
+
+.reveal-section {
+    width: 100vw;
+    height: 50vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.reveal-section-text {
+    display: flex;
+    flex-direction: row;
+    font-size: calc(110px + 0.390625vw);
+    letter-spacing: -7px;
+    text-shadow: 2px 5px 10px rgba(0, 0, 0, 0.5);
+}
+
+.reveal-section-text span {
+    margin-right: 15px;
+}
+
+#gradient {
+    margin-right: 0px;
+    margin-left: 5px;
+}
+
+.wavy-gradient-line-container {
+    position: relative;  
+    overflow: hidden;
+    width: fit-content;
+    padding: 0px 10px;
+    width: fit-content;
+    box-sizing: content-box;
+    width: fit-content;
+  }
+
+  .wavy-gradient-line {
+    max-width: fit-content;
+  }
+
+  .wavy-gradient-line svg {
+    position: absolute;
+    top: 0; left: 0;
+    width: 100%;        /* let SVG fill container */
+    height: 100%;
+    transform-origin: left center;
+  }
+
+  #word2 {
+    max-width: fit-content !important;
+  }
+  
+  #word3 {
+    position: relative;
+    display: inline-block;
+  }
+
+  #word3::after {
+    content: "";
+    position: absolute;
+    left: 0; bottom: 0;
+    width: 0; height: 4px;               /* thickness of your underline */
+    background: linear-gradient(90deg, #9500FF, #EA00FF);
+    transition: width 1s ease-out;       /* fallback for non-JS */
+    will-change: width;                  /* smoother GPU accel */
+  }
+
+  #word4 {
+    text-shadow: none;
+  }
+  
+
+
+
+.founder-section {
+    min-height: 100vh;
+    width: 100vw;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+}
+
+.main-container {
+    width: 40vw;
+    height: 50vh;
+    min-width: 200px;
+    display: flex;
+    gap: 15px;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+
+.founder-section-title {
+    font-size: calc(110px + 0.390625vw);
+    letter-spacing: -7px;
+    text-shadow: 2px 5px 10px rgba(0, 0, 0, 0.5);
+    white-space: nowrap;
+}
+
+.about-me-text {
+    text-align: center;
+}
+
+.site-cta-wrapper {
+    display: flex;
+    gap: 15px;
+}
+
+.bg-image-container {
+    position: absolute;
+    width: 80vw;
+    height: 100vh;
+    z-index: -1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 15px;
+}
+
+.founder-section-title {
+    margin-top: 15vh;
+    text-shadow: 5px 10px 35px rgba(0, 0, 0);
+}
+
+.founder-image {
+    aspect-ratio: 3 / 4;
+    object-fit: cover;
+    flex: 1;
+    max-height: 50vh;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) rotate(0deg);
+
+}
+
+.founder-image:nth-child(1) {z-index: -3;}
+.founder-image:nth-child(2) {z-index: -2;}
+.founder-image:nth-child(3) {z-index:  0;}
+.founder-image:nth-child(4) {z-index: -2;}
+.founder-image:nth-child(5) {z-index: -3;}
+  
+@media (max-width: 700px) {
+    :root {
+        --underline-size: 4px;
+    }
+
+    .start-section-title, .mystery-section-text, .reveal-section-text, .founder-section-title {
+        font-size: calc(55px + 0.390625vw);
+        letter-spacing: -4px;
+        text-align: center;
+        max-width: 80vw;
+    }
+    
+    .founder-section-title {
+        margin-top: 40vh;
+    }
+
+    .mystery-section-text {
+        bottom: 30vh;
+    }
+
+    .mystery-section .card-wrapper {
+        width: 120vw;
+    }
+
+        .mystery-section .card {
+            max-height: 30vh;
+        }
+
+    .reveal-section-text span {
+        height: 60px;
+    }
+
+    .founder-image {
+        max-height: 35vh;
+    }
+
+    .wavy-gradient-line-container {
+        width: 30vw;
+        transform: translateY(-10px);
+        max-width: "fit-content";
+    }
+
+    .wavy-gradient-line {
+        max-width: fit-content;
+    }
+
+    #wavy-gradient-line-svg {
+        width: 30vw;
+    }
+
+    .site-cta-wrapper {
+        flex-direction: column;
+        width: 60vw;
+        align-items: center;
+        justify-content: center;
+        gap: 10px;
+    }
+
+}
+
+@media (min-width: 701px) {
+    .founder-section {
+        height: 130vh;
+    }
+}

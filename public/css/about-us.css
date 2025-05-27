@@ -1,0 +1,94 @@
+.start-section {
+    height: 100vh;
+}
+
+.start-section-title {
+    position: absolute;
+    bottom: 20vh;
+}
+
+.about-us-section {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0 10vw;
+    width: 100vw;
+    height: 100vh;
+    box-sizing: border-box;
+}
+
+.about-us-paragraph {
+    line-height: 1.4;
+    max-width: 35vw;
+    vertical-align: middle;
+}
+
+.left-side {
+    flex: 1;
+}
+
+.right-side {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.large-logo-container {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+
+.large-logo {
+    position: relative;
+    height: 15vh;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.5);
+    padding-bottom: 15px;
+}
+
+.standard-section {
+    margin-bottom: 40vh;
+}
+
+.standard-section h2 {
+    margin-bottom: 1rem;
+    position: relative;
+    width: 50vw;
+    text-align: center;
+}
+  
+  .standard-section h2.hide-after::after {
+    opacity: 0;
+  }
+
+  .main-cta {
+    margin-top: 0.5rem;
+  }
+  
+  main .main-cta .main-cta-gradient {
+    opacity: 1;
+}
+
+@media only screen and (max-width: 900px) {
+    .about-us-section {
+        flex-direction: column;
+    }
+
+    .about-us-paragraph {
+        width: 100%;
+        max-width: 90vw;
+    }
+
+    .large-logo {
+        height: auto;
+    }
+}
+
+/* Hover CTA BG Fade out */
+
+  
