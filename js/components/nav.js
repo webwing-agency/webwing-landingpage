@@ -13,11 +13,11 @@ document.addEventListener("DOMContentLoaded", () => {
         <div class="popup-menu">
             <div class="popup-menu-card">
                 <div class="main-link-wrapper">
-                    <a class='main-link link_animated' href='index.html'>Home</a>
-                    <a class='main-link link_animated' href='services.html'>Services</a>
-                    <a class='main-link link_animated' href='work.html'>Work</a>
-                    <a class='main-link link_animated' href='about-us.html'>About Us</a>   
-                    <a class='main-link link_animated' href='team.html'>Team</a>  
+                    <a class='main-link link_animated' href='indexxx'>Home</a>
+                    <a class='main-link link_animated' href='servicesxx'>Services</a>
+                    <a class='main-link link_animated' href='workxx'>Work</a>
+                    <a class='main-link link_animated' href='about-usxx'>About Us</a>   
+                    <a class='main-link link_animated' href='teamxx'>Team</a>  
                 </div>
             </div>
 
@@ -31,7 +31,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
             <div class="secondary-cta-wrapper">
                 <div class="secondary-cta">
-                  <a href="contact.html" class="main-link">Contact</a>
+                  <a href="contactxx" class="main-link">Contact</a>
                 </div>
             </div>
             </div>
@@ -202,7 +202,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const navLogo = document.querySelector(".nav-logo");
 
   navLogo.addEventListener("click", () => {
-    window.location.href = "index.html"; // Navigate to index.html
+    window.location.href = "indexxx"; // Navigate to indexxx
   });
 
   const links = document.querySelectorAll("a");
