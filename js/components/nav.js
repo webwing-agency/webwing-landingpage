@@ -1,7 +1,7 @@
 document.addEventListener("DOMContentLoaded", () => {
   // COMPONENT HTML SETUP
   const navHTML = `
-    <img class="nav-logo compact-logo" src="assets/compact-logo-white.svg" alt="Webwing Webdesign Agency Logo">
+    <img class="nav-logo compact-logo" src="assets/compact-logo-white.svg" alt="Webwing Webdesign Agency Logo width=50" height=50>
 
     <div class="menu-wrapper">
         <div class="hamburger-menu">
