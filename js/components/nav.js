@@ -187,7 +187,7 @@ document.addEventListener("DOMContentLoaded", () => {
       duration: 0.3,
       ease: "power1.in",
       onComplete: () => {
-        overlayBlur.style.display = 'none';
+        overlayBlur.style.display = 'none'; 
       }
     });
 
