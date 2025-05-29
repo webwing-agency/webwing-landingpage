@@ -3,31 +3,29 @@ backend:
   branch: main
 
 media_folder: "assets"
-public_folder: "/assets"
+public_folder: "assets"
 
 collections:
   - name: "work"
     label: "Projects"
     label_singular: "Project"
-    folder: "/content"
-    create: true
     files:
-      - file: "/content/work.json"
+      - label: "Work Page Projects"
         name: "work"
-        label: "Work Page Projects"
+        file: "content/work.json"    
         fields:
           - label: "Projects"
             name: "projects"
             widget: list
             collapsed: true
             fields:
-              - { label: "Title", name: "title", widget: "string" }
-              - { label: "Description", name: "description", widget: "text" }
-              - { label: "Type", name: "type", widget: "string" }
-              - { label: "Pages", name: "pages", widget: "string" }
-              - { label: "Features", name: "features", widget: "string" }
-              - { label: "Tech Stack", name: "tech", widget: "string" }
-              - { label: "Timeline", name: "timeline", widget: "string" }
-              - { label: "Live Link", name: "link", widget: "string" }
-              - { label: "Case Study URL", name: "caseStudy", widget: "string" }
-              - { label: "Test Field", name: "test", widget: "string" }
+              - { label: "Title",       name: "title",     widget: "string" }
+              - { label: "Description", name: "description",widget: "text"   }
+              - { label: "Type",        name: "type",      widget: "string" }
+              - { label: "Pages",       name: "pages",     widget: "string" }
+              - { label: "Features",    name: "features",  widget: "string" }
+              - { label: "Tech Stack",  name: "tech",      widget: "string" }
+              - { label: "Timeline",    name: "timeline",  widget: "string" }
+              - { label: "Live Link",   name: "link",      widget: "string" }
+              - { label: "Case Study URL", name: "caseStudy",widget: "string" }
+              - { label: "Test Field",   name: "test",      widget: "string" }
