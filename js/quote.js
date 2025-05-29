@@ -188,33 +188,50 @@ Cal.ns["discovery-call"]("ui", {
 // ------------------------------
 // BOOK BUTTON LISTENER
 // ------------------------------
-document.querySelector("#bookMeeting").addEventListener("click", () => {
-  const name = document.querySelector('input[name="name"]')?.value?.trim();
-  const email = document.querySelector('input[name="email"]')?.value?.trim();
 
-  const quoteData = {
-    projectType: document.querySelector('input[name="projectType"]:checked')?.value,
-    pages: document.querySelector('input[name="pages"]:checked')?.value,
-    timelineWeeks: document.getElementById('timeline')?.value,
-    additionalNotes: document.querySelector('textarea[name="additionalNotes"]')?.value,
-    business: document.querySelector('input[name="business"]')?.value,
-    website: document.querySelector('input[name="website"]')?.value,
-    requesterName: name,
-    requesterEmail: email,
-    estimatedPrice: calculatePrice(),
-  };
+  document.querySelector("#bookMeeting").addEventListener("click", () => {
+    const name = document.querySelector('input[name="name"]')?.value?.trim();
+    const email = document.querySelector('input[name="email"]')?.value?.trim();
+    const projectType = document.querySelector('input[name="projectType"]:checked')?.value;
+    const pages       = document.querySelector('input[name="pages"]:checked')?.value;
+    const timeline    = document.getElementById('timeline')?.value;
+    const notes       = document.querySelector('textarea[name="additionalNotes"]')?.value?.trim();
+    const business    = document.querySelector('input[name="business"]')?.value?.trim();
+    const website     = document.querySelector('input[name="website"]')?.value?.trim();
 
-  localStorage.setItem("quotePayload", JSON.stringify(quoteData));
+    // simple required-field check:
+    if (!name || !email || !projectType || !pages || !timeline) {
+      return alert("Please fill in all required fields before booking.");
+    }
 
-  const calUrl = `https://cal.com/webwing-agency/discovery-call?name=${encodeURIComponent(name)}&email=${encodeURIComponent(email)}`;
+    // build the full quoteData object
+    const quoteData = {
+      requesterName:  name,
+      requesterEmail: email,
+      projectType,
+      pages,
+      timelineWeeks:  timeline,
+      additionalNotes: notes,
+      business,
+      website,
+      estimatedPrice: calculatePrice()
+    };
 
-  Cal("ui", {
-    theme: "light",
-    layout: "month_view",
-    hideEventTypeDetails: false,
-    url: calUrl,
+    // turn it into a URL-encoded query string:
+    const params = new URLSearchParams();
+    for (const [key, val] of Object.entries(quoteData)) {
+      if (val != null) params.append(key, val);
+    }
+
+    // launch Cal.com widget with ALL your params:
+    const calUrl = `https://cal.com/webwing-agency/discovery-call?${params.toString()}`;
+    Cal("ui", {
+      theme: "light",
+      layout: "month_view",
+      hideEventTypeDetails: false,
+      url: calUrl,
+    });
   });
-});
 
 
 // ------------------------------

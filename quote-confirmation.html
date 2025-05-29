@@ -41,35 +41,42 @@
     <i class="fa-solid fa-check fa-2xl" style="color: #0ed100; font-size: 7rem; line-height: 8rem;"></i>
     <h1>Your Meeting is booked</h1>
 
-
-
     <script src="https://cdn.jsdelivr.net/npm/emailjs-com@3/dist/email.min.js"></script>
-
-
-
-<script>
-  emailjs.init("72yexfrXpqwZWs_yj");
-
-  window.addEventListener("DOMContentLoaded", async () => {
-    const payload = JSON.parse(localStorage.getItem("quotePayload") || "{}");
-
-    if (!payload?.requesterEmail) {
-      alert("Missing quote data. Please go back and try again.");
-      return;
-    }
-
-    try {
-      console.log("Sending email with:", payload);
-      await emailjs.send("service_xyivz2l", "template_lt94358", payload);
-      alert("✅ Your call was booked and your quote email has been sent.");
-    } catch (err) {
-      console.error("EmailJS error:", err);
-      alert("❌ Failed to send email.");
-    }
-
-    localStorage.removeItem("quotePayload");
-  });
-</script>
-
+    <script>
+      emailjs.init("72yexfrXpqwZWs_yj");
+    
+      window.addEventListener("DOMContentLoaded", async () => {
+        // parse all quote fields from the URL:
+        const qs = new URLSearchParams(window.location.search);
+        const payload = {
+          requesterName:  qs.get("requesterName"),
+          requesterEmail: qs.get("requesterEmail"),
+          projectType:    qs.get("projectType"),
+          pages:          qs.get("pages"),
+          timelineWeeks:  qs.get("timelineWeeks"),
+          additionalNotes: qs.get("additionalNotes"),
+          business:       qs.get("business"),
+          website:        qs.get("website"),
+          estimatedPrice: qs.get("estimatedPrice"),
+        };
+    
+        // if email is missing, bounce back:
+        if (!payload.requesterEmail) {
+          alert("Missing quote data. Please go back and try again.");
+          window.location.href = "/quote.html";
+          return;
+        }
+    
+        try {
+          console.log("Sending email with payload:", payload);
+          await emailjs.send("service_xyivz2l", "template_lt94358", payload);
+          alert("✅ Your call was booked and your quote email has been sent.");
+        } catch (err) {
+          console.error("EmailJS error:", err);
+          alert("❌ Failed to send email.");
+        }
+      });
+    </script>
+    
 </body>
 </html>
