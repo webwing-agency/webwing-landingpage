@@ -186,11 +186,6 @@ Cal.ns["discovery-call"]("ui", {
 });
 
 // ------------------------------
-// EMAILJS SETUP
-// ------------------------------
-emailjs.init("72yexfrXpqwZWs_yj");
-
-// ------------------------------
 // BOOK BUTTON LISTENER
 // ------------------------------
 document.querySelector("#bookMeeting").addEventListener("click", () => {
