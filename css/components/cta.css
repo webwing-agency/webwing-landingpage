@@ -145,7 +145,7 @@ a {
 }
 
 .main-cta:hover .main-cta-icon {
-: translateX(0.5rem);
+ transform:  translateX(0.5rem);
 }
 
 .large-cta:hover .gradient-bg {
