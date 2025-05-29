@@ -13,7 +13,7 @@ const formStepLabel = document.querySelector('.form-step');
 const quoteHeading  = document.querySelector('.quote-heading');
 const bgCircle      = Array.from(document.querySelectorAll('.circle'));
 const slider        = document.getElementById("timeline");
-const output        = document.getElementById("timeline-value");
+const output        = document.getElementById("timeline-label");
 
 let current = 0;
 
