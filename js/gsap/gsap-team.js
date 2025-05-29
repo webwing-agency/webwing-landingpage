@@ -176,6 +176,8 @@ tl.to("#word4", { width: "12vw", marginRight: 15, autoAlpha: 1, duration: 1, eas
 
   // Card Image Move-In
 
+  document.addEventListener("DOMContentLoaded", () => {
+
   gsap.registerPlugin(ScrollTrigger);
 
 const cards   = gsap.utils.toArray(".founder-image");
@@ -234,4 +236,4 @@ cards.forEach((card,i) => {
         scrub:   true
       }
   });
-  
+});
