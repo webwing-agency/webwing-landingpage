@@ -32,21 +32,20 @@ collections:
 
   - name: "team"
     label: "Team"
-    extension: "json"
+    file: "content/team.json"
     format: "json"
-    folder: "content"
-    create: false
-    identifier_field: "name"
+    extension: "json"
     fields:
-        - { label: "Name", name: "name", widget: "string" }
-        - { label: "Title", name: "title", widget: "string" }
-        - { label: "Bio", name: "bio", widget: "text" }
-        - {
-              label: "Photos",
-              name: "photos",
-              widget: "list",
-              field: { label: "Photo URL", name: "photo", widget: "image" }
-            }     
+      - { label: "Name", name: "name", widget: "string" }
+      - { label: "Title", name: "title", widget: "string" }
+      - { label: "Bio", name: "bio", widget: "text" }
+      - label: "Photos"
+        name: "photos"
+        widget: "list"
+        field:
+          label: "Photo URL"
+          name: "photo"
+          widget: "image"
 
 
               
