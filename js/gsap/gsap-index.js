@@ -15,18 +15,6 @@
     opacity: 0,
     scrollTrigger: { trigger: ".hero-section", start: "center top", end: "bottom top", scrub: true }
   });
-  gsap.to(".hero-section-title", {
-    opacity: 0, y: -10, filter: "blur(5px)", ease: "out",
-    scrollTrigger: { trigger: ".hero-section", start: "25% top",   end: "center top", scrub: true }
-  });
-  gsap.to(".hero-subtitle", {
-    opacity: 0, y: -10, filter: "blur(5px)", ease: "out",
-    scrollTrigger: { trigger: ".hero-section", start: "35% top",   end: "60% top",     scrub: true }
-  });
-  gsap.to(".hero-section .cta-wrapper", {
-    opacity: 0, y: -10, filter: "blur(5px)", ease: "out",
-    scrollTrigger: { trigger: ".hero-section", start: "35% top",   end: "60% top",     scrub: true }
-  });
 
   // generic scroll-fade in multiple sections
   [
