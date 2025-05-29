@@ -30,3 +30,4 @@ collections:
               - { label: "Timeline", name: "timeline", widget: "string" }
               - { label: "Live Link", name: "link", widget: "string" }
               - { label: "Case Study URL", name: "caseStudy", widget: "string" }
+              - { label: "Test Field", name: "test", widget: "string" }
