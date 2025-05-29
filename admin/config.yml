@@ -10,7 +10,7 @@ collections:
     label: "Projects"
     label_singular: "Project"
     files:
-      - label: "Work Page Projects"
+      - label: "Work Page"
         name: "work"
         file: "content/work.json"    
         fields:
