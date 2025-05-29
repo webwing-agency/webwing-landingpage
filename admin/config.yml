@@ -44,7 +44,6 @@ collections:
         - label: "Photos"
           name: "photos"
           widget: "list"
-          fields:
-            - label: "Image"
-              name: "image"
-              widget: "image"
+          fields:  
+            - { label: "Image", name: "image", widget: "image" }
+
