@@ -267,7 +267,7 @@ a {
     }
 
 
-.next-button:hover .arrow-container, .quote-button:hover .arrow-container {
+.next-button:hover .arrow-container, #startBtn:hover .arrow-container {
     width: 20px;
     transition: 300ms;
   }
