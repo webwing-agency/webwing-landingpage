@@ -144,6 +144,10 @@ a {
     transition: transform 0.3s ease;
 }
 
+.main-cta:hover .main-cta-icon {
+: translateX(0.5rem);
+}
+
 .large-cta:hover .gradient-bg {
     opacity: 1;
   }
@@ -153,7 +157,6 @@ a {
 }
 
 .large-cta:hover svg {
-    transform: translateX(0.5rem);
     transition: 300ms;
   }
 
@@ -264,6 +267,6 @@ a {
 
 
 .next-button:hover .arrow-container, .large-cta:hover .arrow-container {
-    width: calc(13px + 0.5rem);
+    width: 20px;
     transition: 300ms;
   }
