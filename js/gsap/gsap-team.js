@@ -172,50 +172,6 @@ tl.to("#word4", { width: "12vw", marginRight: 15, autoAlpha: 1, duration: 1, eas
     WebkitBackgroundClip:  "text",
     backgroundImage:       "linear-gradient(to bottom, #9500FF, #EA00FF)"
   }, "<0.2");
-
-
-  // Card Image Move-In
-
-  function initFounderAnimation() {
-    const cards   = gsap.utils.toArray(".founder-image");
-    if (!cards.length) return;           // safe-guard
-    const count   = cards.length;
-    const radiusX = 40, radiusY = 25, pullIn = 7.5;
-  
-    cards.forEach((card,i) => {
-      const t     = i/(count-1);
-      const angle = Math.PI - Math.PI * t;
-      let   xEnd  = radiusX * Math.cos(angle);
-      const yEnd  = -radiusY * Math.sin(angle);
-      const rot   = -40 + 80 * t;
-  
-      if (i === 1 || i === 3) xEnd -= Math.sign(xEnd) * pullIn;
-  
-      gsap.fromTo(card,
-        { xPercent:-50, yPercent:-50, x:0, y:0, rotate:0 },
-        {
-          x:      `${xEnd}vw`,
-          y:      `${yEnd}vh`,
-          rotate: rot,
-          ease:   "power2.out",
-          scrollTrigger: {
-            trigger: ".founder-section",
-            start:   "top 80%",
-            end:     "top 40%",
-            scrub:   true,
-          }
-        }
-      );
-    });
-  
-    // ... your other reveal-section and title animations ...
-  }
-  
-  // somewhere in your dynamic loader code:
-  loadCards().then(() => {
-    initFounderAnimation();
-    ScrollTrigger.refresh();  // recalculate start/end positions
-  });
   
 
   gsap.to(".reveal-section", {

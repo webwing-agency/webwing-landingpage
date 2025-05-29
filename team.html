@@ -98,40 +98,77 @@
 
     <script>
 
-        document.addEventListener("DOMContentLoaded", () => {
-        fetch("/content/team.json")
+            fetch("/content/team.json")
             .then((res) => {
-            if (!res.ok) throw new Error("Failed to fetch team.json");
-            return res.json();
+                if (!res.ok) throw new Error("Failed to fetch team.json");
+                return res.json();
             })
             .then((data) => {
-            const { pageTitle, sectionTitle, bio, photos } = data;
+                const { photos, sectionTitle, bio, pageTitle } = data;
 
-            const pageTitleEl = document.querySelector(".start-section-title");
-            if (pageTitleEl) pageTitleEl.textContent = pageTitle;
+                // — Populate pageTitle, sectionTitle, bio, etc. if needed
+                // (your existing code)
 
-            const sectionTitleEl = document.querySelector(".founder-section-title");
-            if (sectionTitleEl) sectionTitleEl.textContent = sectionTitle;
-
-            const bioEl = document.querySelector(".about-me-text");
-            if (bioEl) bioEl.innerText = bio;
-
-            const imgContainer = document.querySelector(".bg-image-container");
-            if (imgContainer && photos) {
+                // Build the founder-image elements:
+                const imgContainer = document.querySelector(".bg-image-container");
                 imgContainer.innerHTML = "";
                 photos.forEach(({ image }) => {
                 const img = document.createElement("img");
                 img.src = image;
-                img.alt = `Paul portrait`;
+                img.alt = "Founder portrait";
                 img.classList.add("founder-image");
                 imgContainer.appendChild(img);
                 });
-            }
+
+                // NOW that the images are in the DOM, trigger the scroll animation:
+                initFounderAnimation();
+                ScrollTrigger.refresh();
             })
-            .catch((err) => {
-            console.error("Team JSON load error:", err);
+            .catch((err) => console.error("Team JSON load error:", err));
+
+
+            
+
+            // CARD FLY IN ANIMATION
+
+
+            // === Founder-Image Scroll-Triggered Fan-Out ===
+            function initFounderAnimation() {
+            const cards = gsap.utils.toArray(".founder-image");
+            if (!cards.length) return;
+
+            const count = cards.length;
+            const radiusX = 40,
+                radiusY = 25,
+                pullIn = 7.5;
+
+            cards.forEach((card, i) => {
+                const t = i / (count - 1);
+                const angle = Math.PI - Math.PI * t;
+                let xEnd = radiusX * Math.cos(angle);
+                const yEnd = -radiusY * Math.sin(angle);
+                const rot = -40 + 80 * t;
+
+                if (i === 1 || i === count - 2) xEnd -= Math.sign(xEnd) * pullIn;
+
+                gsap.fromTo(
+                card,
+                { xPercent: -50, yPercent: -50, x: 0, y: 0, rotate: 0 },
+                {
+                    x: `${xEnd}vw`,
+                    y: `${yEnd}vh`,
+                    rotate: rot,
+                    ease: "power2.out",
+                    scrollTrigger: {
+                    trigger: ".founder-section",
+                    start: "top 80%",
+                    end: "top 40%",
+                    scrub: true,
+                    },
+                }
+                );
             });
-        });
+        };
 
     </script>
 
