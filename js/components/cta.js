@@ -21,7 +21,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     const largeCtaHTML = `
         <span class="gradient-bg"></span>
-        <span class="get-a-quote-button-content">
+        <span class="quote-button-content">
             <span>Get a Quote</span>
             <div class="arrow-container">
                 <svg class="arrow" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
