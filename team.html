@@ -98,45 +98,40 @@
 
     <script>
 
-document.addEventListener("DOMContentLoaded", () => {
-  fetch("/content/team.json")
-    .then((res) => {
-      if (!res.ok) throw new Error("Failed to fetch team.json");
-      return res.json();
-    })
-    .then((data) => {
-      const { pageTitle, sectionTitle, bio, photos } = data;
+        document.addEventListener("DOMContentLoaded", () => {
+        fetch("/content/team.json")
+            .then((res) => {
+            if (!res.ok) throw new Error("Failed to fetch team.json");
+            return res.json();
+            })
+            .then((data) => {
+            const { pageTitle, sectionTitle, bio, photos } = data;
 
-      // 1) Update page title
-      const pageTitleEl = document.querySelector(".start-section-title");
-      if (pageTitleEl) pageTitleEl.textContent = pageTitle;
+            const pageTitleEl = document.querySelector(".start-section-title");
+            if (pageTitleEl) pageTitleEl.textContent = pageTitle;
 
-      // 2) Update section title
-      const sectionTitleEl = document.querySelector(".founder-section-title");
-      if (sectionTitleEl) sectionTitleEl.textContent = sectionTitle;
+            const sectionTitleEl = document.querySelector(".founder-section-title");
+            if (sectionTitleEl) sectionTitleEl.textContent = sectionTitle;
 
-      // 3) Update bio paragraph
-      const bioEl = document.querySelector(".about-me-text");
-      if (bioEl) bioEl.innerText = bio;
+            const bioEl = document.querySelector(".about-me-text");
+            if (bioEl) bioEl.innerText = bio;
 
-      // 4) Populate images
-      const imgContainer = document.querySelector(".bg-image-container");
-      if (imgContainer && photos) {
-        imgContainer.innerHTML = ""; // clear placeholders
-        photos.forEach((fileName) => {
-          const img = document.createElement("img");
-          img.src = `assets/team/paul/${fileName}`;
-          img.alt = `Paul portrait`;
-          img.classList.add("founder-image");
-          imgContainer.appendChild(img);
+            const imgContainer = document.querySelector(".bg-image-container");
+            if (imgContainer && photos) {
+                imgContainer.innerHTML = "";
+                photos.forEach(({ image }) => {
+                const img = document.createElement("img");
+                img.src = image;
+                img.alt = `Paul portrait`;
+                img.classList.add("founder-image");
+                imgContainer.appendChild(img);
+                });
+            }
+            })
+            .catch((err) => {
+            console.error("Team JSON load error:", err);
+            });
         });
-      }
-    })
-    .catch((err) => {
-      console.error("Team JSON load error:", err);
-    });
-});
-
 
     </script>
 
