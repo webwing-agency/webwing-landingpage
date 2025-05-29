@@ -249,31 +249,9 @@ input[type="text"], input[type="email"], input[type="url"] {
     color: rgba(255, 255, 255, 0.5);
 }
 
-  .arrow-container {
-    display: flex;
-    align-items: center;
-    width: 13px;
-    height: 20px;
-    margin-left: 5px;
-    overflow: hidden;
-    transition: 300ms;
-    position: relative;
-  }
-  .arrow {
-    position: absolute;
-    right: 0;
-    width: 20px; 
-    height: auto;
-  }
-
 .start-button:hover, .next-button:hover {
   box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.25),
                     0 0 20px 10px rgba(236, 72, 153, 0.4),   
-}
-
-.next-button:hover .arrow-container {
-  width: 20px;
-  transition: 300ms;
 }
 
 .form-footer {

@@ -245,3 +245,29 @@ a {
     box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 075);
     transition: 300ms;
 }
+
+/* LARGE CTA */
+
+.arrow-container {
+    display: flex;
+    align-items: center;
+    width: 13px;
+    height: 20px;
+    margin-left: 5px;
+    overflow: hidden;
+    transition: 300ms;
+    position: relative;
+  }
+
+    .arrow {
+        position: absolute;
+        right: 0;
+        width: 20px; 
+        height: auto;
+    }
+
+
+.next-button:hover .arrow-container {
+    width: 20px;
+    transition: 300ms;
+  }
