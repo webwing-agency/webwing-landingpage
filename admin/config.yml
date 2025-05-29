@@ -9,10 +9,10 @@ collections:
   - name: "work"
     label: "Projects"
     label_singular: "Project"
-    folder: "content"
+    folder: "/content"
     create: true
     files:
-      - file: "content/work.json"
+      - file: "/content/work.json"
         name: "work"
         label: "Work Page Projects"
         fields:
