@@ -33,18 +33,17 @@ collections:
   - name: "team"
     label: "Team"
     files:
-    - label: "Team Page"
-      name: "team"
-      file: "content/team.json"
-      format: "json"
-      fields:
-        - { label: "Page Title", name: "pageTitle", widget: "string" }
-        - { label: "Founder Section Title", name: "sectionTitle", widget: "string"}
-        - { label: "Bio", name: "bio", widget: "text" }
-        - label: "Photos"
-          name: "photos"
-          widget: "list"
-          field:
-            label: "Photo"
-            name: ""
-            widget: "image"
+      - label: "Team Page"
+        name: "team"
+        file: "content/team.json"
+        format: "json"
+        fields:
+          - { label: "Page Title", name: "pageTitle", widget: "string" }
+          - { label: "Founder Section Title", name: "sectionTitle", widget: "string" }
+          - { label: "Bio", name: "bio", widget: "text" }
+          - label: "Photos"
+            name: "photos"
+            widget: "list"
+            field:
+              label: "Photo"
+              widget: "image"
