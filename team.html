@@ -97,37 +97,45 @@
     </footer>
 
     <script>
+        fetch("/content/team.json")
+    .then((res) => {
+        if (!res.ok) throw new Error("Failed to fetch team.json");
+        return res.json();
+    })
+    .then((data) => {
+        const { pageTitle, sectionTitle, bio, photos } = data;
 
-            fetch("/content/team.json")
-            .then((res) => {
-                if (!res.ok) throw new Error("Failed to fetch team.json");
-                return res.json();
-            })
-            .then((data) => {
-                const { photos, sectionTitle, bio, pageTitle } = data;
+        // Update page title
+        const pageTitleEl = document.querySelector(".start-section-title");
+        if (pageTitleEl) pageTitleEl.textContent = pageTitle;
 
-                // — Populate pageTitle, sectionTitle, bio, etc. if needed
-                // (your existing code)
+        // Update section title
+        const sectionTitleEl = document.querySelector(".founder-section-title");
+        if (sectionTitleEl) sectionTitleEl.textContent = sectionTitle;
 
-                // Build the founder-image elements:
-                const imgContainer = document.querySelector(".bg-image-container");
-                imgContainer.innerHTML = "";
-                photos.forEach(({ image }) => {
+        // Update bio text
+        const bioEl = document.querySelector(".about-me-text");
+        if (bioEl) bioEl.innerText = bio;
+
+        // Add images to container
+        const imgContainer = document.querySelector(".bg-image-container");
+        if (imgContainer && photos) {
+            imgContainer.innerHTML = ""; // Clear previous content if any
+            photos.forEach(({ image }) => {
                 const img = document.createElement("img");
                 img.src = image;
                 img.alt = "Founder portrait";
                 img.classList.add("founder-image");
                 imgContainer.appendChild(img);
-                });
+            });
+        }
 
-                // NOW that the images are in the DOM, trigger the scroll animation:
-                initFounderAnimation();
-                ScrollTrigger.refresh();
-            })
-            .catch((err) => console.error("Team JSON load error:", err));
+        // Trigger scroll animation now that elements are in DOM
+        initFounderAnimation();
+        ScrollTrigger.refresh();
+    })
+    .catch((err) => console.error("Team JSON load error:", err));
 
-
-            
 
             // CARD FLY IN ANIMATION
 
@@ -169,6 +177,7 @@
                 );
             });
         };
+
 
     </script>
 
