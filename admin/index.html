@@ -12,5 +12,17 @@
 
     <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
 
+    <script>
+        if (window.netlifyIdentity) {
+          window.netlifyIdentity.on("init", user => {
+            if (!user) {
+              // automatically show the login/signup modal
+              window.netlifyIdentity.open();
+            }
+          });
+          window.netlifyIdentity.init();
+        }
+      </script>
+      
   </body>
 </html>
