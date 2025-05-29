@@ -13,6 +13,8 @@
 
   <script src="js/components/nav.js"></script>
 
+  <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
+
   <link rel="icon" href="assets/icons/favicon.svg" type="image/svg+xml" />
 
 </head>
@@ -223,5 +225,17 @@
     <script src="js/components/cta.js"></script>
     <script src="js/components/footer.js"></script>
     <script src="js/index.js"></script>
+
+    <script>
+        if (window.netlifyIdentity) {
+          window.netlifyIdentity.on("init", (user) => {
+            if (!user) {
+              window.netlifyIdentity.on("login", () => {
+                document.location.href = "/admin/";
+              });
+            }
+          });
+        }
+      </script>
 </body>
 </html>
