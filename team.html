@@ -72,7 +72,7 @@
         <section class="founder-section">
             <div class="main-container">
 
-                <h1 class="founder-section-title">Hi! I'm Paul</h1>
+                <h1 class="founder-section-title"></h1>
 
                 <div class="site-cta-wrapper">
                     <a href="contact.html" class="main-cta standard-cta-contact"></a>
@@ -80,21 +80,13 @@
                 </div>
 
                 <p class="about-me-text">
-                    I’m a 15-year-old web designer and developer from Germany.<br>
-                    I founded Webwing in early 2025 to help aviation firms turn their average web presences into the absolute best of the best.
-                    Besides designing and coding I have a great passion for aviation, cycling, engineering and working out. My favorite movie? Top Gun (: .
-                    I taught myself to code in the summer break of 2023 and have been building out my design and development skills ever since.<br>
-                    I'm your guy for web design and everything related to your online presence.
+                
                 </p>
 
             </div>
 
             <div class="bg-image-container">
-                <img src="assets/team/paul/paul-1.jpg" alt="" class="founder-image">
-                <img src="assets/team/paul/paul-2.jpg" alt="" class="founder-image">
-                <img src="assets/team/paul/paul-3.jpg" alt="" class="founder-image">
-                <img src="assets/team/paul/paul-4.jpg" alt="" class="founder-image">
-                <img src="assets/team/paul/paul-5.jpg" alt="" class="founder-image">
+
             </div>
 
         </section>
@@ -103,6 +95,45 @@
     <footer id="standard-footer">
 
     </footer>
+
+    <script>
+
+    document.addEventListener("DOMContentLoaded", () => {
+        fetch("/content/team.json")
+            .then((res) => {
+            if (!res.ok) throw new Error("Failed to fetch team.json");
+            return res.json();
+            })
+            .then((data) => {
+            const { name, bio, images } = data.founder;
+
+            // 1) Update title
+            const titleEl = document.querySelector(".founder-section-title");
+            if (titleEl) titleEl.textContent = `Hi! I'm ${name}`;
+
+            // 2) Update bio paragraph
+            const bioEl = document.querySelector(".about-me-text");
+            if (bioEl) bioEl.innerText = bio;
+
+            // 3) Populate images
+            const imgContainer = document.querySelector(".bg-image-container");
+            if (imgContainer) {
+                imgContainer.innerHTML = ""; // clear any placeholders
+                images.forEach((fileName) => {
+                const img = document.createElement("img");
+                img.src = `assets/team/paul/${fileName}`;
+                img.alt = `${name} portrait`;
+                img.classList.add("founder-image");
+                imgContainer.appendChild(img);
+                });
+            }
+            })
+            .catch((err) => {
+            console.error("Team JSON load error:", err);
+            });
+        });
+
+    </script>
 
     <script src="js/gsap/gsap-team.js"></script>
 
