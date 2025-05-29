@@ -144,10 +144,6 @@ a {
     transition: transform 0.3s ease;
 }
 
-.main-cta:hover .main-cta-icon {
-    transform: translateX(0.5rem);
-}
-
 .large-cta:hover .gradient-bg {
     opacity: 1;
   }
