@@ -186,52 +186,55 @@ Cal.ns["discovery-call"]("ui", {
 });
 
 // ------------------------------
-// BOOK BUTTON LISTENER
+// BOOKINg
 // ------------------------------
 
-  document.querySelector("#bookMeeting").addEventListener("click", () => {
-    const name = document.querySelector('input[name="name"]')?.value?.trim();
-    const email = document.querySelector('input[name="email"]')?.value?.trim();
-    const projectType = document.querySelector('input[name="projectType"]:checked')?.value;
-    const pages       = document.querySelector('input[name="pages"]:checked')?.value;
-    const timeline    = document.getElementById('timeline')?.value;
-    const notes       = document.querySelector('textarea[name="additionalNotes"]')?.value?.trim();
-    const business    = document.querySelector('input[name="business"]')?.value?.trim();
-    const website     = document.querySelector('input[name="website"]')?.value?.trim();
+ // 1) collect & validate inputs
+ document.querySelector("#bookMeeting").addEventListener("click", () => {
+  const name  = document.querySelector('input[name="name"]').value.trim();
+  const email = document.querySelector('input[name="email"]').value.trim();
+  const projectType = document.querySelector('input[name="projectType"]:checked')?.value;
+  const pages       = document.querySelector('input[name="pages"]:checked')?.value;
+  const timeline    = document.getElementById('timeline').value;
+  const notes       = document.querySelector('textarea[name="additionalNotes"]').value.trim();
+  const business    = document.querySelector('input[name="business"]').value.trim();
+  const website     = document.querySelector('input[name="website"]').value.trim();
 
-    // simple required-field check:
-    if (!name || !email || !projectType || !pages || !timeline) {
-      return alert("Please fill in all required fields before booking.");
-    }
+  if (!name || !email || !projectType || !pages || !timeline) {
+    return alert("Please fill in all required fields before booking.");
+  }
 
-    // build the full quoteData object
-    const quoteData = {
-      requesterName:  name,
-      requesterEmail: email,
-      projectType,
-      pages,
-      timelineWeeks:  timeline,
-      additionalNotes: notes,
-      business,
-      website,
-      estimatedPrice: calculatePrice()
-    };
+  // 2) build the payload
+  const quoteData = {
+    requesterName:  name,
+    requesterEmail: email,
+    projectType,
+    pages,
+    timelineWeeks:  timeline,
+    additionalNotes: notes,
+    business,
+    website,
+    estimatedPrice: calculatePrice()
+  };
 
-    // turn it into a URL-encoded query string:
-    const params = new URLSearchParams();
-    for (const [key, val] of Object.entries(quoteData)) {
-      if (val != null) params.append(key, val);
-    }
+  // 3) stringify for our confirmation redirect
+  const params = new URLSearchParams(quoteData).toString();
+  const ourRedirect = `${window.location.origin}/quote-confirmation.html?${params}`;
 
-    // launch Cal.com widget with ALL your params:
-    const calUrl = `https://cal.com/webwing-agency/discovery-call?${params.toString()}`;
-    Cal("ui", {
-      theme: "light",
-      layout: "month_view",
-      hideEventTypeDetails: false,
-      url: calUrl,
-    });
+  // 4) pre-fill Cal.com
+  const calBookUrl = `https://cal.com/webwing-agency/discovery-call?` +
+                     `name=${encodeURIComponent(name)}` +
+                     `&email=${encodeURIComponent(email)}`;
+
+  Cal("ui", {
+    theme:              "light",
+    layout:             "month_view",
+    hideEventTypeDetails: false,
+    url:                calBookUrl,
+    redirectUrl:        ourRedirect
   });
+});
+
 
 
 // ------------------------------
