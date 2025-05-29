@@ -32,20 +32,23 @@ collections:
 
   - name: "team"
     label: "Team"
-    file: "content/team.json"
-    format: "json"
-    extension: "json"
-    fields:
-      - { label: "Name", name: "name", widget: "string" }
-      - { label: "Title", name: "title", widget: "string" }
-      - { label: "Bio", name: "bio", widget: "text" }
-      - label: "Photos"
-        name: "photos"
-        widget: "list"
-        field:
-          label: "Photo URL"
-          name: "photo"
-          widget: "image"
+    files:
+      - label: "Team Page"
+        name: "team"
+        file: "content/team.json"
+        format: "json"
+        fields:
+          - { label: "Name", name: "name", widget: "string" }
+          - { label: "Title", name: "title", widget: "string" }
+          - { label: "Bio", name: "bio", widget: "text" }
+          - label: "Photos"
+            name: "photos"
+            widget: "list"
+            field:
+              label: "Photo"
+              name: "photo"
+              widget: "image"
+
 
 
               
