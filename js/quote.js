@@ -208,14 +208,20 @@ document.addEventListener("DOMContentLoaded", () => {
   const slider = document.getElementById("timeline");
   const output = document.getElementById("timeline-label");
 
-  if (slider && output) {
-    const updateLabel = () => {
-      output.textContent = slider.value + " weeks";
-    };
-    updateLabel();
-    slider.addEventListener("input", updateLabel);
-  }
+  if (!slider || !output) return;
+
+  const updateLabel = () => {
+    const weeks = parseInt(slider.value, 10);
+    const unit  = weeks === 1 ? "week" : "weeks";
+    output.textContent = `${weeks} ${unit}`;
+  };
+
+  // initialize on load
+  updateLabel();
+  // update on input/drag
+  slider.addEventListener("input", updateLabel);
 });
+
 
 // ------------------------------
 // PRICING CALCULATION
