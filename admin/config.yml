@@ -39,7 +39,7 @@ collections:
       format: "json"
       fields:
         - { label: "Page Title", name: "pageTitle", widget: "string" }
-        - { label: "Name", name: "name", widget: "string" }
+        - { label: "Founder Section Title", name: "sectionTitle", widget: "string"}
         - { label: "Bio", name: "bio", widget: "text" }
         - label: "Photos"
           name: "photos"
