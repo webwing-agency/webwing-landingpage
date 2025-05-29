@@ -10,15 +10,16 @@ collections:
     label: "Projects"
     label_singular: "Project"
     folder: "content"
-    create: false
+    create: true
     files:
       - file: "content/work.json"
-        label: "Work Page Projects"
         name: "work"
+        label: "Work Page Projects"
         fields:
           - label: "Projects"
             name: "projects"
             widget: list
+            collapsed: true
             fields:
               - { label: "Title", name: "title", widget: "string" }
               - { label: "Description", name: "description", widget: "text" }
