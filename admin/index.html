@@ -4,14 +4,9 @@
     <meta charset="UTF-8" />
     <title>Content Manager</title>
     <link href="/admin/config.yml" type="text/yaml" rel="cms-config-url">
-    <script defer src="https://unpkg.com/decap-cms@^3.0.0/dist/decap-cms.js"></script>
     <link rel="icon" href="/assets/icons/favicon-cms.png" type="image/png" />
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700&family=Roboto:wght@400;500&display=swap" rel="stylesheet">
     <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
-    </head>
-  <body>
-    <div id="nc-root"></div>
-
     <script>
         if (window.netlifyIdentity) {
           window.netlifyIdentity.on("init", user => {
@@ -23,6 +18,13 @@
           window.netlifyIdentity.init();
         }
       </script>
+    <script defer src="https://unpkg.com/decap-cms@^3.0.0/dist/decap-cms.js"></script>
+
+    </head>
+  <body>
+    <div id="nc-root"></div>
+
+
       
   </body>
 </html>
