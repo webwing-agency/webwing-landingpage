@@ -25,7 +25,6 @@ collections:
           - { name: "projectsSection", label: "Projects", widget: "object", fields: [...] }
           - { name: "ctaSection", label: "CTA", widget: "object", fields: [...] }
 
-collections:
   - name: "work"
     label: "Work"
     label_singular: "Project"
