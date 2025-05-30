@@ -225,7 +225,7 @@
             setAttr("meta[name='description']", 'content', data.meta?.description);
       
             // Hero section
-            setText('.hero-section-title span', data.hero.headline);
+            document.querySelector('.hero-section-title span').innerHTML = data.hero.headline;
             setText('.hero-subtitle p',        data.hero.subtitle);
             if (data.hero.video) {
               const source = document.querySelector('.background-video source');
