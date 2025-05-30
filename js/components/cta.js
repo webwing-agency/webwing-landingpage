@@ -61,6 +61,10 @@
                 cta.innerHTML = largeCtaHTML;
                 cta.style.visibility = "visible";
             });
+
+            document.querySelectorAll(".secondary-cta").forEach(cta => {
+                cta.style.visibility = "visible";
+            });
     
             // Hover animations
             const largeCta = document.querySelector(".large-cta");
