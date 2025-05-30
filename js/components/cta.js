@@ -1,4 +1,19 @@
-document.addEventListener("DOMContentLoaded", () => {
+    
+    function addCtaStylesheet() {
+        return new Promise((resolve) => {
+            if (document.querySelector('link[href="css/components/cta.css"]')) {
+                resolve(); // already present
+                return;
+            }
+            const link = document.createElement('link');
+            link.rel = 'stylesheet';
+            link.href = 'css/components/cta.css';
+            link.onload = () => resolve(); // only reveal once loaded
+            document.head.appendChild(link);
+        });
+    }
+    
+    document.addEventListener("DOMContentLoaded", () => {
     const standardCtaHTML = `
         <div class="main-cta-gradient"></div>
         <a href="get-a-quote.html" class="main-cta-link">
@@ -30,38 +45,36 @@ document.addEventListener("DOMContentLoaded", () => {
             </div>
         </span>
     `;
-
-    document.querySelectorAll(".standard-cta").forEach(cta => {
-        cta.innerHTML = standardCtaHTML;
+    
+        addCtaStylesheet().then(() => {
+            document.querySelectorAll(".standard-cta").forEach(cta => {
+                cta.innerHTML = standardCtaHTML;
+                cta.style.visibility = "visible";
+            });
+    
+            document.querySelectorAll(".standard-cta-contact").forEach(cta => {
+                cta.innerHTML = standardCtaHTML_contact;
+                cta.style.visibility = "visible";
+            });
+    
+            document.querySelectorAll(".large-cta").forEach(cta => {
+                cta.innerHTML = largeCtaHTML;
+                cta.style.visibility = "visible";
+            });
+    
+            // Hover animations
+            const largeCta = document.querySelector(".large-cta");
+            const bgOrb = document.querySelector(".background-orb");
+    
+            if (largeCta && bgOrb) {
+                largeCta.addEventListener("mouseenter", () => {
+                    gsap.to(bgOrb, {opacity: 0, duration: 0.3, ease: "ease.inOuts"});
+                });
+    
+                largeCta.addEventListener("mouseleave", () => {
+                    gsap.to(bgOrb, {opacity: 1, duration: 0.3, ease: "ease.inOuts"});
+                });
+            }
+        });
     });
-
-    document.querySelectorAll(".standard-cta-contact").forEach(cta => {
-        cta.innerHTML = standardCtaHTML_contact;
-    });
-
-    document.querySelectorAll(".large-cta").forEach(cta => {
-        cta.innerHTML = largeCtaHTML;
-    });
-
-    function addCtaStylesheet() {
-        if (!document.querySelector('link[href="css/components/cta.css"]')) {
-            const link = document.createElement('link');
-            link.rel = 'stylesheet';
-            link.href = 'css/components/cta.css';
-            document.head.appendChild(link);
-        }
-    }
-
-    addCtaStylesheet();
-
-    const largeCta = document.querySelector(".large-cta")
-    const bgOrb = document.querySelector(".background-orb")
-
-    largeCta.addEventListener("mouseenter", () => {
-        gsap.to(bgOrb, {opacity : 0, duration: 0.3, ease : "ease.inOuts"})
-    })
-
-    largeCta.addEventListener("mouseleave", () => {
-        gsap.to(bgOrb, {opacity : 1, duration: 0.3, ease : "ease.inOuts"})
-    })
-});
+    
