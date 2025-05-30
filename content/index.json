@@ -1,0 +1,75 @@
+{
+    "title": "Cutting-Edge Aviation Tailored Webdesign Studio",
+    "meta": {
+      "description": "We design sleek, high-performance websites for the aviation and aerospace industry. By blending modern design with speed and precision, we create exceptional customer experiences and generate high quality validated leads through strategic funnel builds & optimization."
+    },
+    "hero": {
+      "headline": "Cutting-Edge\nAviation Tailored\nWebdesign Studio",
+      "subtitle": "We design sleek, high-performance websites for the aviation and aerospace industry. By blending modern design with speed and precision, we create exceptional customer experiences and generate high quality validated leads through strategic funnel builds & optimization.",
+      "video": "assets/hero-bg.webm"
+    },
+    "videoSection": {
+      "mainVideo": "assets/video/main-video.mp4",
+      "verticalVideo": "assets/video/main-video-verical.mp4"
+    },
+    "offerSection": {
+      "title": "What we have to offer",
+      "offers": [
+        {
+          "title": "Comprehensive\nConsultation",
+          "description": "Together with your team, we’ll assess your company’s goals and challenges in the digital space, providing actionable steps and strategies to help your business excel online and stay ahead in today’s competitive market.",
+          "icon": ""
+        },
+        {
+          "title": "Strategic\nDesign",
+          "description": "Leveraging deep UI/UX expertise and creative precision, we develop a design prototype that aligns with your brand’s identity. You’ll have ongoing input to refine every detail and ensure the final outcome exceeds expectations.",
+          "icon": ""
+        },
+        {
+          "title": "Powerful\nBuild",
+          "description": "Using our extensive Web Architecure Expertise, we deliver high‑performance builds that are both SEO optimized and have both a CMS as well as Visitor Analytics integrated which your team can then access easily.",
+          "icon": ""
+        },
+        {
+          "title": "Seamless\nLaunch",
+          "description": "We seamlessly handle everything from domain launch to full CMS access, delivering a conversion‑focused site that boosts credibility, increases value, and turns visitors into customers.",
+          "icon": ""
+        }
+      ]
+    },
+    "projectsSection": {
+      "title": "Recently realised projects",
+      "projects": [
+        {
+          "title": "Stratos Air Charter",
+          "description": "Offers fast, transparent private jet charters through a sleek, mobile-first, SEO-optimized website. Intuitive booking, modern design and white-glove professionalism ensure a seamless, high-end experience and sales-driving - designed and built by us",
+          "url": "https://stratos-air-charter.netlify.app",
+          "image": "assets/projects/project-1.jpg",
+          "preview": "assets/projects/project-1.gif",
+          "caseStudy": ""
+        },
+        {
+          "title": "(coming soon)",
+          "description": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Facere aperiam eaque debitis officia unde tenetur expedita quasi ducimus sequi ullam in consequatur pariatur quibusdam minus, iste deserunt ipsum sunt nihil.",
+          "url": "",
+          "image": "assets/projects/project-1.jpg",
+          "preview": "assets/projects/project-1.gif",
+          "caseStudy": ""
+        },
+        {
+          "title": "(coming soon)",
+          "description": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Mollitia, reiciendis tempora nisi cumque expedita illo consequuntur sed recusandae sapiente aspernatur officia accusamus dolorem pariatur iste dolorum. Laudantium, in porro? Alias?",
+          "url": "",
+          "image": "assets/projects/project-3.jpg",
+          "preview": "assets/projects/project-coming-soon.gif",
+          "caseStudy": ""
+        }
+      ]
+    },
+    "ctaSection": {
+      "title": "Ready for Your Custom Quote?",
+      "subtitle": "Use our comprehensive price calculator to get a tailored Webdesign offer for you.",
+      "link": "get-a-quote.html?step=1"
+    }
+  }
+  

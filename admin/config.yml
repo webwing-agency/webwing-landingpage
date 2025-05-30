@@ -9,8 +9,25 @@ media_folder: "assets"
 public_folder: "assets"
 
 collections:
+  - name: "home"
+    label: "Home"
+    files:
+      - name: "home"
+        label: "Homepage"
+        file: "content/index.json"
+        format: "json"
+        fields:
+          - { name: "title", label: "Page Title", widget: "string" }
+          - { name: "meta", label: "Meta", widget: "object", fields: [{name: "description", label: "Meta Description", widget: "text"}] }
+          - { name: "hero", label: "Hero Section", widget: "object", fields: [...] }
+          - { name: "videoSection", label: "Videos", widget: "object", fields: [...] }
+          - { name: "offerSection", label: "What We Offer", widget: "object", fields: [...] }
+          - { name: "projectsSection", label: "Projects", widget: "object", fields: [...] }
+          - { name: "ctaSection", label: "CTA", widget: "object", fields: [...] }
+
+collections:
   - name: "work"
-    label: "Projects"
+    label: "Work"
     label_singular: "Project"
     files:
       - label: "Work Page"
