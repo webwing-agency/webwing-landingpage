@@ -4,7 +4,7 @@
       "description": "We design sleek, high-performance websites for the aviation and aerospace industry. By blending modern design with speed and precision, we create exceptional customer experiences and generate high quality validated leads through strategic funnel builds & optimization."
     },
     "hero": {
-      "headline": "Cutting-Edge\nAviation Tailored\nWebdesign Studio",
+      "headline": "Cutting-Edge<br> Aviation Tailored<br>Webdesign Studio",
       "subtitle": "We design sleek, high-performance websites for the aviation and aerospace industry. By blending modern design with speed and precision, we create exceptional customer experiences and generate high quality validated leads through strategic funnel builds & optimization.",
       "video": "assets/hero-bg.webm"
     },
@@ -16,22 +16,22 @@
       "title": "What we have to offer",
       "offers": [
         {
-          "title": "Comprehensive\nConsultation",
+          "title": "Comprehensive<br>Consultation",
           "description": "Together with your team, we’ll assess your company’s goals and challenges in the digital space, providing actionable steps and strategies to help your business excel online and stay ahead in today’s competitive market.",
           "icon": ""
         },
         {
-          "title": "Strategic\nDesign",
+          "title": "Strategic<br>Design",
           "description": "Leveraging deep UI/UX expertise and creative precision, we develop a design prototype that aligns with your brand’s identity. You’ll have ongoing input to refine every detail and ensure the final outcome exceeds expectations.",
           "icon": ""
         },
         {
-          "title": "Powerful\nBuild",
+          "title": "Powerful<br>Build",
           "description": "Using our extensive Web Architecure Expertise, we deliver high‑performance builds that are both SEO optimized and have both a CMS as well as Visitor Analytics integrated which your team can then access easily.",
           "icon": ""
         },
         {
-          "title": "Seamless\nLaunch",
+          "title": "Seamless<br>Launch",
           "description": "We seamlessly handle everything from domain launch to full CMS access, delivering a conversion‑focused site that boosts credibility, increases value, and turns visitors into customers.",
           "icon": ""
         }
