@@ -1,6 +1,8 @@
 backend:
   name: git-gateway
   branch: main
+  identity_url: https://www.webwing.agency/.netlify/identity
+  gateway_url:   https://www.webwing.agency/.netlify/git
 
 media_folder: "assets"
 public_folder: "assets"
