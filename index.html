@@ -199,110 +199,101 @@
     <footer class="footer" id="standard-footer"></footer>
 
     <script>
-                
-        // 1) Define loadContent as a named async function:
+        // --- Helpers --------------------------------------------------
+        function setText(selector, text) {
+          const el = document.querySelector(selector);
+          if (el && text != null) el.textContent = text;
+        }
+      
+        function setAttr(selector, attr, value) {
+          const el = document.querySelector(selector);
+          if (el && value != null) el[attr] = value;
+        }
+      
+        // --- Main loader ---------------------------------------------
         async function loadContent() {
-            try {
-            console.log('🔍 Fetching JSON…');
+          try {
+            console.log('🔍 Fetching /content/index.json…');
             const res = await fetch('/content/index.json');
             console.log('➡ Fetch response:', res);
             if (!res.ok) throw new Error(`HTTP ${res.status}: ${res.statusText}`);
             const data = await res.json();
             console.log('✅ JSON parsed', data);
-
-            // Helper to guard against missing elements
-            function setText(selector, text) {
-                const el = document.querySelector(selector);
-                if (el && text != null) el.textContent = text;
-            }
-            function setAttr(selector, attr, value) {
-                const el = document.querySelector(selector);
-                if (el && value != null) el[attr] = value;
-            }
-
-            // Page title & meta
+      
+            // Page <title> & meta description
             document.title = data.title || '';
             setAttr("meta[name='description']", 'content', data.meta?.description);
-
-            // Hero
-            setText('.hero-section-title span', data.hero.heading);
-            setText('.hero-subtitle p', data.hero.subheading);
-            if (data.hero.backgroundVideo) {
-                const videoEl = document.querySelector('.background-video source');
-                if (videoEl) {
-                videoEl.src = data.hero.backgroundVideo;
-                videoEl.parentNode.load();
-                }
+      
+            // Hero section
+            setText('.hero-section-title span', data.hero.headline);
+            setText('.hero-subtitle p',        data.hero.subtitle);
+            if (data.hero.video) {
+              const source = document.querySelector('.background-video source');
+              if (source) {
+                source.src = data.hero.video;
+                source.parentNode.load();
+              }
             }
-            setText('.main-cta', data.hero.ctaText);
-            setAttr('.main-cta', 'href', data.hero.ctaLink);
-
-            // Video Section (first two items)
-            (data.videoSection.videos || []).slice(0, 2).forEach((v, i) => {
-                const el = document.querySelectorAll('.video-section .main-video')[i];
-                if (el && v.url) el.src = v.url;
-            });
-
-            // Offer Section
-            setText('.offer-section-title', data.offerSection.sectionTitle);
+      
+            // Video section
+            setAttr('.video-section .main-video',     'src', data.videoSection.mainVideo);
+            setAttr('.video-section .vertical-video', 'src', data.videoSection.verticalVideo);
+      
+            // Offer section
+            setText('.offer-section-title', data.offerSection.title);
             const offerWrap = document.querySelector('.offer-section .card-wrapper');
             if (offerWrap) {
-                offerWrap.innerHTML = (data.offerSection.offers || [])
+              offerWrap.innerHTML = (data.offerSection.offers || [])
                 .map(o => `
-                    <div class="card">
+                  <div class="card">
                     <div class="card-content">
-                        <img src="${o.icon}" class="card-icon" alt="">
-                        <h2 class="card-title">${o.title}</h2>
-                        <p class="card-subtitle">${o.description}</p>
+                      <img src="${o.icon}" class="card-icon" alt="">
+                      <h2 class="card-title">${o.title}</h2>
+                      <p class="card-subtitle">${o.description}</p>
                     </div>
-                    </div>
+                  </div>
                 `).join('');
             }
-
-            // Projects Section
-            setText('.projects-section-title', data.projectsSection.sectionTitle);
+      
+            // Projects section
+            setText('.projects-section-title', data.projectsSection.title);
             const projWrap = document.querySelector('.projects-section .card-wrapper');
             if (projWrap) {
-                projWrap.innerHTML = (data.projectsSection.projects || [])
+              projWrap.innerHTML = (data.projectsSection.projects || [])
                 .map(p => `
-                    <div class="card project-card">
+                  <div class="card project-card">
                     <div class="card-content">
-                        <h2 class="card-title">${p.title}</h2>
-                        <p class="card-subtitle">${p.subtitle}</p>
-                        <div class="project-button-wrapper">
-                        <a href="${p.url}" target="_blank" rel="noopener" class="secondary-cta white">Visit Website</a>
+                      <h2 class="card-title">${p.title}</h2>
+                      <p class="card-subtitle">${p.subtitle}</p>
+                      <div class="project-button-wrapper">
+                        <a href="${p.url}"       target="_blank" rel="noopener" class="secondary-cta white">Visit Website</a>
                         <a href="${p.caseStudy}" target="_blank" rel="noopener" class="secondary-cta">Case Study</a>
-                        </div>
-                        <img src="${p.screenshot}" class="project-img" loading="lazy" />
-                        <img src="${p.previewGif}" class="project-preview-gif" loading="lazy" />
+                      </div>
+                      <img src="${p.screenshot}"      class="project-img"           loading="lazy" />
+                      <img src="${p.previewGif}"       class="project-preview-gif"   loading="lazy" />
                     </div>
-                    </div>
+                  </div>
                 `).join('');
             }
-
-            // CTA Section
-            setText('.cta-title', data.ctaSection.heading);
-            setText('.cta-subtitle', data.ctaSection.subheading);
-            const quoteBtn = document.querySelector('.quote-button');
-            if (quoteBtn) {
-                quoteBtn.textContent = data.ctaSection.buttonText;
-                quoteBtn.href = data.ctaSection.buttonLink;
-            }
-
-            } catch (err) {
+      
+            // CTA section (at bottom)
+            setText('.cta-title',    data.ctaSection.title);
+            setText('.cta-subtitle', data.ctaSection.subtitle);
+            setAttr('.quote-button', 'href', data.ctaSection.link);
+      
+          } catch (err) {
             console.error('CMS load error:', err);
-            // Optional UI fallback:
-            // document.body.insertAdjacentHTML('afterbegin','<p class="error">Failed to load content.</p>');
-            }
+            // you could also insert a fallback UI here if desired
+          }
         }
-
-        // 2) Kick it off after DOM is ready:
+      
+        // --- Initialize on DOM ready ---------------------------------
         document.addEventListener('DOMContentLoaded', () => {
-            console.log('▶ DOM ready, starting loadContent');
-            loadContent();
+          console.log('▶ DOM ready, starting loadContent');
+          loadContent();
         });
-
       </script>
+      
     
 
     <script defer src="https://cdn.jsdelivr.net/npm/@barba/core"></script>
