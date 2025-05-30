@@ -198,6 +198,88 @@
 
     <footer class="footer" id="standard-footer"></footer>
 
+    <script>
+        document.addEventListener('DOMContentLoaded', async () => {
+          try {
+            const res = await fetch('/content/index.json');
+            if (!res.ok) throw new Error(res.statusText);
+            const data = await res.json();
+    
+            // Page title & meta
+            document.title = data.title || '';
+            document.querySelector('meta[name="description"]').content = data.meta?.description || '';
+    
+            // Hero
+            document.querySelector('.hero-section-title span').textContent = data.hero.heading || '';
+            document.querySelector('.hero-subtitle p').textContent = data.hero.subheading || '';
+            const bgSrc = data.hero.backgroundVideo;
+            if (bgSrc) {
+              const videoSrc = document.querySelector('.background-video source');
+              videoSrc.src = bgSrc;
+              videoSrc.parentNode.load();
+            }
+            const mainCta = document.querySelector('.main-cta');
+            mainCta.textContent = data.hero.ctaText || '';
+            mainCta.href = data.hero.ctaLink || '#';
+    
+            // Video Section (first two items)
+            const vids = data.videoSection.videos || [];
+            document.querySelectorAll('.video-section .main-video')
+              .forEach((el,i) => { if (vids[i]) el.src = vids[i].url; });
+    
+            // Offer Section
+            const offerWrap = document.querySelector('.offer-section .card-wrapper');
+            offerWrap.innerHTML = '';
+            document.querySelector('.offer-section-title')
+              .textContent = data.offerSection.sectionTitle || '';
+            (data.offerSection.offers || []).forEach(o => {
+              const card = document.createElement('div'); card.className = 'card';
+              card.innerHTML = `
+                <div class="card-content">
+                  <img src="${o.icon}" alt="" class="card-icon" />
+                  <h2 class="card-title">${o.title}</h2>
+                  <p class="card-subtitle">${o.description}</p>
+                </div>`;
+              offerWrap.appendChild(card);
+            });
+    
+            // Projects Section
+            const projWrap = document.querySelector('.projects-section .card-wrapper');
+            projWrap.innerHTML = '';
+            document.querySelector('.projects-section-title')
+              .textContent = data.projectsSection.sectionTitle || '';
+            (data.projectsSection.projects || []).forEach(p => {
+              const card = document.createElement('div'); card.className = 'card project-card';
+              card.innerHTML = `
+                <div class="card-content">
+                  <h2 class="card-title">${p.title}</h2>
+                  <p class="card-subtitle">${p.subtitle}</p>
+                  <div class="project-button-wrapper">
+                    <a href="${p.url}" target="_blank" rel="noopener" class="secondary-cta white">Visit Website</a>
+                    <a href="${p.caseStudy}" target="_blank" rel="noopener" class="secondary-cta">Case Study</a>
+                  </div>
+                  <img src="${p.screenshot}" class="project-img" loading="lazy" />
+                  <img src="${p.previewGif}" class="project-preview-gif" loading="lazy" />
+                </div>`;
+              projWrap.appendChild(card);
+            });
+    
+            // CTA Section
+            document.querySelector('.cta-title')
+              .textContent = data.ctaSection.heading || '';
+            document.querySelector('.cta-subtitle')
+              .textContent = data.ctaSection.subheading || '';
+            const quoteBtn = document.querySelector('.quote-button');
+            quoteBtn.textContent = data.ctaSection.buttonText || '';
+            quoteBtn.href = data.ctaSection.buttonLink || '#';
+    
+          } catch (err) {
+            console.error('CMS load error:', err);
+          }
+        });
+      </script>
+    
+
     <script defer src="https://cdn.jsdelivr.net/npm/@barba/core"></script>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.7/gsap.min.js"></script>
