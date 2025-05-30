@@ -199,65 +199,72 @@
     <footer class="footer" id="standard-footer"></footer>
 
     <script>
-       (async function loadContent() {
+                
+        // 1) Define loadContent as a named async function:
+        async function loadContent() {
             try {
-                const res = await fetch('/content/index.json');
-                if (!res.ok) throw new Error(`Failed to fetch index.json: ${res.status} ${res.statusText}`);
-                const data = await res.json();
+            console.log('🔍 Fetching JSON…');
+            const res = await fetch('/content/index.json');
+            console.log('➡ Fetch response:', res);
+            if (!res.ok) throw new Error(`HTTP ${res.status}: ${res.statusText}`);
+            const data = await res.json();
+            console.log('✅ JSON parsed', data);
 
-                // Helper to guard against missing elements
-                function setText(selector, text) {
+            // Helper to guard against missing elements
+            function setText(selector, text) {
                 const el = document.querySelector(selector);
                 if (el && text != null) el.textContent = text;
-                }
-                function setAttr(selector, attr, value) {
+            }
+            function setAttr(selector, attr, value) {
                 const el = document.querySelector(selector);
                 if (el && value != null) el[attr] = value;
-                }
+            }
 
-                // Page title & meta
-                document.title = data.title || '';
-                setAttr("meta[name='description']", 'content', data.meta?.description || '');
+            // Page title & meta
+            document.title = data.title || '';
+            setAttr("meta[name='description']", 'content', data.meta?.description);
 
-                // Hero
-                setText('.hero-section-title span', data.hero.heading);
-                setText('.hero-subtitle p', data.hero.subheading);
-                if (data.hero.backgroundVideo) {
+            // Hero
+            setText('.hero-section-title span', data.hero.heading);
+            setText('.hero-subtitle p', data.hero.subheading);
+            if (data.hero.backgroundVideo) {
                 const videoEl = document.querySelector('.background-video source');
                 if (videoEl) {
-                    videoEl.src = data.hero.backgroundVideo;
-                    videoEl.parentNode.load();
+                videoEl.src = data.hero.backgroundVideo;
+                videoEl.parentNode.load();
                 }
-                }
-                setText('.main-cta', data.hero.ctaText);
-                setAttr('.main-cta', 'href', data.hero.ctaLink);
+            }
+            setText('.main-cta', data.hero.ctaText);
+            setAttr('.main-cta', 'href', data.hero.ctaLink);
 
-                // Video Section (first two items)
-                (data.videoSection.videos || []).slice(0,2).forEach((v, i) => {
+            // Video Section (first two items)
+            (data.videoSection.videos || []).slice(0, 2).forEach((v, i) => {
                 const el = document.querySelectorAll('.video-section .main-video')[i];
                 if (el && v.url) el.src = v.url;
-                });
+            });
 
-                // Offer Section
-                const offerWrap = document.querySelector('.offer-section .card-wrapper');
-                setText('.offer-section-title', data.offerSection.sectionTitle);
-                if (offerWrap) {
-                offerWrap.innerHTML = (data.offerSection.offers || []).map(o => `
+            // Offer Section
+            setText('.offer-section-title', data.offerSection.sectionTitle);
+            const offerWrap = document.querySelector('.offer-section .card-wrapper');
+            if (offerWrap) {
+                offerWrap.innerHTML = (data.offerSection.offers || [])
+                .map(o => `
                     <div class="card">
                     <div class="card-content">
-                        <img src="${o.icon}" alt="" class="card-icon" />
+                        <img src="${o.icon}" class="card-icon" alt="">
                         <h2 class="card-title">${o.title}</h2>
                         <p class="card-subtitle">${o.description}</p>
                     </div>
                     </div>
                 `).join('');
-                }
+            }
 
-                // Projects Section
-                const projWrap = document.querySelector('.projects-section .card-wrapper');
-                setText('.projects-section-title', data.projectsSection.sectionTitle);
-                if (projWrap) {
-                projWrap.innerHTML = (data.projectsSection.projects || []).map(p => `
+            // Projects Section
+            setText('.projects-section-title', data.projectsSection.sectionTitle);
+            const projWrap = document.querySelector('.projects-section .card-wrapper');
+            if (projWrap) {
+                projWrap.innerHTML = (data.projectsSection.projects || [])
+                .map(p => `
                     <div class="card project-card">
                     <div class="card-content">
                         <h2 class="card-title">${p.title}</h2>
@@ -271,23 +278,29 @@
                     </div>
                     </div>
                 `).join('');
-                }
+            }
 
-                // CTA Section
-                setText('.cta-title', data.ctaSection.heading);
-                setText('.cta-subtitle', data.ctaSection.subheading);
-                const quoteBtn = document.querySelector('.quote-button');
-                if (quoteBtn) {
-                quoteBtn.textContent = data.ctaSection.buttonText || '';
-                quoteBtn.href = data.ctaSection.buttonLink || '#';
-                }
+            // CTA Section
+            setText('.cta-title', data.ctaSection.heading);
+            setText('.cta-subtitle', data.ctaSection.subheading);
+            const quoteBtn = document.querySelector('.quote-button');
+            if (quoteBtn) {
+                quoteBtn.textContent = data.ctaSection.buttonText;
+                quoteBtn.href = data.ctaSection.buttonLink;
+            }
 
             } catch (err) {
-                console.error('CMS load error:', err);
-                // Optionally show a user‐facing error message here:
-                // document.body.insertAdjacentHTML('afterbegin','<p class="error">Sorry, failed to load content.</p>');
+            console.error('CMS load error:', err);
+            // Optional UI fallback:
+            // document.body.insertAdjacentHTML('afterbegin','<p class="error">Failed to load content.</p>');
             }
-            })();
+        }
+
+        // 2) Kick it off after DOM is ready:
+        document.addEventListener('DOMContentLoaded', () => {
+            console.log('▶ DOM ready, starting loadContent');
+            loadContent();
+        });
 
       </script>
     
