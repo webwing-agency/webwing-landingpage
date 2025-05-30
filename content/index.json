@@ -45,7 +45,9 @@
           "description": "Offers fast, transparent private jet charters through a sleek, mobile-first, SEO-optimized website. Intuitive booking, modern design and white-glove professionalism ensure a seamless, high-end experience and sales-driving - designed and built by us",
           "url": "https://stratos-air-charter.netlify.app",
           "image": "assets/projects/project-1.jpg",
+          "altImg": "Website Preview of our Client Project for Stratos Air Charter",
           "preview": "assets/projects/project-1.gif",
+          "altGif": "Website Preview GIF of our Client Project for Stratos Air Charter scrolling through the content",
           "caseStudy": ""
         },
         {
@@ -53,7 +55,9 @@
           "description": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Facere aperiam eaque debitis officia unde tenetur expedita quasi ducimus sequi ullam in consequatur pariatur quibusdam minus, iste deserunt ipsum sunt nihil.",
           "url": "",
           "image": "assets/projects/project-1.jpg",
+          "altImg": "Website Preview of our Client Project for Stratos Air Charter",
           "preview": "assets/projects/project-1.gif",
+          "altGif": "Website Preview GIF of our Client Project for Stratos Air Charter scrolling through the content",
           "caseStudy": ""
         },
         {
@@ -61,7 +65,9 @@
           "description": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Mollitia, reiciendis tempora nisi cumque expedita illo consequuntur sed recusandae sapiente aspernatur officia accusamus dolorem pariatur iste dolorum. Laudantium, in porro? Alias?",
           "url": "",
           "image": "assets/projects/project-3.jpg",
+          "altImg": "Website Preview of our Client Project for Stratos Air Charter",
           "preview": "assets/projects/project-coming-soon.gif",
+          "altGif": "Website Preview GIF of our Client Project for Stratos Air Charter scrolling through the content",
           "caseStudy": ""
         }
       ]

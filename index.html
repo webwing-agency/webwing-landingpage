@@ -128,8 +128,8 @@
                             <a href="" target="_blank" rel="noopener" class="secondary-cta white">Visit Website</a>
                             <a href="" class="secondary-cta" target="_blank" rel="noopener">Case Study</a>
                         </div>
-                        <img src="" alt="Screenshot of Stratos Air Charter website homepage" class="project-img" loading="lazy" width="600" height="337.5"/>
-                        <img src="" alt="Animated preview of Stratos Air Charter website interaction" class="project-preview-gif"  loading="lazy" width="600" height="319" />
+                        <img src="" class="project-img" loading="lazy" width="600" height="337.5"/>
+                        <img src="" class="project-preview-gif"  loading="lazy" width="600" height="319" />
                     </div>
                 </div>
                 <div class="card project-card">
@@ -142,8 +142,8 @@
                             <a href="" class="secondary-cta white">Visit Website</a>
                             <a href="" class="secondary-cta" target="_blank" rel="noopener">Case Study</a>
                         </div>
-                        <img src="" alt="Screenshot of Stratos Air Charter website homepage" class="project-img" loading="lazy" width="600" height="337.5" />
-                        <img src="" alt="Animated preview of Stratos Air Charter website interaction" class="project-preview-gif"  loading="lazy" width="600" height="337.5" />
+                        <img src="" class="project-img" loading="lazy" width="600" height="337.5" />
+                        <img src="" class="project-preview-gif"  loading="lazy" width="600" height="337.5" />
                         </div>
                 </div>
                 <div class="card project-card">
@@ -156,8 +156,8 @@
                             <a href="" class="secondary-cta white">Visit Website</a>
                             <a href="" class="secondary-cta" target="_blank" rel="noopener">Case Study</a>
                         </div>
-                        <img src="" alt="Placeholder image for upcoming project 3" class="project-img" loading="lazy" width="600" height="337.5"/>
-                        <img src="" alt="Animated coming soon preview for project 3" class="project-preview-gif" loading="lazy" width="600" height="337.5"  />
+                        <img src=""  class="project-img" loading="lazy" width="600" height="337.5"/>
+                        <img src=""  class="project-preview-gif" loading="lazy" width="600" height="337.5"  />
                     </div>
                 </div>
             </div>
@@ -211,12 +211,9 @@
         // --- Main loader ---------------------------------------------
         async function loadContent() {
           try {
-            console.log('🔍 Fetching /content/index.json…');
             const res = await fetch('/content/index.json');
-            console.log('➡ Fetch response:', res);
             if (!res.ok) throw new Error(`HTTP ${res.status}: ${res.statusText}`);
             const data = await res.json();
-            console.log('✅ JSON parsed', data);
       
             // Page <title> & meta description
             document.title = data.title || '';
@@ -267,10 +264,11 @@
                         <a href="${p.url}"       target="_blank" rel="noopener" class="secondary-cta white">Visit Website</a>
                         <a href="${p.caseStudy}" target="_blank" rel="noopener" class="secondary-cta">Case Study</a>
                       </div>
-                      <img src="${p.screenshot}"      class="project-img"           loading="lazy" />
-                      <img src="${p.previewGif}"       class="project-preview-gif"   loading="lazy" />
+                      <img src="${p.image}"   alt="${p.altImg || 'Project image'}"   class="project-img"           loading="lazy" />
+                      <img src="${p.previewGif}"   alt="${p.altGif || 'Project preview'}"    class="project-preview-gif"   loading="lazy" />
                     </div>
                   </div>
+
                 `).join('');
             }
       
@@ -287,12 +285,9 @@
       
         // --- Initialize on DOM ready ---------------------------------
         document.addEventListener('DOMContentLoaded', () => {
-          console.log('▶ DOM ready, starting loadContent');
           loadContent();
         });
       </script>
-      
-    
 
     <script defer src="https://cdn.jsdelivr.net/npm/@barba/core"></script>
     <script src="https://unpkg.com/@barba/head/dist/barba-head.umd.js"></script>
