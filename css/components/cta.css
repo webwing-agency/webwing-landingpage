@@ -1,14 +1,5 @@
 /* MAIN CTA  */
 
-/* onload hide to prevent unstyled flash - show on index load */
-.standard-cta,
-.standard-cta-contact,
-.large-cta,
-.secondary-cta {
-    visibility: hidden;
-}
-
-
 a {
     text-decoration: none;
     white-space: nowrap;

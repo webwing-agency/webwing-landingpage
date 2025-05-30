@@ -68,6 +68,21 @@ html::selection {
     background-color: #a855f7;
   }
   
+/* Prevent Component style-less flickering */
+
+nav#standard-nav {
+  visibility: hidden;
+}
+
+/* onload hide to prevent unstyled flash - show on index load */
+.standard-cta,
+.standard-cta-contact,
+.large-cta,
+.secondary-cta {
+    visibility: hidden;
+}
+
+
 
 /* Cards */
 
