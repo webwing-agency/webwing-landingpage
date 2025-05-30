@@ -1,7 +1,7 @@
 backend:
   name: git-gateway
   branch: main
-  site_url: "https://webwing.agency" 
+  site_url: "https://webwing.agency"
   identity_url: "https://webwing.agency/.netlify/identity"
   gateway_url: "https://webwing.agency/.netlify/git"
 
@@ -18,51 +18,117 @@ collections:
         format: "json"
         fields:
           - { name: "title", label: "Page Title", widget: "string" }
-          - { name: "meta", label: "Meta", widget: "object", fields: [{name: "description", label: "Meta Description", widget: "text"}] }
-          - { name: "hero", label: "Hero Section", widget: "object", fields: [...] }
-          - { name: "videoSection", label: "Videos", widget: "object", fields: [...] }
-          - { name: "offerSection", label: "What We Offer", widget: "object", fields: [...] }
-          - { name: "projectsSection", label: "Projects", widget: "object", fields: [...] }
-          - { name: "ctaSection", label: "CTA", widget: "object", fields: [...] }
+          - 
+            name: "meta"
+            label: "Meta"
+            widget: "object"
+            fields:
+              - { name: "description", label: "Meta Description", widget: "text" }
+          - 
+            name: "hero"
+            label: "Hero Section"
+            widget: "object"
+            fields:
+              - { name: "heading", label: "Hero Heading", widget: "string" }
+              - { name: "subheading", label: "Hero Subheading", widget: "text" }
+              - { name: "backgroundVideo", label: "Background Video URL", widget: "file" }
+              - { name: "ctaText", label: "Primary CTA Text", widget: "string" }
+              - { name: "ctaLink", label: "Primary CTA Link", widget: "string" }
+          - 
+            name: "videoSection"
+            label: "Videos"
+            widget: "object"
+            fields:
+              - 
+                name: "videos"
+                label: "Video List"
+                widget: "list"
+                fields:
+                  - { name: "title", label: "Video Title", widget: "string" }
+                  - { name: "url", label: "Video File URL", widget: "file" }
+                  - { name: "orientation", label: "Orientation (landscape/vertical)", widget: "string" }
+          - 
+            name: "offerSection"
+            label: "What We Offer"
+            widget: "object"
+            fields:
+              - { name: "sectionTitle", label: "Section Title", widget: "string" }
+              - 
+                name: "offers"
+                label: "Offer Items"
+                widget: "list"
+                fields:
+                  - { name: "icon", label: "Icon Path", widget: "image" }
+                  - { name: "title", label: "Offer Title", widget: "string" }
+                  - { name: "description", label: "Offer Description", widget: "text" }
+          - 
+            name: "projectsSection"
+            label: "Projects"
+            widget: "object"
+            fields:
+              - { name: "sectionTitle", label: "Section Title", widget: "string" }
+              - 
+                name: "projects"
+                label: "Featured Projects"
+                widget: "list"
+                fields:
+                  - { name: "title", label: "Project Title", widget: "string" }
+                  - { name: "subtitle", label: "Subtitle", widget: "text" }
+                  - { name: "url", label: "Live URL", widget: "string" }
+                  - { name: "caseStudy", label: "Case Study URL", widget: "string" }
+                  - { name: "screenshot", label: "Screenshot", widget: "image" }
+                  - { name: "previewGif", label: "Preview GIF", widget: "file" }
+          - 
+            name: "ctaSection"
+            label: "CTA"
+            widget: "object"
+            fields:
+              - { name: "heading", label: "CTA Heading", widget: "string" }
+              - { name: "subheading", label: "CTA Subheading", widget: "text" }
+              - { name: "buttonText", label: "Button Text", widget: "string" }
+              - { name: "buttonLink", label: "Button Link", widget: "string" }
 
   - name: "work"
     label: "Work"
     label_singular: "Project"
     files:
-      - label: "Work Page"
-        name: "work"
-        file: "content/work.json"    
+      - name: "work"
+        label: "Work Page"
+        file: "content/work.json"
         fields:
-          - label: "Projects"
+          - 
+            label: "Projects"
             name: "projects"
-            widget: list
+            widget: "list"
             collapsed: true
             fields:
-              - { label: "Title",       name: "title",     widget: "string" }
-              - { label: "Description", name: "description",widget: "text"   }
-              - { label: "Type",        name: "type",      widget: "string" }
-              - { label: "Pages",       name: "pages",     widget: "string" }
-              - { label: "Features",    name: "features",  widget: "string" }
-              - { label: "Tech Stack",  name: "tech",      widget: "string" }
-              - { label: "Timeline",    name: "timeline",  widget: "string" }
-              - { label: "Live Link",   name: "link",      widget: "string" }
-              - { label: "Case Study URL", name: "caseStudy",widget: "string" }
-              - { label: "Test Field",   name: "test",      widget: "string" }
+              - { label: "Title",       name: "title",       widget: "string" }
+              - { label: "Description", name: "description", widget: "text"   }
+              - { label: "Type",        name: "type",        widget: "string" }
+              - { label: "Pages",       name: "pages",       widget: "string" }
+              - { label: "Features",    name: "features",    widget: "string" }
+              - { label: "Tech Stack",  name: "tech",        widget: "string" }
+              - { label: "Timeline",    name: "timeline",    widget: "string" }
+              - { label: "Live Link",   name: "link",        widget: "string" }
+              - { label: "Case Study URL", name: "caseStudy", widget: "string" }
+              - { label: "Test Field",   name: "test",        widget: "string" }
 
   - name: "team"
     label: "Team"
     files:
-    - label: "Team Page"
-      name: "team"
-      file: "content/team.json"
-      format: "json"
-      fields:
-        - { label: "Page Title", name: "pageTitle", widget: "string" }
-        - { label: "Founder Section Title", name: "sectionTitle", widget: "string" }
-        - { label: "Bio", name: "bio", widget: "text" }
-        - label: "Photos"
-          name: "photos"
-          widget: "list"
-          fields:  
-            - { label: "Image", name: "image", widget: "image" }
-
+      - name: "team"
+        label: "Team Page"
+        file: "content/team.json"
+        format: "json"
+        fields:
+          - { label: "Page Title", name: "pageTitle",            widget: "string" }
+          - { label: "Founder Section Title", name: "sectionTitle", widget: "string" }
+          - { label: "Bio", name: "bio", widget: "text" }
+          - 
+            label: "Photos"
+            name: "photos"
+            widget: "list"
+            fields:
+              - { label: "Image", name: "image", widget: "image" }
+              - { label: "Name",  name: "name",  widget: "string" }
+              - { label: "Role",  name: "role",  widget: "string" }
