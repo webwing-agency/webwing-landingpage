@@ -171,6 +171,37 @@ collections:
               - { label: "Name",  name: "name",  widget: "string" }
               - { label: "Role",  name: "role",  widget: "string" }
 
+  - name: "about_us"
+    label: "About Us Page"
+    files:
+      - label: "About Us (single page)"
+        name: "about_us_data"
+        file: "content/about-us.json"
+        fields:
+          - label: "Start Section Title"
+            name: "start_heading"
+            widget: "string"
+            default: "About Us"
+
+          - label: "About Paragraph"
+            name: "about_paragraph"
+            widget: "text"
+            hint: "The main body copy describing your studio"
+
+          - label: "Contact CTA Label"
+            name: "contact_cta_label"
+            widget: "string"
+            default: "Contact Us"
+
+          - label: "Our Team CTA Label"
+            name: "team_cta_label"
+            widget: "string"
+            default: "Our Team"
+
+          - label: "Work Section Heading"
+            name: "work_section_heading"
+            widget: "string"
+            default: "Let's get to work"
 
   - name: "impressum"
     label: "Impressum"

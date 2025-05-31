@@ -28,52 +28,86 @@
         <nav id="standard-nav"></nav>
     </header>
 
-    <main>
-        <section class="start-section">
-            <h1 class="start-section-title">About Us</h1>
-            <object class="background-graphic" data="assets/icons/company.svg" type="image/svg+xml"></object>
-        </section>
+  <main>
+    <section class="start-section">
+      <h1 class="start-section-title" id="cms-start-heading">About Us</h1>
+      <object class="background-graphic" data="assets/icons/company.svg" type="image/svg+xml"></object>
+    </section>
 
-        <section class="about-us-section">
-            <p class="about-us-paragraph left-side">
-                We are a high-performance design studio built for the aviation and aerospace industry. 
-                We specialize in crafting sleek, conversion-optimized websites and brand experiences 
-                that mirror the precision, excellence, and innovation of the clients we serve. 
-                Our partners operate at the highest standards of service, enigineering and safety—and 
-                we reflect that same commitment in every project we touch. Every element, every 
-                interaction, is tailored to elevate credibility, accelerate lead generation, and support
-                 strategic growth. <br><br>With deep industry insight and an obsession with both form and 
-                 function, we collaborate with private aviation firms, OEMs, and forward-thinking 
-                 aerospace startups to deliver design solutions that move as fast as they fly. 
-                 Interested? <br><br> Get a Quote in 3 minutes or contact us for more detail.</p>
+    <section class="about-us-section">
+      <p class="about-us-paragraph left-side" id="cms-about-paragraph">
 
-            <div class="right-side">
-                <div class="large-logo-container">
-                    <object data="assets/logo-large.svg" type="image/svg+xml" class="large-logo"></object>
-                </div>
-                <div class="cta-wrapper">
-                    <a href="contact" class="secondary-cta">Contact Us</a><a href="team" class="secondary-cta">Our Team</a></div>
-            </div>
+      </p>
 
-        </section>
-
-        <section class="standard-section">
-            <h2>Let's get to work</h2>
-            <a href="get-a-quote" class="standard-cta main-cta"></a>
-        </section>
-
-        <div class="bg-wrapper">
-            <div class="circle pink"></div>
-            <div class="circle purple"></div>
+      <div class="right-side">
+        <div class="large-logo-container">
+          <object data="assets/logo-large.svg" type="image/svg+xml" class="large-logo"></object>
         </div>
+        <div class="cta-wrapper">
+          <a href="contact" class="secondary-cta" id="cms-contact-cta">Contact Us</a>
+          <a href="team" class="secondary-cta" id="cms-team-cta">Our Team</a>
+        </div>
+      </div>
+    </section>
 
-    </main>
+    <section class="standard-section">
+      <h2 id="cms-work-heading">Let's get to work</h2>
+      <a href="get-a-quote" class="standard-cta main-cta"></a>
+    </section>
 
-    <footer id="standard-footer">
+    <div class="bg-wrapper">
+      <div class="circle pink"></div>
+      <div class="circle purple"></div>
+    </div>
+  </main>
 
-    </footer>
+  <footer id="standard-footer"></footer>
 
-    <script src="js/about-us.js"></script>
-    <script src="js/gsap/gsap-about-us.js"></script>
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      fetch("/about-us.json")
+        .then((res) => {
+          if (!res.ok) throw new Error(`Failed to fetch about-us.json: ${res.status}`);
+          return res.json();
+        })
+        .then((data) => {
+          // 1. Start‐Section Title
+          const startHeading = document.getElementById("cms-start-heading");
+          if (startHeading && data.start_heading) {
+            startHeading.textContent = data.start_heading;
+          }
 
+          // 2. About Paragraph (allowing line breaks)
+          const aboutPara = document.getElementById("cms-about-paragraph");
+          if (aboutPara && data.about_paragraph) {
+            // Split on double‐newlines to create <br><br> for paragraphs
+            aboutPara.innerHTML = data
+              .about_paragraph
+              .split("\n\n")
+              .map((line) => `<p>${line}</p>`)
+              .join("");
+          }
+
+          // 3a. Contact CTA Label
+          const contactCta = document.getElementById("cms-contact-cta");
+          if (contactCta && data.contact_cta_label) {
+            contactCta.textContent = data.contact_cta_label;
+          }
+
+          // 3b. Our Team CTA Label
+          const teamCta = document.getElementById("cms-team-cta");
+          if (teamCta && data.team_cta_label) {
+            teamCta.textContent = data.team_cta_label;
+          }
+
+          // 4. “Let’s get to work” heading
+          const workHeading = document.getElementById("cms-work-heading");
+          if (workHeading && data.work_section_heading) {
+            workHeading.textContent = data.work_section_heading;
+          }
+        })
+        .catch((err) => console.error("Error loading about-us.json:", err));
+    });
+  </script>
 </body>
+</html>
