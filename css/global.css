@@ -24,13 +24,6 @@ main {
     overflow: hidden;
 }
 
-.hidden {
-  display: none;
-}
-
-.step { display: none; }
-.step.active { display: block; }
-.hidden { display: none !important; }
 
 section {
     width: 100vw;

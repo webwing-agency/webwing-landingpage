@@ -7,6 +7,10 @@
   justify-content: center;
 }
 
+.step { display: none; }
+.step.active { display: flex; }
+.hidden { display: none !important; }
+
 /* Wrapper and layout */
 .quote-wrapper {
   background-color: rgba(255, 255, 255, 0.1);
@@ -325,6 +329,7 @@ input[type="text"], input[type="email"], input[type="url"] {
   font-size: calc(10px + 0.390625vw);
   
 }
+
 
 
 /* MOBILE */
