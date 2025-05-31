@@ -95,7 +95,7 @@ collections:
         name: "services"
         file: "content/services.json"   
         fields:
-          - { label: "Background Video",   name: "bg_video", widget: "string", default: "assets/bg/service-bg.mp4" }
+          - { label: "Background Video",   name: "bg_video", widget: "object", default: "assets/bg/service-bg.mp4" }
 
           - label: "Services"
             name: "services"
