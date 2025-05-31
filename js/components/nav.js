@@ -1,31 +1,22 @@
-
+(function initNav() {
   const nav = document.querySelector("nav#standard-nav");
   if (!nav) return;
 
   // 1. Load the nav stylesheet (once)
   function addNavStylesheet() {
     return new Promise(resolve => {
-      // If already present, resolve immediately
       const existing = document.querySelector('link[href="css/components/nav.css"]');
-      if (existing) {
-        // If it’s already loaded, the browser may have fired onload;
-        // best effort: resolve on next tick.
-        return setTimeout(resolve, 0);
-      }
-
-      // Otherwise, inject and wait for it
+      if (existing) return setTimeout(resolve, 0);
       const link = document.createElement("link");
       link.rel = "stylesheet";
       link.href = "css/components/nav.css";
       link.onload = () => resolve();
-      // Optionally: link.onerror = () => resolve(); // fail-safe
       document.head.appendChild(link);
     });
   }
 
   // 2. Once CSS is ready, inject HTML, run animations, and reveal
   addNavStylesheet().then(() => {
-    // — Inject nav markup
     nav.innerHTML = `
       <img class="nav-logo compact-logo" src="assets/compact-logo-white.svg" alt="Webwing Logo" width="50" height="50">
       <div class="menu-wrapper">
@@ -57,28 +48,24 @@
       <div class="gradient-blur-mask"></div>
     `;
 
-    // — Reveal the nav
     nav.style.visibility = "visible";
 
-    // — Letter animation
-    (function runLetterAnimation() {
-      document.querySelectorAll(".link_animated").forEach(link => {
-        const text = link.textContent.trim();
-        link.innerHTML = ""; 
-        const block = document.createElement("div");
-        block.classList.add("block");
-        for (let char of text) {
-          const span = document.createElement("span");
-          span.textContent = char === " " ? "\xa0" : char;
-          span.classList.add("letter");
-          block.appendChild(span);
-        }
-        link.append(block, block.cloneNode(true));
-        link.addEventListener("mouseover", () => link.classList.remove("play"));
-      });
-    })();
+    // Letter animation
+    document.querySelectorAll(".link_animated").forEach(link => {
+      const text = link.textContent.trim();
+      link.innerHTML = "";
+      const block = document.createElement("div");
+      block.classList.add("block");
+      for (let char of text) {
+        const span = document.createElement("span");
+        span.textContent = char === " " ? "\xa0" : char;
+        span.classList.add("letter");
+        block.appendChild(span);
+      }
+      link.append(block, block.cloneNode(true));
+      link.addEventListener("mouseover", () => link.classList.remove("play"));
+    });
 
-    // — Hamburger/menu logic (unchanged)
     const hamburger = document.querySelector(".hamburger-menu");
     const popupMenu = document.querySelector(".popup-menu");
     const popupCards = document.querySelectorAll(".popup-menu-card");
@@ -89,8 +76,9 @@
     hamburger.addEventListener("click", () => {
       isOpen = !isOpen;
       if (isOpen) {
-        overlay.style.display = "flex"; overlay.style.opacity = 0;
-        gsap.to(overlay, { opacity: 1, duration: 0.4, ease: "power1.out" });
+        overlay.style.display = "flex";
+        overlay.style.opacity = 0;
+        gsap.to(overlay, { opacity: 1, duration: 0.4 });
         popupMenu.style.display = "flex";
         gsap.fromTo(popupCards[0], { opacity: 0, y: 20, scale: 0.95 },
                                  { opacity: 1, y: 0, scale: 1, rotate: -5, duration: 0.5 });
@@ -100,7 +88,8 @@
         gsap.to(bars[1], { opacity: 0, duration: 0.2 });
         gsap.to(bars[2], { rotate: -45, y: -8.5, duration: 0.3 });
       } else {
-        gsap.to(popupCards, { opacity: 0, y: 20, scale: 0.95, duration: 0.3, stagger: 0.05,
+        gsap.to(popupCards, {
+          opacity: 0, y: 20, scale: 0.95, duration: 0.3, stagger: 0.05,
           onComplete: () => popupMenu.style.display = "none"
         });
         gsap.to(overlay, { opacity: 0, duration: 0.3, onComplete: () => overlay.style.display = "none" });
@@ -112,7 +101,8 @@
 
     popupMenu.addEventListener("mouseleave", () => {
       if (!isOpen) return;
-      gsap.to(popupCards, { opacity: 0, y: 20, scale: 0.95, duration: 0.3, stagger: 0.2,
+      gsap.to(popupCards, {
+        opacity: 0, y: 20, scale: 0.95, duration: 0.3, stagger: 0.2,
         onComplete: () => { popupMenu.style.display = "none"; isOpen = false; }
       });
       gsap.to(overlay, { opacity: 0, duration: 0.3, onComplete: () => overlay.style.display = "none" });
@@ -121,11 +111,9 @@
       gsap.to(bars[2], { rotate: 0, y: 0, duration: 0.3 });
     });
 
-    // — Logo click
     document.querySelector(".nav-logo")
       .addEventListener("click", () => window.location.href = "/");
 
-    // — Link-click menu teardown
     document.querySelectorAll("a").forEach(a => {
       a.addEventListener("click", () => {
         gsap.to(".popup-menu-card", { opacity: 0, duration: 0.5, scale: 0.95 });
@@ -136,4 +124,4 @@
       });
     });
   });
-
+})();
