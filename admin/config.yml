@@ -95,8 +95,21 @@ collections:
         name: "services"
         file: "content/services.json"   
         fields:
-          - { label: "Background Video",   name: "bg_video", widget: "object", default: "assets/bg/service-bg.mp4" }
+          - label: "Background Video"
+            name: "bg_video"
+            widget: "object"
+            fields:
 
+              - label: "Video File"
+                name: "file"
+                widget: "file"
+                hint: "Upload or select an MP4 (or other supported video)."
+
+              - label: "Poster Image (optional)"
+                name: "poster"
+                widget: "image"
+                required: false
+                hint: "This image will show before the video plays."
           - label: "Services"
             name: "services"
             widget: "list"
