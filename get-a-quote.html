@@ -4,197 +4,246 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Custom Web Design Quote for Aviation Firms | Webwing Agency</title>
+
+  <!-- YOUR CSS -->
   <link rel="preload" href="css/global.css" as="style" />
   <link rel="preload" href="css/quote.css" as="style" />
   <link rel="stylesheet" href="css/global.css">
   <link rel="stylesheet" href="css/quote.css">
+
+  <!-- GSAP / Barba / Your other components -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.7/gsap.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/@barba/core"></script>
   <script src="https://unpkg.com/@barba/head/dist/barba-head.umd.js"></script>
   <script src="js/components/cta.js"></script>
   <script src="js/components/nav.js"></script>
   <script src="js/components/footer.js"></script>
+
+  <!-- CAL.COM EMBED SCRIPT (must come BEFORE your quote.js) -->
+  <script src="https://app.cal.com/embed/embed.js" defer></script>
+
   <link rel="icon" href="assets/icons/favicon.svg" type="image/png" />
 </head>
 <body data-barba="wrapper">
   <header>
     <nav id="standard-nav"></nav>
-</header>
+  </header>
 
-<main data-barba="container">
-  <section class="quote-section">
-    <div class="quote-wrapper">
+  <main data-barba="container">
+    <section class="quote-section">
+      <div class="quote-wrapper">
+        <!-- "Step X of Y" label (hidden until Start is clicked) -->
+        <span class="form-step">Step 1 of 8</span>
 
-      <span class="form-step">Step 1 of 7</span>
-
-      <div class="progress-bar">
-        <div id="progress" class="progress-fill"></div>
-      </div>
-
-      <h1 class="quote-heading">Get a Tailored Quote</h1>
-
-
-    <div id="startScreen" class="fade active start-screen">
-
-      <p class="start-text">Click below to get a custom quote by answering 8 simple questions. Book a discovery call afterwards to kickstart our collaboration.</p>
-      <button id="startBtn" class="large-cta">
-          <span>Start</span>
-      </button>
-    </div>
-
-    <!-- FORM -->
-    <form id="quoteForm" class="quote-form hidden" autocomplete="off">
-      <!-- STEP 1 -->
-      <div class="step fade hidden">
-        <label class="step-title mb">Project Type</label>
-        <p class="step-subtitle">What do you need?</p>
-        <div class="step-content">
-          <div class="radio-group">
-            <input type="radio" id="proj-website" name="projectType" value="websiteRedesign" required />
-            <label for="proj-website" class="radio-option">Redesign</label>
-
-            <input type="radio" id="proj-landing" name="projectType" value="newWebsite" />
-            <label for="proj-landing" class="radio-option">New Site</label>
-
-            <input type="radio" id="proj-booking" name="projectType" value="other" />
-            <label for="proj-booking" class="radio-option">Other</label>
-          </div>
+        <!-- Progress‐bar (hidden until Start is clicked) -->
+        <div class="progress-bar">
+          <div id="progress" class="progress-fill"></div>
         </div>
-      </div>
 
+        <!-- Intro heading (hides once form appears) -->
+        <h1 class="quote-heading">Get a Tailored Quote</h1>
 
-    
-        <!-- STEP 2 -->
-        <div class="step fade hidden">
-          <label class="step-title mb">Number of Pages</label>
-          <p class="step-subtitle">How many pages you need</p>
-          <div class="step-content">
-            <div class="radio-group">
-              <input type="radio" id="pages-1-5" name="pages" value="1-5" required />
-              <label for="pages-1-5" class="radio-option">1–5</label>
-    
-              <input type="radio" id="pages-10-20" name="pages" value="10-20" />
-              <label for="pages-10-20" class="radio-option">10–20</label>
-    
-              <input type="radio" id="pages-20-plus" name="pages" value="20+" />
-              <label for="pages-20-plus" class="radio-option">20+</label>
+        <!-- START SCREEN -->
+        <div id="startScreen" class="fade active start-screen">
+          <p class="start-text">
+            Click below to get a custom quote by answering 8 simple questions.
+            Book a discovery call afterwards to kickstart our collaboration.
+          </p>
+          <button id="startBtn" class="large-cta">
+            <span>Start</span>
+          </button>
+        </div>
+
+        <!-- MULTI‐STEP FORM (initially hidden) -->
+        <form id="quoteForm" class="quote-form hidden" autocomplete="off">
+          <!-- STEP 1 -->
+          <div class="step fade hidden">
+            <label class="step-title mb">Project Type</label>
+            <p class="step-subtitle">What do you need?</p>
+            <div class="step-content">
+              <div class="radio-group">
+                <input type="radio" id="proj-website" name="projectType" value="websiteRedesign" required />
+                <label for="proj-website" class="radio-option">Redesign</label>
+                <input type="radio" id="proj-landing" name="projectType" value="newWebsite" />
+                <label for="proj-landing" class="radio-option">New Site</label>
+                <input type="radio" id="proj-other" name="projectType" value="other" />
+                <label for="proj-other" class="radio-option">Other</label>
+              </div>
             </div>
           </div>
-        </div>
-    
-        <!-- STEP 3 -->
-        <div class="step fade hidden">
-          <label class="step-title">Desired Timeline</label>
-          <p class="step-subtitle">When you need completion</p>
-          <div class="step-content">
-            <input type="range" name="timeline" id="timeline" required class="input slider" min="2" max="10" step="1"/>
-            <span id="timeline-label"></span>
-          </div>
-        </div>
-    
-        <!-- STEP 4 -->
-        <div class="step fade hidden">
-          <label class="step-title">Additional Notes</label>
-          <p class="step-subtitle">Any extra details here</p>
-          <div class="step-content">
-            <textarea name="additionalNotes" rows="4" required class="input textarea" placeholder="Anything you still want to add or tell us?"></textarea>
-          </div>
-        </div>
-    
-        <!-- STEP 5 -->
-        <div class="step fade hidden">
-          <label class="step-title">Your Business</label>
-          <p class="step-subtitle">Your company’s name</p>
-          <div class="step-content">
-            <input type="text" name="business" required class="input" placeholder="Tell us the name of your business"/>
-          </div>
-        </div>
 
-        <!-- STEP 6 -->
-        <div class="step fade hidden">
-          <label class="step-title">Your Website</label>
-          <p class="step-subtitle">Your company’s website</p>
-          <div class="step-content">
-            <input type="url" name="website" required class="input" placeholder="Tell us url of your business' website" value="https://"/>
+          <!-- STEP 2 -->
+          <div class="step fade hidden">
+            <label class="step-title mb">Number of Pages</label>
+            <p class="step-subtitle">How many pages you need</p>
+            <div class="step-content">
+              <div class="radio-group">
+                <input type="radio" id="pages-1-5"   name="pages" value="1-5" required />
+                <label for="pages-1-5" class="radio-option">1–5</label>
+                <input type="radio" id="pages-10-20" name="pages" value="10-20" />
+                <label for="pages-10-20" class="radio-option">10–20</label>
+                <input type="radio" id="pages-20-plus" name="pages" value="20+" />
+                <label for="pages-20-plus" class="radio-option">20+</label>
+              </div>
+            </div>
           </div>
-        </div>
-    
-        <!-- STEP 7 -->
-        <div class="step fade hidden">
-          <label class="step-title">Your Name</label>
-          <p class="step-subtitle">Who to address quote to</p>
-          <div class="step-content">
-            <input type="text" name="name" required class="input" placeholder="Your name"/>
+
+          <!-- STEP 3 -->
+          <div class="step fade hidden">
+            <label class="step-title">Desired Timeline</label>
+            <p class="step-subtitle">When you need completion</p>
+            <div class="step-content">
+              <input 
+                type="range" 
+                name="timeline" 
+                id="timeline" 
+                required 
+                class="input slider" 
+                min="2" max="10" step="1"
+              />
+              <span id="timeline-label"></span>
+            </div>
           </div>
-        </div>
-    
-        <!-- STEP 8 -->
-        <div class="step fade hidden">
-          <label class="step-title">Your Email</label>
-          <p class="step-subtitle">Where we’ll send it</p>
-          <div class="step-content">
-            <input type="email" name="email" required class="input" placeholder="Your email"/>
+
+          <!-- STEP 4 -->
+          <div class="step fade hidden">
+            <label class="step-title">Additional Notes</label>
+            <p class="step-subtitle">Any extra details here</p>
+            <div class="step-content">
+              <textarea 
+                name="additionalNotes" 
+                rows="4" 
+                required 
+                class="input textarea" 
+                placeholder="Anything you still want to add or tell us?"
+              ></textarea>
+            </div>
           </div>
-        </div>
-      
-    <div class="step fade hidden text-center">
 
-      <label class="step-title">Final Step</label>
-      <p class="step-subtitle">After you've booked a discovery call with us, we're going to send you a project cost & time pre estimate which we can discuss further in its details during the Discovery Call. Book now.</p>
+          <!-- STEP 5 -->
+          <div class="step fade hidden">
+            <label class="step-title">Your Business</label>
+            <p class="step-subtitle">Your company’s name</p>
+            <div class="step-content">
+              <input 
+                type="text" 
+                name="business" 
+                required 
+                class="input" 
+                placeholder="Tell us the name of your business"
+              />
+            </div>
+          </div>
 
-      <div class="step-content">
+          <!-- STEP 6 -->
+          <div class="step fade hidden">
+            <label class="step-title">Your Website</label>
+            <p class="step-subtitle">Your company’s website</p>
+            <div class="step-content">
+              <input 
+                type="url" 
+                name="website" 
+                required 
+                class="input" 
+                placeholder="Tell us URL of your business’ website" 
+                value="https://"
+              />
+            </div>
+          </div>
 
-        <button
-        id="bookMeeting"
-        class="book-meeting-button cal-trigger-button"
-        type="button"
-        data-cal-link="webwing.agency/discovery-call"
-        data-cal-namespace="discovery-call"
-        data-cal-config='{"layout":"month_view"}'
-      >
-        Schedule Discovery Call
-      </button>
+          <!-- STEP 7 -->
+          <div class="step fade hidden">
+            <label class="step-title">Your Name</label>
+            <p class="step-subtitle">Who to address quote to</p>
+            <div class="step-content">
+              <input 
+                type="text" 
+                name="name" 
+                required 
+                class="input" 
+                placeholder="Your name"
+              />
+            </div>
+          </div>
 
+          <!-- STEP 8 -->
+          <div class="step fade hidden">
+            <label class="step-title">Your Email</label>
+            <p class="step-subtitle">Where we’ll send it</p>
+            <div class="step-content">
+              <input 
+                type="email" 
+                name="email" 
+                required 
+                class="input" 
+                placeholder="Your email"
+              />
+            </div>
+          </div>
 
+          <!-- FINAL STEP: BOOK MEETING -->
+          <div class="step fade hidden text-center">
+            <label class="step-title">Final Step</label>
+            <p class="step-subtitle">
+              After you’ve booked a discovery call with us, we will send you a project cost & time estimate,
+              which we can discuss further during the call. Book now.
+            </p>
+            <div class="step-content">
+              <button
+                id="bookMeeting"
+                class="book-meeting-button cal-trigger-button"
+                type="button"
+                data-cal-link="webwing-agency/discovery-call"
+                data-cal-namespace="discovery-call"
+                data-cal-config='{"layout":"month_view"}'
+              >
+                Schedule Discovery Call
+              </button>
+            </div>
+          </div>
+
+          <!-- FORM NAVIGATION (Previous / Next) -->
+          <div class="form-footer">
+            <button 
+              id="prevBtn" 
+              type="button" 
+              class="previous-button mt-2 text-white text-opacity-25 hover:text-opacity-40"
+            >
+              Previous
+            </button>
+            <button 
+              id="nextBtn" 
+              type="button" 
+              class="next-button"
+            >
+              Continue
+              <div class="arrow-container">
+                <svg class="arrow" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3" />
+                </svg>
+              </div>
+            </button>
+          </div>
+        </form>
       </div>
-    </div>    
 
-    <div class="form-footer">
-      <button class="previous-button" id="prevBtn" type="button" class="mt-2 text-white text-opacity-25 hover:text-opacity-40">Previous</button>
-      <button class="next-button" type="button" id="nextBtn">
-          Continue
-          <div class="arrow-container">
-            <svg class="arrow" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3" />
-            </svg>
-          </div>
-        </button>    
+      <!-- Decorative Circles (background) -->
+      <div class="bg-wrapper">
+        <div class="circle purple"></div>
+        <div class="circle pink"></div>
       </div>
-    </form>
-  </div>
+      <div class="background-orb"></div>
+      <img class="bg-dot-gradient" src="assets/dot-gradient.svg" alt="Decorative background dot gradient pattern" />
+    </section>
+  </main>
 
-  <div class="bg-wrapper">
-    <div class="circle purple"></div>
-    <div class="circle pink"></div>
-  </div>
+  <footer id="standard-footer"></footer>
 
-  <div class="background-orb"></div>
-
-  <img class="bg-dot-gradient" src="assets/dot-gradient.svg" alt="Decorative background dot gradient pattern" />
-
-</section>
-
-</main>
-
-  <footer id="standard-footer">
-
-  </footer>
-
-  <script src="js/quote.js"></script>
-  <script src="js/barba.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.0/ScrollTrigger.min.js"></script>
-  <script src="js/gsap/gsap-quote.js"></script>
-
-
+  <!-- LOAD quote.js (make sure Cal comes first with defer) -->
+  <script src="js/quote.js" defer></script>
+  <!-- Your other scripts (barba, gsap-quote.js, etc.) -->
+  <script src="js/barba.js" defer></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.0/ScrollTrigger.min.js" defer></script>
+  <script src="js/gsap/gsap-quote.js" defer></script>
 </body>
 </html>
