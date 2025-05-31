@@ -14,6 +14,9 @@ document.addEventListener("DOMContentLoaded", function () {
   const quoteHeading  = document.querySelector('.quote-heading');
   const bgCircle      = Array.from(document.querySelectorAll('.circle'));
   const backgroundOrb = document.querySelector('.background-orb');
+  const slider = document.getElementById("timeline");
+  const output = document.getElementById("timeline-label");
+  const bookMeetingBtn = document.getElementById('bookMeetingBtn'); // Added definition
 
   let current = 0;
 
@@ -134,6 +137,77 @@ document.addEventListener("DOMContentLoaded", function () {
     }
   });
 
+  // Initialize slider label
+  if (slider && output) {
+    output.innerHTML = `${slider.value} weeks`;
+    slider.oninput = function () {
+      output.innerHTML = `${this.value} weeks`;
+    };
+  }
+
+  // Show a specific step
+  function showStep(index) {
+    steps.forEach((step, i) => {
+      step.classList.toggle('hidden', i !== index);
+      step.classList.toggle('active', i === index);
+    });
+
+    // Update progress
+    const percent = ((index + 1) / steps.length) * 100;
+    progress.style.width = `${percent}%`;
+    formStepLabel.textContent = `Step ${index + 1} of ${steps.length}`;
+
+    // Show/hide nav buttons
+    prevBtn.style.display = index > 0 ? 'inline-block' : 'none';
+    nextBtn.style.display = index < steps.length - 1 ? 'inline-flex' : 'none';
+  }
+
+  // Next button click
+  nextBtn.addEventListener('click', () => {
+    const currentStep = steps[current];
+    const requiredFields = currentStep.querySelectorAll('[required]');
+    let valid = true;
+
+    requiredFields.forEach(field => {
+      if (!field.checkValidity()) {
+        field.reportValidity();
+        valid = false;
+      }
+    });
+
+    if (!valid) return;
+
+    if (current < steps.length - 1) {
+      current++;
+      showStep(current);
+    }
+  });
+
+  // Previous button click
+  prevBtn.addEventListener('click', () => {
+    if (current > 0) {
+      current--;
+      showStep(current);
+    }
+  });
+
+  // Start button click
+  startBtn.addEventListener('click', () => {
+    startScreen.classList.add('hidden');
+    quoteForm.classList.remove('hidden');
+    formStepLabel.style.display = 'inline-block';
+    progressBar.style.display = 'block';
+    quoteHeading.classList.add('hidden');
+    showStep(current);
+  });
+
+  // Optional: Handle Enter key to go to next step
+  quoteForm.addEventListener('keydown', function (e) {
+    if (e.key === 'Enter') {
+      e.preventDefault();
+      nextBtn.click();
+    }
+  });
 
   // Hide any .background-orb if present
   if (backgroundOrb) {
