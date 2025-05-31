@@ -110,7 +110,6 @@ document.addEventListener("DOMContentLoaded", () => {
   slider.addEventListener("input", updateLabel);
 });
 
-
 // ------------------------------
 // MAIL VALIDATION
 // ------------------------------
@@ -131,6 +130,7 @@ function setupEmailValidation() {
   });
 }
 
+setupEmailValidation();
 
 // ------------------------------
 // URL PARAM STEP SKIPPER
@@ -146,6 +146,14 @@ document.addEventListener("DOMContentLoaded", function () {
     showStep(current);
   }
 });
+
+// ------------------------------
+// CAL.COM PREFILL CONFIG
+// ------------------------------
+// Make sure Cal.config exists before loading the embed script:
+window.Cal = window.Cal || {};
+Cal.config = Cal.config || {};
+Cal.config.forwardQueryParams = true;
 
 // ------------------------------
 // CAL.COM EMBED + LISTENER
@@ -179,63 +187,74 @@ document.addEventListener("DOMContentLoaded", function () {
   };
 })(window, "https://app.cal.com/embed/embed.js", "init");
 
+// Initialize Cal.com (namespace “discovery-call”)
 Cal("init", "discovery-call", { origin: "https://cal.com" });
-Cal.ns["discovery-call"]("ui", {
-  "hideEventTypeDetails": false,
-  "layout": "month_view"
-});
 
 // ------------------------------
-// BOOKINg
+// BOOKING
 // ------------------------------
-
- // 1) collect & validate inputs
- document.querySelector("#bookMeeting").addEventListener("click", () => {
-  const name  = document.querySelector('input[name="name"]').value.trim();
-  const email = document.querySelector('input[name="email"]').value.trim();
+document.querySelector("#bookMeeting").addEventListener("click", () => {
+  // 1) collect & validate inputs
+  const nameInput  = document.querySelector('input[name="name"]');
+  const emailInput = document.querySelector('input[name="email"]');
+  const name  = nameInput?.value.trim();
+  const email = emailInput?.value.trim();
   const projectType = document.querySelector('input[name="projectType"]:checked')?.value;
   const pages       = document.querySelector('input[name="pages"]:checked')?.value;
-  const timeline    = document.getElementById('timeline').value;
-  const notes       = document.querySelector('textarea[name="additionalNotes"]').value.trim();
-  const business    = document.querySelector('input[name="business"]').value.trim();
-  const website     = document.querySelector('input[name="website"]').value.trim();
+  const timeline    = document.getElementById('timeline')?.value;
+  const notes       = document.querySelector('textarea[name="additionalNotes"]')?.value.trim();
+  const business    = document.querySelector('input[name="business"]')?.value.trim();
+  const website     = document.querySelector('input[name="website"]')?.value.trim();
 
   if (!name || !email || !projectType || !pages || !timeline) {
     return alert("Please fill in all required fields before booking.");
   }
 
-  // 2) build the payload
+  // 2) build the payload for our confirmation page
   const quoteData = {
-    requesterName:  name,
-    requesterEmail: email,
+    requesterName:   name,
+    requesterEmail:  email,
     projectType,
     pages,
-    timelineWeeks:  timeline,
+    timelineWeeks:   timeline,
     additionalNotes: notes,
     business,
     website,
-    estimatedPrice: calculatePrice()
+    estimatedPrice:  calculatePrice()
   };
 
-  // 3) stringify for our confirmation redirect
-  const params = new URLSearchParams(quoteData).toString();
+  // 3) build redirect URL with query params
+  const params     = new URLSearchParams(quoteData).toString();
   const ourRedirect = `${window.location.origin}/quote-confirmation.html?${params}`;
 
-  // 4) pre-fill Cal.com
+  // 4) build Cal.com booking URL (prefilling via URL params)
   const calBookUrl = `https://cal.com/webwing-agency/discovery-call?` +
                      `name=${encodeURIComponent(name)}` +
                      `&email=${encodeURIComponent(email)}`;
 
-  Cal("ui", {
-    theme:              "light",
-    layout:             "month_view",
+  // 5) open Cal.com popup WITHOUT redirectUrl
+  Cal.ns["discovery-call"]("ui", {
+    theme:               "light",
+    layout:              "month_view",
     hideEventTypeDetails: false,
-    url:                calBookUrl,
-    redirectUrl:        ourRedirect
+    url:                 calBookUrl
+    // NO redirectUrl here – we’ll handle it manually
+  });
+
+  // 6) register a one-time listener for successful booking to redirect parent window
+  const onBooking = (event) => {
+    // Remove this listener so it doesn’t fire again if the user re-opens the widget
+    Cal("off", { action: "bookingSuccessful", callback: onBooking });
+
+    // Now redirect the parent window to our confirmation page
+    window.location.href = ourRedirect;
+  };
+
+  Cal("on", {
+    action:   "bookingSuccessful",
+    callback: onBooking
   });
 });
-
-
 
 // ------------------------------
 // PRICING CALCULATION
@@ -263,4 +282,3 @@ function calculatePrice() {
 
   return totalPrice;
 }
-
