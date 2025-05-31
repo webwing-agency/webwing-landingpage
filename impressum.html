@@ -51,6 +51,10 @@
   <link rel="stylesheet" href="css/main.css">
 </head>
 
+<header>
+  <nav id="standard-nav"></nav>
+</header>
+
 <body data-barba="wrapper">
   <nav id="standard-nav"></nav>
 
@@ -115,6 +119,8 @@
     </section>
   </main>
 
+  <footer id="standard-footer"></footer>
+
   <script>
     document.getElementById('lang').addEventListener('change', function () {
       const lang = this.value;
@@ -123,7 +129,9 @@
     });
   </script>
 
+  <script src="js/components/cta.js"></script>
   <script src="js/components/nav.js"></script>
+  <script src="js/components/footer.js"></script>
   <script src="js/hover.js"></script>
   <script src="js/barba.js"></script>
 </body>
