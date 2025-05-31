@@ -1,4 +1,4 @@
-document.addEventListener("DOMContentLoaded", () => {
+
   const nav = document.querySelector("nav#standard-nav");
   if (!nav) return;
 
@@ -136,4 +136,4 @@ document.addEventListener("DOMContentLoaded", () => {
       });
     });
   });
-});
+
