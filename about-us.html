@@ -65,7 +65,7 @@
 
   <script>
     document.addEventListener("DOMContentLoaded", () => {
-      fetch("/about-us.json")
+      fetch("content/about-us.json")
         .then((res) => {
           if (!res.ok) throw new Error(`Failed to fetch about-us.json: ${res.status}`);
           return res.json();
