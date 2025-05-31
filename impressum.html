@@ -5,16 +5,13 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Impressum / Legal Notice | Webwing Webdesign Agency</title>
   <link rel="preload" href="css/global.css" as="style" />
-
-   <link rel="stylesheet" href="css/global.css">
-  <link rel="stylesheet" href="css/quote.css">
   <link rel="stylesheet" href="css/global.css">
+  <link rel="stylesheet" href="css/quote.css">
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.7/gsap.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/@barba/core"></script>
   <script src="https://unpkg.com/@barba/head/dist/barba-head.umd.js"></script>
-  <script src="https://cdn.tailwindcss.com"></script>
   <link rel="icon" href="assets/icons/favicon.svg" type="image/png" />
-  <meta name="description" content="Legal notice required by german law">
+  <meta name="description" content="Legal notice required by German law">
   <meta name="robots" content="noindex, nofollow">
   <style>
     body { font-family: "Roboto", sans-serif; padding: 20px; background-color: black; color: white}
@@ -44,97 +41,90 @@
     main {
         margin-top: 20vh;
     }
-
     select#lang {
         color: black;
     }
-
     p {
         margin-bottom: 15px !important;
     }
-
   </style>
   <link rel="stylesheet" href="css/main.css">
 </head>
+
 <body data-barba="wrapper">
-<nav id="standard-nav">
-    
-</nav>
-<main>
+  <nav id="standard-nav"></nav>
+
+  <main>
     <div class="disclaimer" id="disclaimer-box">
-        <span class="close-btn" onclick="document.getElementById('disclaimer-box').style.display='none'">&times;</span>
-        <p>This notice is required by German law. </p>
-      </div>
+      <span class="close-btn" onclick="document.getElementById('disclaimer-box').style.display='none'">&times;</span>
+      <p>This notice is required by German law. </p>
+    </div>
 
-  <div class="language-select">
-    <label for="lang">Sprache / Language:</label>
-    <select id="lang">
-        <option value="de">Deutsch</option>
-        <option value="en">English</option>
-    </select>
-  </div>
+    <div class="language-select">
+      <label for="lang">Sprache / Language:</label>
+      <select id="lang">
+          <option value="de">Deutsch</option>
+          <option value="en">English</option>
+      </select>
+    </div>
 
-  <!-- Deutsch -->
-  <section id="impressum-de" class="impressum-section active">
-    <h2 class="impressum-title">Impressum</h2>
-    <p><strong>Angaben gemäß § 5 TMG:</strong></p>
-    <p><em>Firma:</em> {{Firmenname}}<br />
-       <em>Adresse:</em> {{Straße und Hausnummer}}, {{PLZ}} {{Ort}}<br />
-       <em>Telefon:</em> {{Telefonnummer}}<br />
-       <em>E-Mail:</em> {{E-Mail-Adresse}}</p>
+    <!-- German -->
+    <section id="impressum-de" class="impressum-section active">
+      <h2>Impressum</h2>
+      <p><strong>Angaben gemäß § 5 TMG:</strong></p>
+      <p><em>Firma:</em> {{de_companyName}}<br>
+         <em>Adresse:</em> {{de_street}}, {{de_postalCode}} {{de_city}}<br>
+         <em>Telefon:</em> {{de_phone}}<br>
+         <em>E-Mail:</em> {{de_email}}</p>
 
-    <p><strong>Vertreten durch:</strong><br />
-       {{Name des Geschäftsführers}}</p>
+      <p><strong>Vertreten durch:</strong><br>
+         {{de_director}}</p>
 
-    <p><strong>Registereintrag:</strong><br />
-       Eintragung im Handelsregister.<br />
-       Registergericht: {{Amtsgericht}}<br />
-       Registernummer: {{Handelsregisternummer}}</p>
+      <p><strong>Registereintrag:</strong><br>
+         Registergericht: {{de_registerCourt}}<br>
+         Registernummer: {{de_registerNumber}}</p>
 
-    <p><strong>Umsatzsteuer-ID:</strong><br />
-       Umsatzsteuer-Identifikationsnummer gemäß §27a Umsatzsteuergesetz: {{USt-ID}}</p>
+      <p><strong>Umsatzsteuer-ID:</strong><br>
+         {{de_vatId}}</p>
 
-    <p><strong>Verantwortlich für den Inhalt nach § 55 Abs. 2 RStV:</strong><br />
-       {{Name und Anschrift}}</p>
-  </section>
+      <p><strong>Verantwortlich für den Inhalt nach § 55 Abs. 2 RStV:</strong><br>
+         {{de_contentResponsible}}</p>
+    </section>
 
-  <!-- English -->
-  <section id="impressum-en" class="impressum-section">
-    <h2 class="impressum-title">Legal Notice (Impressum)</h2>
-    <p><strong>Information pursuant to § 5 TMG:</strong></p>
-    <p><em>Company:</em> {{CompanyName}}<br />
-       <em>Address:</em> {{Street and Number}}, {{PostalCode}} {{City}}, Germany<br />
-       <em>Phone:</em> {{PhoneNumber}}<br />
-       <em>Email:</em> {{EmailAddress}}</p>
+    <!-- English -->
+    <section id="impressum-en" class="impressum-section">
+      <h2>Legal Notice (Impressum)</h2>
+      <p><strong>Information pursuant to § 5 TMG:</strong></p>
+      <p><em>Company:</em> {{en_companyName}}<br>
+         <em>Address:</em> {{en_street}}, {{en_postalCode}} {{en_city}}, Germany<br>
+         <em>Phone:</em> {{en_phone}}<br>
+         <em>Email:</em> {{en_email}}</p>
 
-    <p><strong>Represented by:</strong><br />
-       {{ManagingDirector}}</p>
+      <p><strong>Represented by:</strong><br>
+         {{en_director}}</p>
 
-    <p><strong>Company Register:</strong><br />
-       Registered at Local Court<br />
-       Court: {{RegisterCourt}}<br />
-       Registration Number: {{RegisterNumber}}</p>
+      <p><strong>Company Register:</strong><br>
+         Court: {{en_registerCourt}}<br>
+         Registration Number: {{en_registerNumber}}</p>
 
-    <p><strong>VAT Identification Number:</strong><br />
-       VAT ID in accordance with §27a of the German VAT Act: {{VATID}}</p>
+      <p><strong>VAT ID:</strong><br>
+         {{en_vatId}}</p>
 
-    <p><strong>Person responsible for content according to § 55 Abs. 2 RStV:</strong><br />
-       {{NameAndAddress}}</p>
-  </section>
-</main>
+      <p><strong>Responsible for content according to § 55 Abs. 2 RStV:</strong><br>
+         {{en_contentResponsible}}</p>
+    </section>
+  </main>
+
   <script>
-    document.getElementById('lang').addEventListener('change', function() {
-      var lang = this.value;
-      document.querySelectorAll('.impressum-section').forEach(function(sec) {
-        sec.classList.remove('active');
-      });
+    document.getElementById('lang').addEventListener('change', function () {
+      const lang = this.value;
+      document.querySelectorAll('.impressum-section').forEach(sec => sec.classList.remove('active'));
       document.getElementById('impressum-' + lang).classList.add('active');
     });
   </script>
+
+  <script src="js/components/nav.js"></script>
+  <script src="js/hover.js"></script>
+  <script src="js/barba.js"></script>
 </body>
-<script src="js/components/nav.js"></script>
-
-<script src="js/hover.js"></script>
-<script src="js/barba.js"></script>
-
 </html>
