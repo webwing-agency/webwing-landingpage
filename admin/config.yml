@@ -172,9 +172,9 @@ collections:
               - { label: "Role",  name: "role",  widget: "string" }
 
   - name: "about_us"
-    label: "About Us Page"
+    label: "About Us"
     files:
-      - label: "About Us (single page)"
+      - label: "About Us"
         name: "about_us_data"
         file: "content/about-us.json"
         fields:
