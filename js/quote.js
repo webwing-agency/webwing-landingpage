@@ -1,95 +1,141 @@
 document.addEventListener("DOMContentLoaded", function () {
-  // DOM ELEMENTS
-  const startBtn = document.getElementById('startBtn');
-  const startScreen = document.getElementById('startScreen');
-  const quoteForm = document.getElementById('quoteForm');
-  const steps = Array.from(document.querySelectorAll('.step'));
-  const nextBtn = document.getElementById('nextBtn');
-  const prevBtn = document.getElementById('prevBtn');
-  const progress = document.getElementById('progress');
-  const progressBar = document.querySelector('.progress-bar');
+  // ------------------------------
+  // 1) DOM-Elemente
+  // ------------------------------
+  const startBtn      = document.getElementById('startBtn');
+  const startScreen   = document.getElementById('startScreen');
+  const quoteForm     = document.getElementById('quoteForm');
+  const steps         = Array.from(document.querySelectorAll('.step'));
+  const nextBtn       = document.getElementById('nextBtn');
+  const prevBtn       = document.getElementById('prevBtn');
+  const progress      = document.getElementById('progress');
+  const progressBar   = document.querySelector('.progress-bar');
   const formStepLabel = document.querySelector('.form-step');
-  const quoteHeading = document.querySelector('.quote-heading');
-  const slider = document.getElementById("timeline");
-  const output = document.getElementById("timeline-label");
-  const bookMeetingBtn = document.getElementById('bookMeetingBtn'); // Added definition
+  const quoteHeading  = document.querySelector('.quote-heading');
+  const bgCircle      = Array.from(document.querySelectorAll('.circle'));
+  const backgroundOrb = document.querySelector('.background-orb');
 
   let current = 0;
 
-  // Initialize slider label
-  if (slider && output) {
-    output.innerHTML = `${slider.value} weeks`;
-    slider.oninput = function () {
-      output.innerHTML = `${this.value} weeks`;
-    };
+  // ------------------------------
+  // 2) URL-Parameter „step=1“ (Skip-Logik)
+  // ------------------------------
+  const urlParams = new URLSearchParams(window.location.search);
+  const stepParam = urlParams.get("step");
+  if (stepParam === "1") {
+    // Form sofort anzeigen, ohne auf „Start“ klicken zu müssen
+    startScreen?.classList.add('hidden');
+    quoteForm?.classList.remove('hidden');
+    formStepLabel?.classList.remove('hidden');
+    progressBar?.classList.remove('hidden');
+    current = 0;
+    showStep(current);
   }
 
-  // Show a specific step
-  function showStep(index) {
-    steps.forEach((step, i) => {
-      step.classList.toggle('hidden', i !== index);
-      step.classList.toggle('active', i === index);
-    });
-
-    // Update progress
-    const percent = ((index + 1) / steps.length) * 100;
-    progress.style.width = `${percent}%`;
-    formStepLabel.textContent = `Step ${index + 1} of ${steps.length}`;
-
-    // Show/hide nav buttons
-    prevBtn.style.display = index > 0 ? 'inline-block' : 'none';
-    nextBtn.style.display = index < steps.length - 1 ? 'inline-flex' : 'none';
+  // ------------------------------
+  // 3) Helfer‐Funktion: Text für „Schritt X von Y“ aktualisieren
+  // ------------------------------
+  function updateFormStepLabel() {
+    formStepLabel.textContent = `Step ${current + 1} of ${steps.length}`;
   }
 
-  // Next button click
-  nextBtn.addEventListener('click', () => {
-    const currentStep = steps[current];
-    const requiredFields = currentStep.querySelectorAll('[required]');
-    let valid = true;
-
-    requiredFields.forEach(field => {
-      if (!field.checkValidity()) {
-        field.reportValidity();
-        valid = false;
+  // ------------------------------
+  // 4) Funktion: Zeige Schritt i und aktualisiere Buttons/Progress/Gradient
+  // ------------------------------
+  function showStep(i) {
+    // a) Alle Schritte durchgehen und nur den i-ten einblenden
+    steps.forEach((step, idx) => {
+      if (idx === i) {
+        step.classList.remove('hidden');
+        step.classList.add('active');
+      } else {
+        step.classList.add('hidden');
+        step.classList.remove('active');
       }
     });
 
-    if (!valid) return;
+    // b) Progress-Bar als Prozentsatz (0…100)
+    const pct = (i) / (steps.length - 1) * 100;
+    progress.style.width = pct + '%';
 
-    if (current < steps.length - 1) {
-      current++;
-      showStep(current);
+    // c) Wenn letzter Schritt, Next-Button ausblenden, Farbe anpassen
+    if (i === steps.length - 1) {
+      progress.classList.add('final-step'); // evtl. CSS für Gradient
+      nextBtn.classList.add('hidden');
+      bgCircle.forEach(el => el.style.background = "darkgreen");
+    } else {
+      progress.classList.remove('final-step');
+      nextBtn.classList.remove('hidden');
+      bgCircle.forEach(el => el.style.background = "");
     }
+
+    // d) Überschrift („quoteHeading“) immer ausblenden, sobald wir im Form sind
+    quoteHeading?.classList.add('hidden');
+
+    // e) Label aktualisieren
+    updateFormStepLabel();
+
+    // f) Prev-Button nur anzeigen, wenn i > 0
+    if (i === 0) {
+      prevBtn.style.opacity = '0';
+      prevBtn.style.pointerEvents = 'none';
+    } else {
+      prevBtn.style.opacity = '1';
+      prevBtn.style.pointerEvents = 'auto';
+    }
+
+    // g) background-orb nur im ersten Schritt anzeigen, ab Schritt 1 ausblenden
+    if (backgroundOrb) {
+      if (i > 0) {
+        backgroundOrb.classList.add('hidden');
+      } else {
+        backgroundOrb.classList.remove('hidden');
+      }
+    }
+  }
+
+  // ------------------------------
+  // 5) Start-Button: Startscreen verstecken, Form zeigen
+  // ------------------------------
+  startBtn?.addEventListener('click', () => {
+    startScreen.classList.add('hidden');
+    quoteForm.classList.remove('hidden');
+    formStepLabel.classList.remove('hidden');
+    progressBar.classList.remove('hidden');
+    showStep(current);
   });
 
-  // Previous button click
-  prevBtn.addEventListener('click', () => {
+  // ------------------------------
+  // 6) Prev-Button: Einen Schritt zurück
+  // ------------------------------
+  prevBtn?.addEventListener('click', () => {
     if (current > 0) {
       current--;
       showStep(current);
     }
   });
 
-  // Start button click
-  startBtn.addEventListener('click', () => {
-    startScreen.classList.add('hidden');
-    quoteForm.classList.remove('hidden');
-    formStepLabel.style.display = 'inline-block';
-    progressBar.style.display = 'block';
-    quoteHeading.classList.add('hidden');
-    showStep(current);
-  });
+  // ------------------------------
+  // 7) Next-Button: Validieren und vorgucken
+  // ------------------------------
+  nextBtn?.addEventListener('click', () => {
+    const inputs = steps[current].querySelectorAll('input, textarea');
+    const allValid = Array.from(inputs).every(input => input.checkValidity());
+    if (!allValid) {
+      // Falls ein Feld invalid ist, Fehlermeldung zeigen
+      inputs.forEach(input => input.reportValidity());
+      return;
+    }
 
-  // Optional: Handle Enter key to go to next step
-  quoteForm.addEventListener('keydown', function (e) {
-    if (e.key === 'Enter') {
-      e.preventDefault();
-      nextBtn.click();
+    // Nur wenn es wirklich einen nächsten Schritt gibt
+    if (current < steps.length - 1) {
+      current++;
+      showStep(current);
     }
   });
 
+
   // Hide any .background-orb if present
-  const backgroundOrb = document.querySelector('.background-orb');
   if (backgroundOrb) {
     backgroundOrb.classList.add('hidden');
   }
