@@ -174,7 +174,7 @@ collections:
 
   - name: "impressum"
     label: "Impressum / Legal Notice"
-    folder: "content/impressum"
+    folder: "content/impressum.json"
     create: false
     slug: "index"
     editor:
