@@ -88,6 +88,34 @@ collections:
               - { name: "buttonText", label: "Button Text", widget: "string" }
               - { name: "buttonLink", label: "Button Link", widget: "string" }
 
+  - name: "services"
+    label: "Services Page"
+    files:
+      - label: "Services"
+        name: "services"
+        file: "content/services.json"   
+        fields:
+          - { label: "Background Video",   name: "bg_video", widget: "string", default: "assets/bg/service-bg.mp4" }
+
+          - label: "Services"
+            name: "services"
+            widget: "list"
+            summary: "{{fields.title}}"   
+            fields:
+              - { label: "Title",          name: "title",    widget: "string" }
+              - { label: "Subtitle",       name: "subtitle", widget: "text" }
+
+              - label: "Specifications (List)"
+                name: "specs"
+                widget: "list"
+                summary: "{{fields.icon}}: {{fields.text}}"
+                fields:
+                  - { label: "Icon (Font-Awesome classes)", name: "icon", widget: "string", hint: "e.g. fas fa-headset" }
+                  - { label: "Text",                 name: "text", widget: "string" }
+
+              - { label: "CTA Label",         name: "cta_label", widget: "string" }
+              - { label: "CTA Link (relative)",name: "cta_link",  widget: "string", hint: "e.g. contact or get-a-quote" }
+
   - name: "work"
     label: "Work"
     label_singular: "Project"
@@ -132,3 +160,4 @@ collections:
               - { label: "Image", name: "image", widget: "image" }
               - { label: "Name",  name: "name",  widget: "string" }
               - { label: "Role",  name: "role",  widget: "string" }
+

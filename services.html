@@ -4,11 +4,10 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Our Services | Webwing Agency</title>
-  <!-- Your custom styles -->
   <link rel="preload" href="css/global.css" as="style" />
   <link rel="preload" href="css/services.css" as="style" />
 
-   <link rel="stylesheet" href="css/global.css">
+  <link rel="stylesheet" href="css/global.css">
   <link rel="stylesheet" href="css/services.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.7/gsap.min.js"></script>
@@ -23,75 +22,115 @@
 <body data-barba="wrapper">
   <header>
     <nav id="standard-nav"></nav>
-</header>
+  </header>
 
-<main>
+  <main>
     <section class="start-section">
-        <div class="start-section-content">
-            <h1 class="start-section-title">Our Services</h1>
-        </div>
+      <div class="start-section-content">
+        <h1 class="start-section-title">Our Services</h1>
+      </div>
     </section>
 
     <section class="services-cards-section">
-        <div class="service-cards-wrapper">
-            <div class="service-card card">
-              <h2 class="service-card-title card-title">Web Strategy Consultation</h2>
-              <p class="service-card-subtitle">
-                Align your online presence with the unique demands of private aviation.
-              </p>
-              <ul class="service-specs">
-                <li><i class="fas fa-headset"></i> Market & competitive analysis</li>
-                <li><i class="fas fa-bullseye"></i> Target audience profiling</li>
-                <li><i class="fas fa-chart-line"></i> Roadmap & KPI definition</li>
-                <li><i class="fas fa-clock"></i> Agile planning & timeline</li>
-              </ul>
-              <a href="contact" class="card-cta secondary-cta">Get in Touch</a>
-              
-            </div>
-          
-            <div class="service-card card">
-              <h2 class="service-card-title card-title">Website Redesigns</h2>
-              <p class="service-card-subtitle">
-                Elevate your charter or fleet site with polished, UX-driven layouts.
-              </p>
-              <ul class="service-specs">
-                <li><i class="fas fa-paint-roller"></i> Modern, brand-aligned themes</li>
-                <li><i class="fas fa-mobile-alt"></i> Fully responsive design</li>
-                <li><i class="fas fa-user-shield"></i> Secure booking integrations</li>
-                <li><i class="fas fa-tachometer-alt"></i> Performance & SEO optimization</li>
-              </ul>
-              <a href="get-a-quote" class="card-cta secondary-cta">Get a Quote</a>     </div>
-          
-            <div class="service-card card">
-              <h2 class="service-card-title card-title">Ground-Up Website Builds</h2>
-              <p class="service-card-subtitle">
-                From concept to launch: custom sites that command attention.
-              </p>
-              <ul class="service-specs">
-                <li><i class="fas fa-pencil-ruler"></i> Custom wireframes & mockups</li>
-                <li><i class="fas fa-code"></i> Scalable, clean codebase</li>
-                <li><i class="fas fa-server"></i> Fast, reliable hosting setup</li>
-                <li><i class="fas fa-cogs"></i> Ongoing support & maintenance</li>
-              </ul>
-              <a href="get-a-quote" class="card-cta secondary-cta">Get a Quote</a>
-           </div>
-          </div>
+      <div class="service-cards-wrapper" id="service-cards-wrapper">
 
-          <div class="video-wrapper">
-            <video class="service-bg-video" muted autoplay loop src="assets/bg/service-bg.mp4"></video>
-          </div>
-          
+      </div>
+
+      <div class="video-wrapper">
+
+        <video
+          id="bg-video"
+          class="service-bg-video"
+          muted
+          autoplay
+          loop
+          src=""
+        ></video>
+      </div>
     </section>
 
     <div class="bg-wrapper">
-        <div class="circle"></div>
+      <div class="circle"></div>
     </div>
-</main>
+  </main>
 
-<footer id="standard-footer">
+  <footer id="standard-footer">
+    
+  </footer>
 
-</footer>
 
-<script src="js/gsap/gsap-services.js"></script>
+  <script src="js/gsap/gsap-services.js">
+ 
+      document.addEventListener("DOMContentLoaded", () => {
+        const endpoint = "content/services.json"; 
+        fetch(endpoint)
+          .then((res) => {
+            if (!res.ok) {
+              throw new Error(`Failed to fetch ${endpoint}: ${res.status}`);
+            }
+            return res.json();
+          })
+          .then((data) => {
+            renderServicesPage(data);
+          })
+          .catch((err) => {
+            console.error("Error loading services.json:", err);
+          });
+      });
+
+      function renderServicesPage(data) {
+
+        const videoEl = document.getElementById("bg-video");
+        if (videoEl && data.bg_video) {
+          videoEl.src = data.bg_video;
+        }
+      
+        const wrapper = document.getElementById("service-cards-wrapper");
+        if (!wrapper) return;
+      
+        data.services.forEach((svc) => {
+          const card = document.createElement("div");
+          card.classList.add("service-card", "card");
+
+          const h2 = document.createElement("h2");
+          h2.classList.add("service-card-title", "card-title");
+          h2.textContent = svc.title;
+          card.appendChild(h2);
+      
+          const pSub = document.createElement("p");
+          pSub.classList.add("service-card-subtitle");
+          pSub.textContent = svc.subtitle;
+          card.appendChild(pSub);
+      
+          if (Array.isArray(svc.specs) && svc.specs.length > 0) {
+            const ul = document.createElement("ul");
+            ul.classList.add("service-specs");
+            svc.specs.forEach((spec) => {
+              const li = document.createElement("li");
+              const i = document.createElement("i");
+              // Font Awesome icon classes
+              i.className = spec.icon;
+              li.appendChild(i);
+              // Add a space between icon and text
+              li.insertAdjacentText("beforeend", " " + spec.text);
+              ul.appendChild(li);
+            });
+            card.appendChild(ul);
+          }
+      
+          // CTA button
+          const a = document.createElement("a");
+          a.href = svc.cta_link;
+          a.classList.add("card-cta", "secondary-cta");
+          a.textContent = svc.cta_label;
+          card.appendChild(a);
+      
+          // Append this card to the wrapper
+          wrapper.appendChild(card);
+        });
+      }
+ 
+</script>
 
 </body>
+</html>
