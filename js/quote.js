@@ -18,22 +18,20 @@ document.addEventListener("DOMContentLoaded", function () {
   const bgCircle      = Array.from(document.querySelectorAll('.circle'));
   const slider        = document.getElementById("timeline");
   const output        = document.getElementById("timeline-label");
+  const bookMeetingBtn = document.getElementById("bookMeeting");
 
   let current = 0;
 
   // ------------------------------
   // UI SETUP (initial hides, styles)
   // ------------------------------
-  // Hide progress bar until start is clicked
   if (progressBar) {
     progressBar.classList.add('hidden');
   }
-  // Hide the "previous" button initially
   if (prevBtn) {
     prevBtn.style.opacity = '0';
     prevBtn.style.pointerEvents = 'none';
   }
-  // Hide the "Step X of Y" label initially
   if (formStepLabel) {
     formStepLabel.classList.add('hidden');
   }
@@ -102,7 +100,6 @@ document.addEventListener("DOMContentLoaded", function () {
 
   if (nextBtn) {
     nextBtn.addEventListener('click', () => {
-      // Validate inputs in current step
       const inputs = steps[current].querySelectorAll('input, textarea');
       const allValid = Array.from(inputs).every(input => input.checkValidity());
       if (!allValid) {
@@ -133,9 +130,7 @@ document.addEventListener("DOMContentLoaded", function () {
       output.textContent = `${weeks} ${unit}`;
     };
 
-    // initialize on load
     updateLabel();
-    // update on input/drag
     slider.addEventListener("input", updateLabel);
   }
 
@@ -176,10 +171,13 @@ document.addEventListener("DOMContentLoaded", function () {
   })();
 
   // ------------------------------
-  // CAL.COM PREFILL CONFIG
+  // CAL.COM STUB + PREFILL CONFIG
   // ------------------------------
-  // Ensure Cal.config exists before loading the embed
-  window.Cal = window.Cal || {};
+  // 1) Create a stub function for Cal if not already defined
+  window.Cal = window.Cal || function() {
+    (window.Cal.q = window.Cal.q || []).push(arguments);
+  };
+  // 2) Ensure forwardQueryParams is set before the embed script runs
   Cal.config = Cal.config || {};
   Cal.config.forwardQueryParams = true;
 
@@ -189,13 +187,13 @@ document.addEventListener("DOMContentLoaded", function () {
   (function (C, A, L) {
     let p = function (a, ar) { a.q.push(ar); };
     let d = C.document;
+    // If Cal is not yet the stub or the embed function, define it
     C.Cal = C.Cal || function () {
       let cal = C.Cal;
       let ar = arguments;
       if (!cal.loaded) {
         cal.ns = {};
         cal.q = cal.q || [];
-        // Inject the Cal embed script
         d.head.appendChild(d.createElement("script")).src = A;
         cal.loaded = true;
       }
@@ -222,20 +220,19 @@ document.addEventListener("DOMContentLoaded", function () {
   // ------------------------------
   // BOOKING: COLLECT FORM + OPEN CAL WIDGET
   // ------------------------------
-  const bookMeetingBtn = document.querySelector("#bookMeeting");
   if (bookMeetingBtn) {
     bookMeetingBtn.addEventListener("click", () => {
       // 1) Collect & validate inputs
-      const nameInput  = document.querySelector('input[name="name"]');
-      const emailInput = document.querySelector('input[name="email"]');
-      const name       = nameInput?.value.trim();
-      const email      = emailInput?.value.trim();
-      const projectType= document.querySelector('input[name="projectType"]:checked')?.value;
-      const pages      = document.querySelector('input[name="pages"]:checked')?.value;
-      const timeline   = document.getElementById('timeline')?.value;
-      const notes      = document.querySelector('textarea[name="additionalNotes"]')?.value.trim();
-      const business   = document.querySelector('input[name="business"]')?.value.trim();
-      const website    = document.querySelector('input[name="website"]')?.value.trim();
+      const nameInput   = document.querySelector('input[name="name"]');
+      const emailInput  = document.querySelector('input[name="email"]');
+      const name        = nameInput?.value.trim();
+      const email       = emailInput?.value.trim();
+      const projectType = document.querySelector('input[name="projectType"]:checked')?.value;
+      const pages       = document.querySelector('input[name="pages"]:checked')?.value;
+      const timeline    = document.getElementById('timeline')?.value;
+      const notes       = document.querySelector('textarea[name="additionalNotes"]')?.value.trim();
+      const business    = document.querySelector('input[name="business"]')?.value.trim();
+      const website     = document.querySelector('input[name="website"]')?.value.trim();
 
       if (!name || !email || !projectType || !pages || !timeline) {
         return alert("Please fill in all required fields before booking.");
@@ -263,13 +260,12 @@ document.addEventListener("DOMContentLoaded", function () {
                          `name=${encodeURIComponent(name)}` +
                          `&email=${encodeURIComponent(email)}`;
 
-      // 5) Open Cal.com popup (no redirectUrl here)
-      Cal.ns["discovery-call"]("ui", {
+      // 5) Open Cal.com popup (omit redirectUrl)
+      Cal("ui", {
         theme:                "light",
         layout:               "month_view",
         hideEventTypeDetails: false,
         url:                  calBookUrl
-        // redirectUrl omitted; we'll handle redirect manually below
       });
 
       // 6) Register a one-time listener for successful booking
