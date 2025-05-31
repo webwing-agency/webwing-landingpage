@@ -89,7 +89,7 @@ collections:
               - { name: "buttonLink", label: "Button Link", widget: "string" }
 
   - name: "services"
-    label: "Services Page"
+    label: "Services"
     files:
       - label: "Services"
         name: "services"
