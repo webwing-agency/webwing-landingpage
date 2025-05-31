@@ -52,6 +52,7 @@ p, li, a {
     font-family: "Roboto";
     line-height: 1.15;
     font-size: calc(13px + 0.390625vw);
+    color: white;
 }
 
 .background-graphic {
