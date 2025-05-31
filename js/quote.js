@@ -1,3 +1,4 @@
+
 // ------------------------------
 // WRAP EVERYTHING IN DOMContentLoaded TO ENSURE ELEMENTS EXIST
 // ------------------------------
@@ -22,83 +23,74 @@ const bookMeetingBtn = document.getElementById("bookMeeting");
 
 let current = 0;
 
-// ------------------------------
-// UI SETUP (initial hides, styles)
-// ------------------------------
-if (progressBar) {
+// Hide elements until we start
 progressBar.classList.add('hidden');
-}
-if (prevBtn) {
 prevBtn.style.opacity = '0';
 prevBtn.style.pointerEvents = 'none';
-}
-if (formStepLabel) {
 formStepLabel.classList.add('hidden');
-}
 
+// Update the “Step X of Y” label
 function updateFormStepLabel() {
-if (!formStepLabel) return;
-formStepLabel.textContent = `Step ${current + 1} of ${steps.length}`;
+  formStepLabel.textContent = `Step ${current + 1} of ${steps.length}`;
 }
 
+// Show step `i`, update width, buttons, heading, and gradient
 function showStep(i) {
-// Show/hide each .step element based on index
-steps.forEach((step, idx) => {
-  step.classList.toggle('hidden', idx !== i);
-  step.classList.toggle('active', idx === i);
-});
+  steps.forEach((step, idx) => {
+    step.classList.toggle('hidden', idx !== i);
+    step.classList.toggle('active', idx === i);
+  });
 
-// Update progress-bar width (percentage)
-const pct = (i) / (steps.length - 1) * 100;
-if (progress) {
+  // Progress width as percentage
+  const pct = (i) / (steps.length - 1) * 100;
   progress.style.width = pct + '%';
-}
 
-// If it's the last step, mark progress as final and hide next button
-if (i === steps.length - 1) {
-  if (progress) progress.classList.add('final-step');
-  if (nextBtn) nextBtn.classList.add('hidden');
-  bgCircle.forEach(el => el.style.background = "darkgreen");
-} else {
-  if (progress) progress.classList.remove('final-step');
-  if (nextBtn) nextBtn.classList.remove('hidden');
-  bgCircle.forEach(el => el.style.background = "");
-}
+  // Add/remove gradient class if on last step
+  if (i === steps.length - 1) {
+    progress.classList.add('final-step');
+    nextBtn.classList.add('hidden');
+    bgCircle.forEach(el => el.style.background = "darkgreen");
+  } else {
+    progress.classList.remove('final-step');
+    nextBtn.classList.remove('hidden');
+    bgCircle.forEach(el => el.style.background = "");
+  }
 
-// Hide the heading once we move into the form
-if (quoteHeading) {
+  // Hide big heading once we leave start
   quoteHeading.classList.add('hidden');
-}
-updateFormStepLabel();
+  updateFormStepLabel();
 
-// Toggle prevBtn visibility
-if (prevBtn) {
-  prevBtn.style.opacity = i === 0 ? '0' : '1';
-  prevBtn.style.pointerEvents = i === 0 ? 'none' : 'auto';
+  // Prev button toggle
+  if (i === 0) {
+    prevBtn.style.opacity = '0';
+    prevBtn.style.pointerEvents = 'none';
+  } else {
+    prevBtn.style.opacity = '1';
+    prevBtn.style.pointerEvents = 'auto';
+  }
+
+  // ** NEW: Hide .background-orb once we are at the first step or beyond **
+  const backgroundOrb = document.querySelector('.background-orb');
+  if (backgroundOrb) {
+    if (i >= 0) {
+      backgroundOrb.classList.add('hidden');
+    } else {
+      backgroundOrb.classList.remove('hidden');
+    }
+  }
 }
 
-// Hide any .background-orb if present
-const backgroundOrb = document.querySelector('.background-orb');
-if (backgroundOrb) {
-  backgroundOrb.classList.add('hidden');
-}
-}
 
-// ------------------------------
-// EVENT LISTENERS: START / NEXT / PREV
-// ------------------------------
-if (startBtn) {
+// Start button: hide start screen, show form
 startBtn.addEventListener('click', () => {
-  if (startScreen) startScreen.classList.add('hidden');
-  if (quoteForm) quoteForm.classList.remove('hidden');
-  if (formStepLabel) formStepLabel.classList.remove('hidden');
-  if (progressBar) progressBar.classList.remove('hidden');
-  current = 0;
+  startScreen.classList.add('hidden');
+  quoteForm.classList.remove('hidden');
+  formStepLabel.classList.remove('hidden');
+  progressBar.classList.remove('hidden');
   showStep(current);
 });
-}
 
-if (nextBtn) {
+// Next button: validate & advance
 nextBtn.addEventListener('click', () => {
   const inputs = steps[current].querySelectorAll('input, textarea');
   const allValid = Array.from(inputs).every(input => input.checkValidity());
@@ -106,19 +98,39 @@ nextBtn.addEventListener('click', () => {
     inputs.forEach(input => input.reportValidity());
     return;
   }
+
   current++;
   showStep(current);
 });
-}
 
-if (prevBtn) {
+// Prev button: go back
 prevBtn.addEventListener('click', () => {
   if (current > 0) {
     current--;
     showStep(current);
   }
 });
+
+// Get query parameter from URL
+function getQueryParam(param) {
+  const urlParams = new URLSearchParams(window.location.search);
+  return urlParams.get(param);
 }
+
+// DOMContentLoaded – handle skip logic and Cal button
+document.addEventListener("DOMContentLoaded", function () {
+  const stepParam = getQueryParam("step");
+
+  if (stepParam === "1") {
+    startScreen.classList.add('hidden');
+    quoteForm.classList.remove('hidden');
+    formStepLabel.classList.remove('hidden');
+    progressBar.classList.remove('hidden');
+    current = 0;
+    showStep(current);
+  }
+
+});
 
 // ------------------------------
 // SLIDER LABEL UPDATE
