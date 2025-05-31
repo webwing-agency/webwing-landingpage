@@ -126,9 +126,6 @@ collections:
                   - { label: "Icon (Font-Awesome classes)", name: "icon", widget: "string", hint: "e.g. fas fa-headset" }
                   - { label: "Text",                 name: "text", widget: "string" }
 
-              - { label: "CTA Label",         name: "cta_label", widget: "string" }
-              - { label: "CTA Link (relative)",name: "cta_link",  widget: "string", hint: "e.g. contact or get-a-quote" }
-
   - name: "work"
     label: "Work"
     label_singular: "Project"
