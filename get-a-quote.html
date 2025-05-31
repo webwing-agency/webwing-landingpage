@@ -19,9 +19,6 @@
   <script src="js/components/nav.js"></script>
   <script src="js/components/footer.js"></script>
 
-  <!-- CAL.COM EMBED SCRIPT (must come BEFORE your quote.js) -->
-  <script src="https://app.cal.com/embed/embed.js" defer></script>
-
   <link rel="icon" href="assets/icons/favicon.svg" type="image/png" />
 </head>
 <body data-barba="wrapper">
@@ -238,6 +235,18 @@
   </main>
 
   <footer id="standard-footer"></footer>
+
+  <script>
+    window.Cal = window.Cal || function() {
+      (window.Cal.q = window.Cal.q || []).push(arguments);
+    };
+    // Ensure forwardQueryParams is set now, before Cal.com runs
+    Cal.config = Cal.config || {};
+    Cal.config.forwardQueryParams = true;
+  </script>
+
+<script src="https://app.cal.com/embed/embed.js"></script>
+
 
   <script src="js/quote.js" defer></script>
 
