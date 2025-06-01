@@ -16,7 +16,7 @@ document.addEventListener("DOMContentLoaded", function () {
   const backgroundOrb = document.querySelector('.background-orb');
   const slider        = document.getElementById("timeline");
   const output        = document.getElementById("timeline-label");
-  const bookMeetingBtn= document.getElementById('bookMeetingBtn');
+  const bookMeetingBtn= document.getElementById('bookMeeting');
 
   let current = 0;
 
@@ -172,129 +172,5 @@ document.addEventListener("DOMContentLoaded", function () {
   }
   setupEmailValidation();
 
-  // ------------------------------
-  // 10) CAL.COM STUB + PREFILL CONFIG
-  // ------------------------------
-  window.Cal = window.Cal || function() {
-    (window.Cal.q = window.Cal.q || []).push(arguments);
-  };
-  window.Cal.config = window.Cal.config || {};
-  window.Cal.config.forwardQueryParams = true;
-
-  (function (C, A, L) {
-    let d = C.document;
-    C.Cal = C.Cal || function () {
-      let cal = C.Cal;
-      let ar = arguments;
-      if (!cal.loaded) {
-        cal.ns = {};
-        cal.q = cal.q || [];
-        d.head.appendChild(d.createElement("script")).src = A;
-        cal.loaded = true;
-      }
-      if (ar[0] === L) {
-        const api = function () { api.q.push(arguments); };
-        const namespace = ar[1];
-        api.q = api.q || [];
-        if (typeof namespace === "string") {
-          cal.ns[namespace] = cal.ns[namespace] || api;
-          api.q.push(ar);
-          cal.q.push(["initNamespace", namespace]);
-        } else {
-          cal.q.push(ar);
-        }
-        return;
-      }
-      cal.q.push(ar);
-    };
-  })(window, "https://app.cal.com/embed/embed.js", "init");
-
-  // Initialize Cal.com under namespace "discovery-call"
-  Cal("init", "discovery-call", { origin: "https://cal.com" });
-
-  // ------------------------------
-  // 11) BOOKING: COLLECT FORM + OPEN CAL WIDGET
-  // ------------------------------
-  if (bookMeetingBtn) {
-    bookMeetingBtn.addEventListener("click", () => {
-      // a) Eingaben sammeln & validieren
-      const nameInput   = document.querySelector('input[name="name"]');
-      const emailInput  = document.querySelector('input[name="email"]');
-      const name        = nameInput?.value.trim();
-      const email       = emailInput?.value.trim();
-      const projectType = document.querySelector('input[name="projectType"]:checked')?.value;
-      const pages       = document.querySelector('input[name="pages"]:checked')?.value;
-      const timeline    = document.getElementById('timeline')?.value;
-      const notes       = document.querySelector('textarea[name="additionalNotes"]')?.value.trim();
-      const business    = document.querySelector('input[name="business"]')?.value.trim();
-      const website     = document.querySelector('input[name="website"]')?.value.trim();
-
-      if (!name || !email || !projectType || !pages || !timeline) {
-        return alert("Please fill in all required fields before booking.");
-      }
-
-      // b) Payload für Bestätigungsseite zusammenstellen
-      const quoteData = {
-        requesterName:   name,
-        requesterEmail:  email,
-        projectType,
-        pages,
-        timelineWeeks:   timeline,
-        additionalNotes: notes,
-        business,
-        website,
-        estimatedPrice:  calculatePrice()
-      };
-
-      // c) Redirect-URL mit Query-Params bauen
-      const params      = new URLSearchParams(quoteData).toString();
-      const ourRedirect = `${window.location.origin}/quote-confirmation.html?${params}`;
-
-      // d) Cal.com Buchungs-URL (Prefill via URL-Params)
-      const calBookUrl = `https://cal.com/webwing-agency/discovery-call?name=${encodeURIComponent(name)}&email=${encodeURIComponent(email)}`;
-
-      // e) Cal.com Popup öffnen (ohne RedirectUrl)
-      Cal("ui", {
-        theme:                "light",
-        layout:               "month_view",
-        hideEventTypeDetails: false,
-        url:                  calBookUrl
-      });
-
-      // f) Einmaliger Listener für erfolgreiche Buchung
-      const onBooking = (event) => {
-        Cal("off", { action: "bookingSuccessful", callback: onBooking });
-        window.location.href = ourRedirect;
-      };
-      Cal("on", { action: "bookingSuccessful", callback: onBooking });
-    });
-  }
-
-  // ------------------------------
-  // 12) PRICING-BERECHNUNG
-  // ------------------------------
-  function calculatePrice() {
-    const projectType = document.querySelector('input[name="projectType"]:checked')?.value;
-    const pages       = document.querySelector('input[name="pages"]:checked')?.value;
-    const timeline    = Number(document.getElementById('timeline')?.value);
-
-    let basePrice = 20000;
-    if (projectType === 'websiteRedesign') basePrice = 15000;
-    else if (projectType === 'newWebsite') basePrice = 20000;
-
-    let pagesPrice = 0;
-    switch (pages) {
-      case '1-5':   pagesPrice = 5000;   break;
-      case '10-20': pagesPrice = 12000;  break;
-      case '20+':   pagesPrice = 20000;  break;
-      default:      pagesPrice = 0;      break;
-    }
-
-    let timelinePrice = (timeline <= 4) ? ((5 - timeline) * 4000) : 0;
-
-    let totalPrice = basePrice + pagesPrice + timelinePrice;
-    totalPrice = Math.max(30000, Math.min(200000, totalPrice));
-
-    return totalPrice;
-  }
 });
+

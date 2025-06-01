@@ -242,5 +242,198 @@
   <script src="js/barba.js" defer></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.0/ScrollTrigger.min.js" defer></script>
   <script src="js/gsap/gsap-quote.js" defer></script>
+
+  <script>
+     // ──────────────────────────────────────────────────────────────────────────
+// 1) INITIALIZE window.Cal queue + config
+// ──────────────────────────────────────────────────────────────────────────
+window.Cal = window.Cal || function() {
+  (window.Cal.q = window.Cal.q || []).push(arguments);
+};
+window.Cal.config = window.Cal.config || {};
+window.Cal.config.forwardQueryParams = true;
+
+// ──────────────────────────────────────────────────────────────────────────
+// 2) INJECT Cal.com EMBED SCRIPT & set up a “ready” callback
+// ──────────────────────────────────────────────────────────────────────────
+(function (global, embedUrl, INIT_CMD) {
+  const d = global.document;
+  global.Cal = global.Cal || function() {
+    const calFn = global.Cal;
+    const args = arguments;
+    if (!calFn.loaded) {
+      // Append <script src="…embed.js"> to <head>
+      const s = d.createElement("script");
+      s.src = embedUrl;
+      s.async = true;
+      d.head.appendChild(s);
+      calFn.loaded = true;
+    }
+    // If first argument is "init", we queue it under its namespace
+    if (args[0] === INIT_CMD) {
+      // Create a mini-“API” focusing on namespaces
+      const namespaceName = args[1];
+      const api = function() { api.q.push(arguments); };
+      api.q = api.q || [];
+      if (typeof namespaceName === "string") {
+        // Ensure we have a namespaces object
+        calFn.ns = calFn.ns || {};
+        calFn.ns[namespaceName] = calFn.ns[namespaceName] || api;
+        api.q.push(args);               // queue the init call (+options)
+        calFn.q.push(["initNamespace", namespaceName]); // notify main queue
+      } else {
+        // If they passed something else to Cal("init", …), just queue it
+        calFn.q.push(args);
+      }
+      return;
+    }
+    // Everything else just gets queued onto Cal.q
+    calFn.q.push(args);
+  };
+})(window,
+   "https://app.cal.com/embed/embed.js",
+   "init"
+);
+
+// ──────────────────────────────────────────────────────────────────────────
+// 3) WAIT FOR DOM → THEN attach your “Book” listener
+// ──────────────────────────────────────────────────────────────────────────
+document.addEventListener("DOMContentLoaded", () => {
+
+  // 3.a) Grab your “Book” button
+  const bookMeetingBtn = document.getElementById("bookMeeting");
+  if (!bookMeetingBtn) {
+    console.warn("No element with ID 'bookMeeting' found.");
+    return;
+  }
+
+  // 3.b) Before anything else, queue up Cal.init under a namespace “discovery-call”.
+  //       We do this so that when the script actually loads, it sees this in the queue.
+  Cal("init", "discovery-call", {
+    origin: "https://cal.com",
+    // If you had a redirect URL built into Cal itself, you could do:
+    // redirectUrl: "https://your-domain.com/quote-confirmation.html"
+    // but in our case, we’ll handle redirect manully via the event listener below.
+  });
+
+  // 3.c) Event-listener for “Book a Meeting”
+  bookMeetingBtn.addEventListener("click", () => {
+    // ───────────────────────────────────────────────────────────────────────
+    // a) Collect + validate form inputs
+    // ───────────────────────────────────────────────────────────────────────
+    const nameInput   = document.querySelector('input[name="name"]');
+    const emailInput  = document.querySelector('input[name="email"]');
+    const projectType = document.querySelector('input[name="projectType"]:checked')?.value;
+    const pages       = document.querySelector('input[name="pages"]:checked')?.value;
+    const timeline    = document.getElementById('timeline')?.value;
+    const notes       = document.querySelector('textarea[name="additionalNotes"]')?.value.trim();
+    const business    = document.querySelector('input[name="business"]')?.value.trim();
+    const website     = document.querySelector('input[name="website"]')?.value.trim();
+
+    const name  = nameInput?.value.trim();
+    const email = emailInput?.value.trim();
+
+    if (!name || !email || !projectType || !pages || !timeline) {
+      return alert("Please fill in all required fields before booking.");
+    }
+
+    // ───────────────────────────────────────────────────────────────────────
+    // b) Build our internal “quoteData” payload (for the confirmation page)
+    // ───────────────────────────────────────────────────────────────────────
+    const quoteData = {
+      requesterName:   name,
+      requesterEmail:  email,
+      projectType,
+      pages,
+      timelineWeeks:   Number(timeline),
+      additionalNotes: notes,
+      business,
+      website,
+      estimatedPrice:  calculatePrice()
+    };
+
+    // Build the “redirect → /quote-confirmation.html” URL including query-params
+    const params      = new URLSearchParams(quoteData).toString();
+    const ourRedirect = `${window.location.origin}/quote-confirmation.html?${params}`;
+
+    // ───────────────────────────────────────────────────────────────────────
+    // c) Build the Cal.com booking URL (Name + Email + metadata JSON)
+    // ───────────────────────────────────────────────────────────────────────
+    // Convert quoteData.except name/email into metadata (JSON → URI-encoded)
+    const metadataObj = {
+      projectType,
+      pages,
+      timelineWeeks:   Number(timeline),
+      additionalNotes: notes,
+      business,
+      website,
+      estimatedPrice:    quoteData.estimatedPrice
+    };
+    const encodedMetadata = encodeURIComponent(JSON.stringify(metadataObj));
+
+    const calBookUrl = 
+      `https://cal.com/webwing-agency/discovery-call`
+      + `?name=${encodeURIComponent(name)}`
+      + `&email=${encodeURIComponent(email)}`
+      + `&metadata=${encodedMetadata}`;
+
+    // ───────────────────────────────────────────────────────────────────────
+    // d) Set up a one-time “bookingSuccessful” listener _before_ opening the widget
+    // ───────────────────────────────────────────────────────────────────────
+    const onBooking = (event) => {
+      // Unregister listener so it only fires once
+      Cal("off", { action: "bookingSuccessful", callback: onBooking });
+      // Now redirect to our own confirmation page
+      window.location.href = ourRedirect;
+    };
+    Cal("on", { action: "bookingSuccessful", callback: onBooking });
+
+    // ───────────────────────────────────────────────────────────────────────
+    // e) Open the Cal.com popup-widget with full metadata
+    // ───────────────────────────────────────────────────────────────────────
+    Cal("ui", {
+      theme:                "light",
+      layout:               "month_view",
+      hideEventTypeDetails: false,
+      url:                  calBookUrl
+      // If you wanted Cal itself to auto-redirect after booking, you could also pass:
+      // redirectUrl: ourRedirect
+    });
+
+  }); // end click listener
+
+}); // end DOMContentLoaded
+
+
+
+// ──────────────────────────────────────────────────────────────────────────
+// 4) PRICING FUNCTION (unchanged except for minor clean-up)
+// ──────────────────────────────────────────────────────────────────────────
+function calculatePrice() {
+  const projectType = document.querySelector('input[name="projectType"]:checked')?.value;
+  const pages       = document.querySelector('input[name="pages"]:checked')?.value;
+  const timeline    = Number(document.getElementById('timeline')?.value);
+
+  let basePrice = 20000;
+  if (projectType === 'websiteRedesign') basePrice = 15000;
+  else if (projectType === 'newWebsite')   basePrice = 20000;
+
+  let pagesPrice = 0;
+  switch (pages) {
+    case '1-5':   pagesPrice = 5000;  break;
+    case '10-20': pagesPrice = 12000; break;
+    case '20+':   pagesPrice = 20000; break;
+    default:      pagesPrice = 0;     break;
+  }
+
+  let timelinePrice = (timeline <= 4) ? ((5 - timeline) * 4000) : 0;
+  let totalPrice    = basePrice + pagesPrice + timelinePrice;
+  // Enforce min/max
+  totalPrice = Math.max(30000, Math.min(200000, totalPrice));
+
+  return totalPrice;
+}
+
+  </script>
 </body>
 </html>
