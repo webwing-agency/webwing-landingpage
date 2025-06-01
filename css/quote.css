@@ -110,7 +110,7 @@
 
 /* Progress Bar */
 .progress-bar {
-  display: block;
+  display: none;
   width: 90%;
   height: 0.05rem;
   min-height: 15px;
