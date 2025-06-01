@@ -187,12 +187,9 @@
             </p>
             <div class="step-content">
               <button
-                id="bookMeeting"
+                id="book-meeting"
                 class="book-meeting-button cal-trigger-button"
                 type="button"
-                data-cal-link="webwing-agency/discovery-call"
-                data-cal-namespace="discovery-call"
-                data-cal-config='{"layout":"month_view"}'
               >
                 Schedule Discovery Call
               </button>
@@ -301,9 +298,9 @@ window.Cal.config.forwardQueryParams = true;
 document.addEventListener("DOMContentLoaded", () => {
 
   // 3.a) Grab your “Book” button
-  const bookMeetingBtn = document.getElementById("bookMeeting");
+  const bookMeetingBtn = document.getElementById("book-meeting");
   if (!bookMeetingBtn) {
-    console.warn("No element with ID 'bookMeeting' found.");
+    console.warn("No element with ID 'book-meeting' found.");
     return;
   }
 
@@ -317,7 +314,7 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 
   // 3.c) Event-listener for “Book a Meeting”
-  bookMeetingBtn.addEventListener("click", () => {
+  book-meetingBtn.addEventListener("click", () => {
     // ───────────────────────────────────────────────────────────────────────
     // a) Collect + validate form inputs
     // ───────────────────────────────────────────────────────────────────────
