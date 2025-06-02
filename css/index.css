@@ -421,14 +421,20 @@ section.video-section {
         background: linear-gradient(to top, black 0%, transparent 100%);
     }
       
-      /* SVG line */
-      .bg-svg-line {
-        width: 80vw;
-        position: absolute;
-        top: 130vh;
-        left: 10vw;
+    .bg-svg-container {
+        width: 100vw;
+        position: fixed;
+        left: 0;
+        top: 0;
         z-index: -10;
-      }
+    }
+        /* SVG line */
+        .bg-svg-line {
+            width: 80vw;
+            position: absolute;
+            top: 130vh;
+            left: 10vw;
+        }
       
       
   @media only screen and (min-width: 400px) and (pointer : coarse)  {

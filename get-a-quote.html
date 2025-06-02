@@ -240,10 +240,14 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.0/ScrollTrigger.min.js" defer></script>
   <script src="js/gsap/gsap-quote.js" defer></script>
 
+  <script src="https://assets.cal.com/embed.js"></script>
+
   <script>
      // ──────────────────────────────────────────────────────────────────────────
 // 1) INITIALIZE window.Cal queue + config
 // ──────────────────────────────────────────────────────────────────────────
+Cal("init", { origin: "https://cal.com" });
+
 window.Cal = window.Cal || function() {
   (window.Cal.q = window.Cal.q || []).push(arguments);
 };
@@ -434,3 +438,5 @@ function calculatePrice() {
   </script>
 </body>
 </html>
+
+
