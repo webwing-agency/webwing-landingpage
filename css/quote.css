@@ -235,7 +235,7 @@ input[type="text"], input[type="email"], input[type="url"] {
   justify-content: center;
   overflow: hidden;
   border-radius: 3rem;
-  background: linear-gradient(90deg, #9500FF 0%, #EA00FF 100%);
+  background: linear-gradient(90deg, #9500FF 0%, #EA00FF 100%) !important;
   color: white;
   font-size: calc(15px + 0.390625vw);
   transition: 300ms;
