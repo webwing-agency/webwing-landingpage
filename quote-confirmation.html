@@ -53,6 +53,9 @@
           // “to_name” in the template ← qs.get("requesterName")
           to_name:      qs.get("requesterName")   || "(no name provided)",
 
+           // **NEW**: Matches {{to_email}} (the recipient address)
+           to_email:     qs.get("requesterEmail")  || "(no email provided)",
+
           // “project_type” in the template ← qs.get("projectType")
           project_type: qs.get("projectType")     || "(unspecified)",
 
