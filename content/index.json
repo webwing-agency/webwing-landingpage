@@ -10,7 +10,7 @@
     },
     "videoSection": {
       "mainVideo": "assets/video/main-video.mp4",
-      "verticalVideo": "assets/video/main-video-verical.mp4"
+      "verticalVideo": "assets/video/main-video-vertical.mp4"
     },
     "offerSection": {
       "title": "What we have to offer",
