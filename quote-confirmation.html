@@ -44,67 +44,108 @@
 
     <script src="https://cdn.jsdelivr.net/npm/emailjs-com@3/dist/email.min.js"></script>
     <script>
+      // 1) Initialize EmailJS with your public key
       emailjs.init("72yexfrXpqwZWs_yj");
     
       window.addEventListener("DOMContentLoaded", async () => {
-        // parse all quote fields from the URL:
         const qs = new URLSearchParams(window.location.search);
+    
+        // 2) Define a map from raw projectType keys → human‐friendly labels
+        const projectTypeMap = {
+          websiteRedesign:   "Website Redesign",
+          newWebsite:       "New Website",
+          other:     "Other",
+        };
+    
+        // 3) Read raw values from URL (some may be null if the param is missing)
+        const rawName        = qs.get("requesterName")    || "";
+        const rawEmail       = qs.get("requesterEmail")   || "";
+        const rawProjectType = qs.get("projectType")      || "";
+        const rawPages       = qs.get("pages")            || "";
+        const rawTimeline    = qs.get("timelineWeeks")    || "";
+        const rawPrice       = qs.get("estimatedPrice")   || "";
+    
+        // 4) Transform projectType into a friendly label (fallback to the raw string if unmapped)
+        const friendlyProjectType = projectTypeMap[rawProjectType] 
+                                    || rawProjectType.replace(/([a-z])([A-Z])/g, "$1 $2")
+                                                       .replace(/^[a-z]/, s => s.toUpperCase());
+        // — the .replace() above handles cases like “myCustomType” → “My Custom Type” if you forgot to add it to the map.
+    
+        // 5) Format “pages” exactly as you want (here we’ll just pass it through)
+        const friendlyPages = rawPages || "—";
+    
+        // 6) Transform timelineWeeks into “X weeks” (or fallback)
+        const friendlyTimeline = rawTimeline 
+                                  ? rawTimeline + " weeks" 
+                                  : "—";
+    
+        // 7) Parse rawPrice into a Number and then format as “35.000,00 €” (de-DE locale)
+        let friendlyEstimate = "—";
+        if (rawPrice) {
+          // Remove any non‐digits/commas/periods, just in case someone passed “35.000,00” already.
+          const onlyDigits = rawPrice.replace(/[^\d.,]/g, "").replace(",", ".");
+          const asNumber   = parseFloat(onlyDigits);
+          if (!isNaN(asNumber)) {
+            friendlyEstimate = new Intl.NumberFormat("de-DE", {
+              style: "currency",
+              currency: "EUR",
+              minimumFractionDigits: 2,
+              maximumFractionDigits: 2
+            }).format(asNumber);
+          }
+        }
+    
+        // 8) Build the final payload—matching your template’s {{…}} variables exactly
         const payload = {
-          // “to_name” in the template ← qs.get("requesterName")
-          to_name:      qs.get("requesterName")   || "(no name provided)",
-
-           // **NEW**: Matches {{to_email}} (the recipient address)
-           to_email:     qs.get("requesterEmail")  || "(no email provided)",
-
-          // “project_type” in the template ← qs.get("projectType")
-          project_type: qs.get("projectType")     || "(unspecified)",
-
-          // “pages” in the template ← qs.get("pages")
-          pages:        qs.get("pages")           || "0",
-
-          // “timeline” in the template ← qs.get("timelineWeeks")  + " weeks"
-          // (you can append “ weeks” or leave it numeric per your design)
-          timeline:     (qs.get("timelineWeeks")
-                        ? qs.get("timelineWeeks") + " weeks"
-                        : "(no timeline)"),
-
-          // “estimate” in the template ← qs.get("estimatedPrice")
-          estimate:     qs.get("estimatedPrice")  || "(no estimate)",
-
-          // If your template also uses a “reply_to” or you want to CC/BCC, you could add:
-          // reply_to:    qs.get("requesterEmail")   || "",
-          // but only if your template has {{reply_to}} somewhere.
-          };
-
-      console.log("[DEBUG] Mapped payload:", payload);
-
-      // (3) If you require a real email address for “reply_to” or similar, check it—
-      //     otherwise, you can send even without it if your template doesn’t need it.
-      //     In your template snippet, I don’t see a {{reply_to}} or {{from_email}} variable,
-      //     so we don’t strictly need requesterEmail unless you plan to add it somewhere.
-
-      // If your template does require an actual “from” or “reply_to” parameter, add:
-      //   if (!qs.get("requesterEmail")) { …redirect/alert… }
-
-      try {
-      console.log("🔄 Sending email with payload:", payload);
-        const result = await emailjs.send(
-          "service_xyivz2l",          // ← your exact Service ID
-          "template_lt94358",         // ← your exact Template ID
-          payload
-        );
-        console.log("✅ EmailJS success:", result);
-        alert("✅ Quote email has been sent. Check your inbox.");
+          // Template expects {{to_name}}
+          to_name:      rawName || "(kein Name angegeben)",
+    
+          // Template expects {{project_type}}
+          project_type: friendlyProjectType,
+    
+          // Template expects {{pages}}
+          pages:        friendlyPages,
+    
+          // Template expects {{timeline}}
+          timeline:     friendlyTimeline,
+    
+          // Template expects {{estimate}}
+          estimate:     friendlyEstimate,
+    
+          // Template expects {{to_email}} for the “To:” field
+          to_email:     rawEmail
+        };
+    
+        console.log("[DEBUG] Final payload:", payload);
+    
+        // 9) If there’s no to_email (recipient), bail out
+        if (!payload.to_email) {
+          alert("Fehlende E-Mail-Adresse. Bitte gehen Sie zurück und versuchen Sie es erneut.");
+          window.location.href = "/get-a-quote";
+          return;
+        }
+    
+        // 10) Fire off the EmailJS send
+        try {
+          console.log("🔄 Sending email with transformed payload:", payload);
+          const result = await emailjs.send(
+            "service_xyivz2l",       // ← your exact Service ID
+            "template_lt94358",      // ← your exact Template ID
+            payload
+          );
+          console.log("✅ EmailJS success:", result);
+          alert("✅ Ihre Schätzung wurde per E-Mail verschickt. Bitte prüfen Sie Ihren Posteingang.");
         } catch (err) {
-        console.error("❌ EmailJS error:", err);
-        if (err.status) {
-          console.error("HTTP status:", err.status);
-          console.error("HTTP response text:", err.text);
+          console.error("❌ EmailJS error:", err);
+          if (err.status) {
+            console.error("HTTP status:", err.status);
+            console.error("HTTP response text:", err.text);
+          }
+          alert("❌ Versand gescheitert. Details siehe Konsole.");
         }
-        alert("❌ Failed to send email. See console for details.");
-        }
-        });
+      });
     </script>
+    
     
 </body>
 </html>
