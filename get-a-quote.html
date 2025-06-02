@@ -52,7 +52,7 @@
       };
     })(window, "https://app.cal.com/embed/embed.js", "init");
 
-    Cal("init", "webwing-agency/discovery-call", { origin: "https://cal.com" });
+    Cal("init", "webwing.agency/discovery-call", { origin: "https://cal.com" });
   
   </script>
   
@@ -225,7 +225,7 @@
               <button 
                   id="book-meeting"
                   type="button"
-                  data-cal-link="webwing-agency/discovery-call" 
+                  data-cal-link="webwing.agency/discovery-call" 
                   data-cal-namespace="" 
                   data-cal-config='{"layout":"column_view","theme":"dark"}'>
 
@@ -332,7 +332,7 @@ document.addEventListener("DOMContentLoaded", () => {
         const encodedMetadata = encodeURIComponent(JSON.stringify(metadataObj));
 
         const calBookUrl =
-          `https://cal.com/webwing-agency/discovery-call` +
+          `https://cal.com/webwing.agency/discovery-call` +
           `?name=${encodeURIComponent(name)}` +
           `&email=${encodeURIComponent(email)}` +
           `&metadata=${encodedMetadata}`;
