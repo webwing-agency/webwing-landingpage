@@ -50,33 +50,57 @@
         // parse all quote fields from the URL:
         const qs = new URLSearchParams(window.location.search);
         const payload = {
-          requesterName:  qs.get("requesterName"),
-          requesterEmail: qs.get("requesterEmail"),
-          projectType:    qs.get("projectType"),
-          pages:          qs.get("pages"),
-          timelineWeeks:  qs.get("timelineWeeks"),
-          additionalNotes: qs.get("additionalNotes"),
-          business:       qs.get("business"),
-          website:        qs.get("website"),
-          estimatedPrice: qs.get("estimatedPrice"),
-        };
-    
-        // if email is missing, bounce back:
-        if (!payload.requesterEmail) {
-          alert("Missing quote data. Please go back and try again.");
-          window.location.href = "/get-a-quote";
-          return;
-        }
-    
-        try {
-          console.log("Sending email with payload:", payload);
-          await emailjs.send("service_xyivz2l", "template_lt94358", payload);
-          alert("✅ Your call was booked and your quote email has been sent.");
+          // “to_name” in the template ← qs.get("requesterName")
+          to_name:      qs.get("requesterName")   || "(no name provided)",
+
+          // “project_type” in the template ← qs.get("projectType")
+          project_type: qs.get("projectType")     || "(unspecified)",
+
+          // “pages” in the template ← qs.get("pages")
+          pages:        qs.get("pages")           || "0",
+
+          // “timeline” in the template ← qs.get("timelineWeeks")  + " weeks"
+          // (you can append “ weeks” or leave it numeric per your design)
+          timeline:     (qs.get("timelineWeeks")
+                        ? qs.get("timelineWeeks") + " weeks"
+                        : "(no timeline)"),
+
+          // “estimate” in the template ← qs.get("estimatedPrice")
+          estimate:     qs.get("estimatedPrice")  || "(no estimate)",
+
+          // If your template also uses a “reply_to” or you want to CC/BCC, you could add:
+          // reply_to:    qs.get("requesterEmail")   || "",
+          // but only if your template has {{reply_to}} somewhere.
+          };
+
+      console.log("[DEBUG] Mapped payload:", payload);
+
+      // (3) If you require a real email address for “reply_to” or similar, check it—
+      //     otherwise, you can send even without it if your template doesn’t need it.
+      //     In your template snippet, I don’t see a {{reply_to}} or {{from_email}} variable,
+      //     so we don’t strictly need requesterEmail unless you plan to add it somewhere.
+
+      // If your template does require an actual “from” or “reply_to” parameter, add:
+      //   if (!qs.get("requesterEmail")) { …redirect/alert… }
+
+      try {
+      console.log("🔄 Sending email with payload:", payload);
+        const result = await emailjs.send(
+          "service_xyivz2l",          // ← your exact Service ID
+          "template_lt94358",         // ← your exact Template ID
+          payload
+        );
+        console.log("✅ EmailJS success:", result);
+        alert("✅ Quote email has been sent. Check your inbox.");
         } catch (err) {
-          console.error("EmailJS error:", err);
-          alert("❌ Failed to send email.");
+        console.error("❌ EmailJS error:", err);
+        if (err.status) {
+          console.error("HTTP status:", err.status);
+          console.error("HTTP response text:", err.text);
         }
-      });
+        alert("❌ Failed to send email. See console for details.");
+        }
+        });
     </script>
     
 </body>
