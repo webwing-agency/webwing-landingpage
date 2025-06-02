@@ -423,6 +423,7 @@ section.video-section {
       
     .bg-svg-container {
         width: 100vw;
+        height: 100vh;
         position: fixed;
         left: 0;
         top: 0;
