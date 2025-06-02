@@ -27,6 +27,7 @@ main {
 button {
   border: none;
   cursor: pointer;
+  background-color: black;
 }
 
 
