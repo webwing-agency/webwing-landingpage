@@ -347,6 +347,7 @@ document.addEventListener("DOMContentLoaded", () => {
         // e) Finally open the Cal UI
         Cal("ui", {
           url:    calBookUrl,
+          prefill: { name: name, email: email },
           theme:  "dark",
           layout: "month_view"
         });
