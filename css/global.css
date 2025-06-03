@@ -9,7 +9,7 @@
 html, body {
     overscroll-behavior-y: none;
     width: 100vw;
-    overflow-x: hidden;
+    height: 100%;
 }
 
 body {
@@ -21,6 +21,7 @@ body {
 
 main {
     height: 100%;
+    width: 100vw;
     overflow: hidden;
 }
 
