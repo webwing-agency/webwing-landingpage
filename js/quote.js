@@ -73,11 +73,13 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
     // g) background-orb nur im ersten Schritt anzeigen, ab Schritt 1 ausblenden
+    backgroundOrb.classList.add('hidden');
+    
     if (backgroundOrb) {
-      if (i > 0) {
-        backgroundOrb.classList.add('hidden');
-      } else {
+      if (i === 0) {
         backgroundOrb.classList.remove('hidden');
+      } else {
+        backgroundOrb.classList.add('hidden');
       }
     }
   }
