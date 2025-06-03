@@ -161,6 +161,7 @@ a {
   }
 
 @media only screen and (max-width: 700px) {
+
      .secondary-cta, .main-cta-link {
         font-size: calc(25px + 0.390625vw);
         white-space: nowrap;
@@ -171,7 +172,7 @@ a {
         width: 100%;
     }
 
-    .main-cta, .secondary-cta {
+    body .main-cta, .secondary-cta {
         height: calc(45px + 0.390625vw) !important;
     }
 
