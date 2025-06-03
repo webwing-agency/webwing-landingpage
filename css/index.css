@@ -537,11 +537,6 @@ section.video-section {
         margin-top: 1rem;
     }
 
-    .main-cta-link, .secondary-cta {
-        font-size: calc(25px + 0.390625vw);
-        white-space: nowrap;
-    }
-
     .scroll-reminder {
         color: rgba(0, 0, 0, 0);
     }
