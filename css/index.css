@@ -55,17 +55,25 @@
             font-size: 1.1rem;
         }
 
-        .background-video {
-            display: block;
+        .bg-video-container {
+            display: flex;
+            align-items: center;
+            justify-content: center;
             position: fixed;
             top: 0;
             left: 0;
             width: 100vw;
             height: 100vh;
-            object-fit: cover;
             z-index: -2;
-            opacity: 0.7;
         }
+
+            .background-video {
+                width: 100vw;
+                height: 100vh;
+                object-fit: cover;
+                z-index: -2;
+                opacity: 0.7;
+            }
 
         .video-overlay-fade {
             position: fixed;
