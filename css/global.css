@@ -20,6 +20,11 @@ body {
     overflow-x: hidden;
 }
 
+main {
+  height: auto;
+  overflow: hidden;
+}
+
 button {
   border: none;
   cursor: pointer;
