@@ -612,8 +612,15 @@ section.video-section {
         width: 60vw;
     }
 
+    .cta-section {
+        min-height: 120vh;
+        padding-bottom: 60vh;
+    }
+
     .cta-container {
         justify-content: flex-start;
+        border: 3px solid #ff5fcd;
+        box-shadow: 5px 5px 10px #ff5fcd;
     }
 
     .cta-title {
