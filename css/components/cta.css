@@ -172,7 +172,7 @@ a {
     }
 
     .main-cta, .secondary-cta {
-        height: calc(35px + 0.390625vw) !important;
+        height: calc(45px + 0.390625vw) !important;
     }
 
     .popup-menu-card .main-cta {
