@@ -17,6 +17,74 @@
 
   <link rel="icon" href="assets/icons/favicon.svg" type="image/svg+xml" />
 
+  <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@graph": [
+        {
+          "@type": "Organization",
+          "@id": "https://webwing.agency/#organization",
+          "name": "Webwing Design Agency",
+          "url": "https://webwing.agency",
+          "logo": "https://webwing.agency/assets/logo.svg",
+          "sameAs": [
+            "https://www.instagram.com/webwing.agency"
+          ],
+          "description": "Webwings designs sleek, high-performance websites for the aviation and aerospace industry. By blending modern design with speed and precision, they create exceptional customer experiences and generate high quality validated leads through strategic funnel builds & optimization."
+        },
+        {
+          "@type": "WebSite",
+          "@id": "https://webwing.agency/#website",
+          "url": "https://webwing.agency",
+          "name": "Webwing",
+          "description": "We design sleek, high-performance websites for the aviation and aerospace industry. By blending modern design with speed, precision and an obsession for great user metrics, we create exceptional customer experiences and generate high quality validated leads through strategic funnel builds & optimization, letting your enterprise soar at new heights.",
+          "publisher": {
+            "@id": "https://webwing.agency/#organization"
+          },
+          "potentialAction": {
+            "@type": "RequestQuoteAction",
+            "target": "https://webwing.agency/get-a-quote",
+            "name": "Get a Quote"
+          }
+        },
+        {
+          "@type": "Service",
+          "@id": "https://webwing.agency/services#consultation",
+          "serviceType": "Consultation",
+          "provider": {
+            "@id": "https://webwing.agency/#organization"
+          },
+          "name": "Consultation",
+          "description": "Collaborative strategy and planning sessions to define your project’s goals, scope, and roadmap.",
+          "url": "https://webwing.agency/services#consultation"
+        },
+        {
+          "@type": "Service",
+          "@id": "https://webwing.agency/services#redesign",
+          "serviceType": "Design",
+          "provider": {
+            "@id": "https://webwing.agency/#organization"
+          },
+          "name": "Website Redesigns",
+          "description": "Custom user interface and experience redesign to create visually stunning, user-friendly, competition-excelling websites.",
+          "url": "https://webwing.agency/services#redesign"
+        },
+        {
+          "@type": "Service",
+          "@id": "https://webwing.agency/services#ground-up-build",
+          "serviceType": "Build",
+          "provider": {
+            "@id": "https://webwing.agency/#organization"
+          },
+          "name": "Ground-Up Website Builds",
+          "description": "Robust, scalable web development using modern frameworks and best practices. Hassle-free online presence with exceptionally awesome performance.",
+          "url": "https://webwing.agency/services#ground-up-build"
+        },
+      ]
+    }
+    </script>
+    
+
 </head>
 <body data-barba="wrapper">
     <header>
