@@ -83,10 +83,10 @@ nav#standard-nav {
 }
 
 /* onload hide to prevent unstyled flash - show on index load */
-.standard-cta,
-.standard-cta-contact,
-.large-cta,
-.secondary-cta {
+.hero-section .standard-cta,
+.hero-section .standard-cta-contact,
+.quote-section .large-cta,
+.hero-section .secondary-cta {
     visibility: hidden;
 }
 
