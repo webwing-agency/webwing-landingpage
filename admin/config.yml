@@ -58,7 +58,7 @@ collections:
                 label: "Offer Items"
                 widget: "list"
                 fields:
-                  - { name: "icon", label: "Icon Path", widget: "image" }
+                  - { name: "icon", label: "Icon (Font Awesome) link", widget: "string" }
                   - { name: "title", label: "Offer Title", widget: "string" }
                   - { name: "description", label: "Offer Description", widget: "text" }
           - 
