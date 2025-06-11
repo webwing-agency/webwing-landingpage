@@ -310,7 +310,7 @@
             if (data.hero.video) {
               const source = document.querySelector('.background-video source');
               if (source) {
-                source.src = data.hero.video;
+                setAttr('.background-video source',     'src', data.hero.backgroundVideo);
                 source.parentNode.load();
               }
             }
