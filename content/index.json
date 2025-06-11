@@ -6,7 +6,7 @@
   "hero": {
     "headline": "High-End Webdesign<br>for      the Aviation<br>Market",
     "subtitle": "We design sleek, high-performance websites for the aviation and aerospace industry. By blending modern design with speed and precision, we create exceptional customer experiences and generate high quality validated leads through strategic funnel builds & optimization.",
-    "backgroundVideo": "/video/hero-bg.mp4",
+    "backgroundVideo": "hero-bg.webm",
     "ctaText": "sigma 1",
     "ctaLink": "sigma 1"
   },
