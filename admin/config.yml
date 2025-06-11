@@ -29,8 +29,8 @@ collections:
             label: "Hero Section"
             widget: "object"
             fields:
-              - { name: "heading", label: "Hero Heading", widget: "string" }
-              - { name: "subheading", label: "Hero Subheading", widget: "text" }
+              - { name: "headline", label: "Hero Heading", widget: "string" }
+              - { name: "subtitle", label: "Hero Subheading", widget: "text" }
               - { name: "backgroundVideo", label: "Background Video URL", widget: "file" }
               - { name: "ctaText", label: "Primary CTA Text", widget: "string" }
               - { name: "ctaLink", label: "Primary CTA Link", widget: "string" }
